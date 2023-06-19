@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Bootstrap Example</title>
+<title>더카탁송 1 5 9 9 - 5 8 6 6</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 부트스트랩 -->
@@ -23,13 +23,15 @@
 <!-- 서머노트 -->
 <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
 <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+<!-- 아이콘 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
 </head>
 <body>
-
+	<!-- header -->
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="/">TheCar Main</a>
+			<a class="navbar-brand" href="/">더카탁송 1599-5866</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -50,3 +52,4 @@
 			</div>
 		</div>
 	</nav>
+	<!-- header end -->

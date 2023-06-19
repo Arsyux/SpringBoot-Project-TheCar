@@ -103,8 +103,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/auth/login")
-	public String login(Model model) {
-		model.addAttribute("API_KEY", kakaoId);
+	public String login() {
 		return "system/login";
 	}
 	
