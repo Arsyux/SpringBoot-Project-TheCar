@@ -36,8 +36,8 @@ public class KakaoLoginService {
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 		body.add("grant_type",	"authorization_code");
 		body.add("client_id", kakaoId);
-		//body.add("redirect_uri", "http://thecar-env.eba-26kgis3m.ap-northeast-2.elasticbeanstalk.com/oauth/kakao");
-		body.add("redirect_uri", "http://localhost:5000/oauth/kakao");
+		body.add("redirect_uri", "http://thecar-env.eba-26kgis3m.ap-northeast-2.elasticbeanstalk.com/oauth/kakao");
+		//body.add("redirect_uri", "http://localhost:5000/oauth/kakao");
 		body.add("code", code);
 		
 		// HttpHeaders와 HttpBody가 설정된 HttpEntity 객체 생성
