@@ -57,18 +57,18 @@
 
 		<div class="row pt-2" style="background-color: rgba(255, 255, 255, 0.8);">
 			<div class="row" style="text-align: center; color: #333333;">
-				<div class="col-4"></div>
-				<div class="col-4">
+				<div class="col-2"></div>
+				<div class="col-8">
 					<h2 style="font-weight: bold;">문의하기</h2>
 				</div>
-				<div class="col-4"></div>
-				<div class="col-4"></div>
-				<div class="col-4">
+				<div class="col-2"></div>
+				<div class="col-2"></div>
+				<div class="col-8">
 					<h3 style="font-weight: bold;">
 						<i class="bi bi-telephone-fill"></i>1599-5866
 					</h3>
 				</div>
-				<div class="col-4"></div>
+				<div class="col-2"></div>
 			</div>
 
 			<table class="table table-borderless">
