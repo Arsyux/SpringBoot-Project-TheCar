@@ -21,7 +21,7 @@
 <!-- Carousel end -->
 
 <!-- Main -->
-	<!-- 
+<!-- 
 <div class="container mt-3">
 	
 	<c:if test="${!empty postList }">
@@ -53,8 +53,7 @@
 <!-- Contact Us -->
 <div style="background-image: url('/image/main/contactus.png'); background-size: cover; background-repeat: no-repeat;">
 	<div class="container">
-		<br>
-		<br>
+		<br> <br>
 		<div class="row" style="background-color: rgba(251, 206, 177, 0.3);">
 			<div class="row p-5" style="text-align: center;">
 				<div class="col-2"></div>
@@ -167,13 +166,16 @@
 				<div class="col-sm-12 mt-1 form-group" style="text-align: right;">
 					<input type="checkbox"><span style="font-weight: bold;">개인정보처리방침에 동의합니다.</span>
 				</div>
-				<div class="col-sm-12 mt-2">
-					<button class="btn" style="height: 60px; width: 15%; background-color: #333333; color: #fafafa">문의하기</button>
+				<div class="row mt-4">
+					<div class="col-sm-0 col-md-4"></div>
+					<div class="col-sm-12 col-md-4">
+						<button class="btn btn-lg" style="background-color: #333333; color: #fafafa">문의하기</button>
+					</div>
+					<div class="col-sm-0 col-md-4"></div>
 				</div>
 			</div>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 	</div>
 </div>
 <!-- Contact Us end -->
