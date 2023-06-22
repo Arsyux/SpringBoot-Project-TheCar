@@ -21,8 +21,9 @@
 <!-- Carousel end -->
 
 <!-- Main -->
+	<!-- 
 <div class="container mt-3">
-
+	
 	<c:if test="${!empty postList }">
 		<div class="card">
 			<c:forEach var="post" items="${ postList.content }">
@@ -45,13 +46,12 @@
 		</ul>
 	</c:if>
 
-
-
 </div>
+	-->
 
 
 <!-- Contact Us -->
-<div class="mt-2" style="background-image: url('/image/main/contactus.png'); background-size: cover; background-repeat: no-repeat;">
+<div style="background-image: url('/image/main/contactus.png'); background-size: cover; background-repeat: no-repeat;">
 	<div class="container">
 		<br>
 		<br>
@@ -69,10 +69,10 @@
 					</h3>
 				</div>
 				<div class="col-2 mt-2"></div>
-				<div class="col-sm-12 col-md-6  mt-2">
+				<div class="col-sm-12 col-md-6  mt-4">
 					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="고객성함">
 				</div>
-				<div class="col-sm-12 col-md-6 mt-2">
+				<div class="col-sm-12 col-md-6 mt-4">
 					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="전화번호">
 				</div>
 				<div class="col-sm-12 col-md-6 mt-2">

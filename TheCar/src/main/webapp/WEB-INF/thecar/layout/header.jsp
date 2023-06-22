@@ -29,26 +29,39 @@
 </head>
 <body>
 	<!-- header -->
-	<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="/">더카탁송 1599-5866</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="mynavbar">
+	<!-- 
+	<div class="row" style="background-color: #111111;">
+		<div class="container">
+			<div class="col-12-md">
 				<c:if test="${ principal == null }">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
-						<li class="nav-item"><a class="nav-link" href="/auth/insertUser">회원가입</a></li>
-					</ul>
+					<a class="btn" href="/auth/login" style="color: #fafafa">로그인</a>
+					<a class="btn" href="/auth/insertUser" style="color: #fafafa">회원가입</a>
 				</c:if>
 				<c:if test="${ principal != null }">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item"><a class="nav-link" href="/user/updateUser">회원정보</a></li>
-						<li class="nav-item"><a class="nav-link" href="/post/insertPost">글쓰기</a></li>
-						<li class="nav-item"><a class="nav-link" href="/auth/logout">로그아웃</a></li>
-					</ul>
+					<a class="btn" href="/user/updateUser" style="color: #fafafa">회원정보</a>
+					<a class="btn" href="/post/insertPost" style="color: #fafafa">글쓰기</a>
+					<a class="btn" href="/auth/logout" style="color: #fafafa">로그아웃</a>
 				</c:if>
+			</div>
+		</div>
+	</div>
+	-->
+	<nav class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #111111;">
+		<div class="container-md">
+
+			<a class="navbar-brand" href="/"><img class="rounded-pill" src="/image/main/logo.png" style="width: 100%; max-width: 260px;"></a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse ms-5" id="collapsibleNavbar">
+				<ul class="navbar-nav" style="width: 100%;">
+					<li class="nav-item" style="width:20%;"><a class="nav-link" href="#">회사소개</a></li>
+					<li class="nav-item" style="width:20%;"><a class="nav-link" href="#">차량탁송</a></li>
+					<li class="nav-item" style="width:20%;"><a class="nav-link" href="#">캐리어탁송</a></li>
+					<li class="nav-item" style="width:20%;"><a class="nav-link" href="#">탁송예약</a></li>
+					<li class="nav-item" style="width:20%;"><a class="nav-link" href="/auth/login">로그인</a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
