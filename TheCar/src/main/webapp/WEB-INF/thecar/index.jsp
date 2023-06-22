@@ -51,49 +51,44 @@
 
 
 <!-- Contact Us -->
-<div style="background-image: url('/image/main/contactus.png'); background-size: cover; background-repeat: no-repeat;">
+<div class="mt-2" style="background-image: url('/image/main/contactus.png'); background-size: cover; background-repeat: no-repeat;">
 	<div class="container">
 		<br>
-
-		<div class="row pt-2" style="background-color: rgba(255, 255, 255, 0.8);">
-			<div class="row" style="text-align: center; color: #333333;">
+		<br>
+		<div class="row" style="background-color: rgba(251, 206, 177, 0.3);">
+			<div class="row p-5" style="text-align: center;">
 				<div class="col-2"></div>
 				<div class="col-8">
-					<h2 style="font-weight: bold;">문의하기</h2>
+					<h2 style="font-weight: bold; color: #333333">문의하기</h2>
 				</div>
 				<div class="col-2"></div>
-				<div class="col-2"></div>
-				<div class="col-8">
-					<h3 style="font-weight: bold;">
+				<div class="col-2 mt-2"></div>
+				<div class="col-8 mt-2">
+					<h3 style="font-weight: bold; color: #333333">
 						<i class="bi bi-telephone-fill"></i>1599-5866
 					</h3>
 				</div>
-				<div class="col-2"></div>
-			</div>
-
-			<table class="table table-borderless">
-				<thead>
-					<tr>
-						<th><input class="form-control" type="text" placeholder="고객성함"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><input class="form-control" type="text" placeholder="고객성함"></td>
-						<td><input class="form-control" type="text" placeholder="전화번호"></td>
-					</tr>
-					<tr>
-						<td><input class="form-control" type="text" placeholder="희망일시"></td>
-						<td><input class="form-control" type="text" placeholder="탁송차종"></td>
-					</tr>
-					<tr>
-						<td><input class="form-control" type="text" placeholder="출발지역"></td>
-						<td><input class="form-control" type="text" placeholder="도착지역"></td>
-					</tr>
-				</tbody>
-			</table>
-			<input class="form-control" type="text" placeholder="도착지역">
-			<textarea class="form-control" rows="" cols="" style="resize: none;">
+				<div class="col-2 mt-2"></div>
+				<div class="col-sm-12 col-md-6  mt-2">
+					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="고객성함">
+				</div>
+				<div class="col-sm-12 col-md-6 mt-2">
+					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="전화번호">
+				</div>
+				<div class="col-sm-12 col-md-6 mt-2">
+					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="희망일시">
+				</div>
+				<div class="col-sm-12 col-md-6 mt-2">
+					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="탁송차종">
+				</div>
+				<div class="col-sm-12 col-md-6 mt-2">
+					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="출발지역">
+				</div>
+				<div class="col-sm-12 col-md-6 mt-2">
+					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="도착지역">
+				</div>
+				<div class="col-sm-12 mt-2">
+					<textarea class="form-control" rows="" cols="" readonly="readonly" style="background-color: #ffffff; min-height: 80px; resize: none; border-style: none; border-radius: 0; color: #666666">
 더카탁송은 (이하 '회사') 고객님의 개인정보를 중요시하며,
 "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.
 회사는 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
@@ -102,7 +97,7 @@
 -회원가입 시
 ο 필수항목 : 아이디, 비밀번호, 성명,K 생년월일, 회사/기관명, e-mail, 휴대전화, 회사전화
 ο 선택항목 : 부서/직위, 팩스번호
--교육, 인증, 도서구매, Q&A, 이용 시
+-교육, 인증, 도서구매, Q&amp;A, 이용 시
 ο 필수항목 : 아이디, 비밀번호, 성명,K 생년월일, 회사/기관명, e-mail, 휴대전화, 회사전화
 ο 선택항목 : 없음
 
@@ -168,10 +163,16 @@
 - 경찰청 사이버테러대응센터 (www.ctrc.go.kr/02-392-0330)
 
 현 개인정보취급방침은 2017년 06월 01일부터 적용됩니다.</textarea>
-			<div class="form-group" style="text-align: right;">
-				<input type="checkbox"><span style="font-weight: bold;">개인정보처리방침에 동의합니다.</span>
+				</div>
+				<div class="col-sm-12 mt-1 form-group" style="text-align: right;">
+					<input type="checkbox"><span style="font-weight: bold;">개인정보처리방침에 동의합니다.</span>
+				</div>
+				<div class="col-sm-12 mt-2">
+					<button class="btn" style="height: 60px; width: 15%; background-color: #333333; color: #fafafa">문의하기</button>
+				</div>
 			</div>
 		</div>
+		<br>
 		<br>
 	</div>
 </div>
