@@ -56,22 +56,26 @@
 		<br> <br>
 		<div class="row" style="background-color: rgba(251, 206, 177, 0.3);">
 			<div class="row p-5" style="text-align: center;">
+				<!-- Contact Us -->
 				<div class="col-2"></div>
 				<div class="col-8">
 					<h2 style="font-weight: bold; color: #333333">문의하기</h2>
 				</div>
 				<div class="col-2"></div>
-				<div class="col-2 mt-2"></div>
-				<div class="col-8 mt-2">
+
+				<!-- 전화번호 -->
+				<div class="col-2 mt-2 mb-4"></div>
+				<div class="col-8 mt-2 mb-4">
 					<h3 style="font-weight: bold; color: #333333">
 						<i class="bi bi-telephone-fill"></i>1599-5866
 					</h3>
 				</div>
-				<div class="col-2 mt-2"></div>
-				<div class="col-sm-12 col-md-6  mt-4">
+				<div class="col-2 mt-2 mb-4"></div>
+
+				<div class="col-sm-12 col-md-6 mt-2">
 					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="고객성함">
 				</div>
-				<div class="col-sm-12 col-md-6 mt-4">
+				<div class="col-sm-12 col-md-6 mt-2">
 					<input class="form-control" type="text" style="border-style: none; border-radius: 0; height: 50px;" placeholder="전화번호">
 				</div>
 				<div class="col-sm-12 col-md-6 mt-2">

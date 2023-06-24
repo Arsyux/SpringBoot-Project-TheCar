@@ -6,10 +6,9 @@
 
 <div style="background-color: #111111; color: #aaaaaa">
 	<div class="container" align="right">
-			<a href="/" style="color: #aaaaaa"> <i class="bi bi-house-door-fill" style="font-size: 30px;"></i></a>
-			<a href="#" id="btn-goTop" style="color: #aaaaaa"> <i class="bi bi-chevron-double-up" style="font-size: 30px;"></i>
-			</a>
-		</div>
+		<a href="/" style="color: #aaaaaa"> <i class="bi bi-house-door-fill" style="font-size: 30px;"></i></a> <a href="#" id="btn-goTop" style="color: #aaaaaa"> <i class="bi bi-chevron-double-up"
+			style="font-size: 30px;"></i>
+		</a>
 	</div>
 </div>
 

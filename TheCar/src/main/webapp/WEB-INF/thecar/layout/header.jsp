@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>더카탁송 1 5 9 9 - 5 8 6 6</title>
+<title>더카탁송 1599-5866</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 부트스트랩 -->
@@ -25,6 +25,8 @@
 <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
 <!-- 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<!-- header.css -->
+<link rel="stylesheet" type="text/css" href="/css/header.css">
 
 </head>
 <body>
@@ -49,18 +51,18 @@
 	<nav class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #111111;">
 		<div class="container-md">
 
-			<a class="navbar-brand" href="/"><img class="rounded-pill" src="/image/main/logo.png" style="width: 100%; max-width: 260px;"></a>
+			<a class="navbar-brand me-5" href="/"><img class="rounded-pill" src="/image/main/logo.png" style="width: 100%; max-width: 230px;"></a>
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse ms-5" id="collapsibleNavbar">
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav" style="width: 100%;">
-					<li class="nav-item" style="width:20%;"><a class="nav-link" href="#">회사소개</a></li>
-					<li class="nav-item" style="width:20%;"><a class="nav-link" href="#">차량탁송</a></li>
-					<li class="nav-item" style="width:20%;"><a class="nav-link" href="#">캐리어탁송</a></li>
-					<li class="nav-item" style="width:20%;"><a class="nav-link" href="#">탁송예약</a></li>
-					<li class="nav-item" style="width:20%;"><a class="nav-link" href="/auth/login">로그인</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">회사소개</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">차량탁송</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">캐리어탁송</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">탁송예약</a></li>
+					<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
 				</ul>
 			</div>
 		</div>
