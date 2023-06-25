@@ -61,8 +61,14 @@
 					<li class="nav-item"><a class="nav-link" href="#">회사소개</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">차량탁송</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">캐리어탁송</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">탁송예약</a></li>
-					<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
+					<c:if test="${ principal == null }">
+						<li class="nav-item"><a class="nav-link" href="#">탁송예약</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
+					</c:if>
+					<c:if test="${ principal != null }">
+						<li class="nav-item"><a class="nav-link" href="#">탁송예약</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/logout">로그아웃</a></li>
+					</c:if>
 				</ul>
 			</div>
 		</div>
