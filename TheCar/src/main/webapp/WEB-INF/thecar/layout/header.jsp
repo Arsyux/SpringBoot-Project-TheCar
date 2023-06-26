@@ -36,13 +36,11 @@
 		<div class="container">
 			<div class="col-12-md">
 				<c:if test="${ principal == null }">
-					<a class="btn" href="/auth/login" style="color: #fafafa">로그인</a>
 					<a class="btn" href="/auth/insertUser" style="color: #fafafa">회원가입</a>
 				</c:if>
 				<c:if test="${ principal != null }">
 					<a class="btn" href="/user/updateUser" style="color: #fafafa">회원정보</a>
 					<a class="btn" href="/post/insertPost" style="color: #fafafa">글쓰기</a>
-					<a class="btn" href="/auth/logout" style="color: #fafafa">로그아웃</a>
 				</c:if>
 			</div>
 		</div>
