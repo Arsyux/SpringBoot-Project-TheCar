@@ -53,7 +53,7 @@
 			
 			<!-- 카카오 로그인 -->
 			<div class="row mb-3">
-				<div class="col-12" style="text-align: center;">
+				<div class="col-6" style="text-align: center;">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=ee0b7525aab13922c886f01538c0d6f6&redirect_uri=http://localhost:5000/oauth/kakao&response_type=code">
 						<img height="38px" src="/image/loginbutton/kakao_login_btn.png">
 					</a>
@@ -63,10 +63,7 @@
 					</a>
 					 -->
 				</div>
-			</div>
-			
-			<div class="row mb-3">
-				<div class="col-12" style="text-align: center;">
+				<div class="col-6" style="text-align: center;">
 					<a href="../oauth2/authorization/google">
 						<img height="38px" src="/image/loginbutton/google_login_btn.png">
 					</a>

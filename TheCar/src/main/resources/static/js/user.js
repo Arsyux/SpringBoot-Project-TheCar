@@ -1,16 +1,21 @@
-// Insert User
+function test(ths) {
+	const btnElement = document.getElementById('select-dropdown');
+	btnElement.innerText = ths.text;
+}
+
+
 let userObject = {
-	// init() 함수 선언
+	
 	init: function() {
 		let _this = this;
 
-		// #btn-save 버튼에 click 이벤트가 발생하면 insertUser() 함수 호출
 		$("#btn-save").on("click", () => {
 			_this.insertUser();
 		});
 		$("#btn-update").on("click", () => {
 			_this.updateUser();
 		});
+		
 	},
 
 	insertUser: function() {
@@ -78,5 +83,4 @@ let userObject = {
 	},
 }
 
-// userObject 객체의 init() 함수 호출
 userObject.init();
