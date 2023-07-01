@@ -21,12 +21,17 @@ public class UserService {
 
 	@Transactional
 	public void insertUser(User user) {
+		
 		// 비밀번호를 암호화하여 설정
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		// 포인트
+		user.setPoint(0);
+		
 		user.setRole(RoleType.USER);
 		if(user.getOauth() == null) {
 			user.setOauth(OAuthType.THECAR);
 		}
+		
 		userRepository.save(user);
 	}
 
@@ -42,9 +47,9 @@ public class UserService {
 	@Transactional
 	public User updateUser(User user) {
 		User findUser = userRepository.findById(user.getId()).get();
-		findUser.setUsername(user.getUsername());
+		findUser.setId(user.getId());
 		findUser.setPassword(passwordEncoder.encode(user.getPassword()));
-		findUser.setEmail(user.getEmail());
+		//findUser.setEmail(user.getEmail());
 		
 		return findUser;
 	}

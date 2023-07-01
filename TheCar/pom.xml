@@ -136,6 +136,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>		
 		
+		<!-- Cool SMS -->
+		<dependency>
+            <groupId>net.nurigo</groupId>
+            <artifactId>sdk</artifactId>
+            <version>4.2.7</version>
+        </dependency>
+        
 	</dependencies>
 
 	<build>

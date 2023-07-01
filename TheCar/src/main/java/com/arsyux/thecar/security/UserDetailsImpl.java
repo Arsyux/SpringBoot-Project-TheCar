@@ -21,35 +21,29 @@ public class UserDetailsImpl implements UserDetails, OAuth2User {
 	
 	private User user;
 	
-	// 구글에서 조회한 사용자 정보를 담을 컬렉션
 	private Map<String, Object> attributes;
 	
 	public UserDetailsImpl(User user) {
 		this.user = user;
 	}
 	
-	// OAuth 로그인 시 사용할 생성자
 	public UserDetailsImpl(User user, Map<String, Object> attributes) {
 		this.user = user;
 		this.attributes = attributes;
 	}
 	
-	// 구글에서 조회한 사용자 정보가 저장된 컬렉션 반환
 	@Override
 	public Map<String, Object> getAttributes() {
 		return attributes;
 	}
 
-	// 이름은 사용하지 않는 정보이므로 null을 반환
 	@Override
-	public String getName() {
-		return null;
+	public String getName() {  
+		return user.getRealname();
 	}
 	
 	@Override
 	public String getPassword() {
-		// noop: 암호화하지 않기 위한 설정
-		//return "{noop}" + user.getPassword();
 		return user.getPassword();
 	}
 	
@@ -57,6 +51,7 @@ public class UserDetailsImpl implements UserDetails, OAuth2User {
 	public String getUsername() {
 		return user.getUsername();
 	}
+	
 	
 	// 계정이 만료되지 않았는지 반환
 	@Override

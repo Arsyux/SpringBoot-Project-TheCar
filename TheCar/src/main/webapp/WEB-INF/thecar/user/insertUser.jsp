@@ -11,96 +11,77 @@
 		</div>
 		<div class="col-sm-0 col-md-4"></div>
 	</div>
-	
+
+	<!-- 입력창 -->
 	<div class="row mt-5">
 		<div class="col-sm-0 col-md-4"></div>
 
+
 		<div class="col-sm-12 col-md-4">
+
 			<form action="/auth/securitylogin" method="post">
-
 				<div class="row mb-3" style="border-style: solid; border-color: #DDDDDD; border-radius: 5px; border-width: 1px;">
-					<div class="col-12">
-						<!-- ID -->
-						<div class="input-group mt-3 mb-3">
-							<span class="input-group-text"><i class="bi bi-person"></i></span> <input type="text" class="form-control" name="userid" placeholder="아이디"></input>
-						</div>
 
-						<!-- Password -->
-						<div class="input-group mb-3">
-							<span class="input-group-text"><i class="bi bi-lock"></i></span> <input type="password" class="form-control" name="password" placeholder="비밀번호"></input>
+					<!-- ID -->
+					<div class="col-12 mt-3">
+						<div class="input-group">
+							<span class="input-group-text"><i class="bi bi-person"></i></span> <input type="text" class="form-control" name="username" id="username" placeholder="아이디"></input>
 						</div>
-
 					</div>
-				</div>
 
-				<!-- 휴대전화 인증 -->
-				<div class="row mb-3" style="border-style: solid; border-color: #DDDDDD; border-radius: 5px; border-width: 1px;">
-					<div class="col-12">
-
-						<!-- 이름 -->
-						<div class="input-group mt-3 mb-3">
-							<span class="input-group-text"><i class="bi bi-person"></i></span> <input type="text" class="form-control" name="username" placeholder="이름"></input>
+					<!-- Password -->
+					<div class="col-12 mt-3">
+						<div class="input-group">
+							<span class="input-group-text"><i class="bi bi-lock"></i></span> <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"></input>
 						</div>
+					</div>
 
-						<!-- 생년월일 -->
-						<div class="input-group mt-3 mb-3">
-							<span class="input-group-text"><i class="bi bi-calendar-event"></i></span> <input type="text" class="form-control" name="username" placeholder="생년월일 8자리"></input>
+					<!-- 이름 -->
+					<div class="col-12  mt-3">
+						<div class="input-group">
+							<span class="input-group-text"><i class="bi bi-person"></i></span> <input type="text" class="form-control" name="realname" id="realname" placeholder="이름"></input>
 						</div>
+					</div>
 
-						<!-- 성별 -->
-						<div class="row">
-							<div class="col-6">
-								<div class="row">
-									<div class="btn-group">
-										<label class="btn" style="border: solid; border-width: 1px; border-color: #ced4da;"> <input type="radio" id="jb-radio-1" checked="checked">남자
-										</label> <label class="btn" style="border: solid; border-width: 1px; border-color: #ced4da;"> <input type="radio" id="jb-radio-2">여자
-										</label>
-									</div>
+					<!-- 생년월일 -->
+					<div class="col-12 mt-3">
+						<div class="input-group">
+							<span class="input-group-text"><i class="bi bi-calendar-event"></i></span> <input type="text" class="form-control" name="birthdate" id="birthdate" placeholder="생년월일 8자리"></input>
+						</div>
+					</div>
+
+					<!-- 성별 -->
+					<div class="col-12 mt-3" style="text-align: center;">
+						<div class="input-group">
+							<div class="col-6 p-1" style="border: solid; border-width: 1px; border-radius: 0.25rem; border-color: #ced4da;">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdoMan" value="man" checked="checked">
+									<label class="form-check-label" for="inlineRadio1">남자</label>
 								</div>
 							</div>
-
-							<!-- 내/외국인 -->
-							<div class="col-6">
-								<div class="row">
-									<div class="btn-group">
-										<label class="btn" style="border: solid; border-width: 1px; border-color: #ced4da;"> <input type="radio" id="jb-radio-3" checked="checked">내국인
-										</label> <label class="btn" style="border: solid; border-width: 1px; border-color: #ced4da;"> <input type="radio" id="jb-radio-4">외국인
-										</label>
-									</div>
+							<div class="col-6 p-1" style="border: solid; border-width: 1px; border-radius: 0.25rem; border-color: #ced4da;">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdoWoman" value="woman">
+									<label class="form-check-label" for="inlineRadio2">여자</label>
 								</div>
 							</div>
 						</div>
+					</div>
 
-						<!-- 통신사 -->
-						<div class="input-group mt-3">
-							<div class="dropdown" style="width: 100%;">
-								<button id="select-dropdown" type="button" class="btn dropdown-toggle w-100" data-bs-toggle="dropdown" style="border: solid; border-width: 1px; border-color: #ced4da;">통신사 선택</button>
-								<ul class="dropdown-menu" style="width: 100%;">
-									<li><a class="dropdown-item" href="#" onclick="test(this)" style="text-align: center;">SKT</a></li>
-									<li><a class="dropdown-item" href="#" onclick="test(this)" style="text-align: center;">KT</a></li>
-									<li><a class="dropdown-item" href="#" onclick="test(this)" style="text-align: center;">LG U+</a></li>
-									<li><a class="dropdown-item" href="#" onclick="test(this)" style="text-align: center;">SKT 알뜰폰</a></li>
-									<li><a class="dropdown-item" href="#" onclick="test(this)" style="text-align: center;">KT 알뜰폰</a></li>
-									<li><a class="dropdown-item" href="#" onclick="test(this)" style="text-align: center;">LG U+ 알뜰폰</a></li>
-								</ul>
-							</div>
+					<!-- 휴대전화번호 -->
+					<div class="col-8 mt-3">
+						<div class="input-group">
+							<span class="input-group-text"><i class="bi bi-telephone"></i></span> <input type="text" class="form-control" id="phonenumber" placeholder="휴대전화번호"></input>
 						</div>
+					</div>
+					<div class="col-4 mt-3">
+						<a id="btn-phoneCheck" class="btn btn-secondary w-100" href="#">인증요청</a>
+					</div>
 
-						<!-- 휴대전화번호 -->
-						<div class="row">
-							<div class="col-9">
-								<div class="input-group mt-3">
-									<span class="input-group-text"><i class="bi bi-telephone"></i></span> <input type="text" class="form-control" name="username" placeholder="휴대전화번호"></input>
-								</div>
-							</div>
-							<div class="col-3 mt-3">
-								<button id="#" class="btn btn-secondary w-100">인증</button>
-							</div>
-						</div>
-
-						<!-- 인증번호 -->
-						<div class="input-group mt-3 mb-3">
-							<span class="input-group-text"><i class="bi bi-key"></i></span> <input type="text" class="form-control" name="username" placeholder="인증번호"></input>
+					<!-- 인증번호 -->
+					<div class="col-12 mt-3 mb-3">
+						<div class="input-group">
+							<span class="input-group-text"><i class="bi bi-key"></i></span> <input type="text" class="form-control" id="phonenumberCheck" placeholder="인증번호"></input>
 						</div>
 					</div>
 				</div>
@@ -109,13 +90,14 @@
 
 			<div class="row mb-3">
 				<div class="col-12">
-					<button id="btn-save" class="btn btn-secondary btn-large w-100">회원가입</button>
+					<button id="btn-save" class="btn btn-secondary btn-large w-100 disabled">인증확인</button>
 				</div>
 			</div>
 
 		</div>
 
 	</div>
+
 
 	<div class="col-sm-0 col-md-4"></div>
 </div>

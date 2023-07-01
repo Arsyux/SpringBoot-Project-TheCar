@@ -62,6 +62,36 @@ public class UserController {
 		return findUser2;
 	}
 	
+	// 회원가입창
+	@GetMapping("/auth/insertUser")
+	public String insertUser() {
+		return "user/insertUser";
+	}
+	// 회원가입 로직
+	@PostMapping("/auth/insertUser")
+	public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+		
+		System.out.println(userDTO);
+		// 유효성 검사
+		User user = modelMapper.map(userDTO, User.class);
+		User findUser = userService.getUser(user.getUsername());
+		
+		if (findUser.getUsername() == null) {
+			userService.insertUser(user);
+			return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님, 회원가입되었습니다.");
+		} else {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUsername() + "님은 이미 회원입니다.");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 회원 삭제
 	@DeleteMapping("/user/{id}")
 	public @ResponseBody String deleteUser(@PathVariable int id) {
@@ -83,23 +113,9 @@ public class UserController {
 		return userRepository.findAll(pageable);
 	}
 
-	@GetMapping("/auth/insertUser")
-	public String insertUser() {
-		return "user/insertUser";
-	}
+	
 
-	@PostMapping("/auth/insertUser")
-	public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
-		User user = modelMapper.map(userDTO, User.class);
-		User findUser = userService.getUser(user.getUsername());
-		
-		if (findUser.getUsername() == null) {
-			userService.insertUser(user);
-			return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 회원가입 성공!");
-		} else {
-			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUsername() + "님은 이미 회원입니다.");
-		}
-	}
+	
 	
 	@GetMapping("/auth/login")
 	public String login() {
@@ -121,7 +137,7 @@ public class UserController {
 		
 		principal.setUser(userService.updateUser(user));
 		
-		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + " 수정 완료");
+		return new ResponseDTO<>(HttpStatus.OK.value(), user.getId() + " 수정 완료");
 	}
 
 }

@@ -47,15 +47,13 @@ public class KakaoLoginController {
 
 		// 4. 카카오로 받은 사용자 정보를 기반으로 인증을 처리한다.
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-				kakaoUser.getUsername(), kakaoPassword);
+				kakaoUser.getId(), kakaoPassword);
 		
 		Authentication authentication = authenticationManager.authenticate(authenticationToken);
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return "redirect:/";
-		// 응답을 콘솔과 브라우저에서 출력한다.
-		//return userInfo;
 	}
 
 }

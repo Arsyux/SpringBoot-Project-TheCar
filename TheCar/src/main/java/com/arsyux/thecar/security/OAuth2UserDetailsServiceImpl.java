@@ -46,15 +46,12 @@ public class OAuth2UserDetailsServiceImpl extends DefaultOAuth2UserService {
 			findUser = User.builder()
 					   .username(username)
 					   .password(password)
-					   .email(email)
 					   .role(RoleType.USER)
 					   .oauth(OAuthType.GOOGLE)
 					   .build();
 			userRepository.save(findUser);
 		}
 		
-		// OAuth2 Client가 UserDetailsImpl에 설정된 정보로
-		// Authencation 객체를 SecurityContext에 자동으로 등록한다.
 		return new UserDetailsImpl(findUser, oauth2User.getAttributes());
 	}
 	

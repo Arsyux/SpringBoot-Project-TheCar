@@ -26,26 +26,49 @@ import lombok.NoArgsConstructor;
 @Table(name = "USERS")
 public class User {
 
+	// PK값
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	// 로그인 ID
 	@Column(nullable = false, length = 50, unique = true)
 	private String username;
-
-	@Column(length = 100)
+	
+	// 로그인 Password
+	@Column(nullable = false, length = 100)
 	private String password;
 
-	@Column(nullable = false, length = 100)
-	private String email;
+	// 사용자 이름
+	@Column(nullable = false, length = 50)
+	private String realname;
 
+	// 생년월일
+	@Column(nullable = false, length = 8)
+	private String birthDate;
+	
+	// 사용자 성별
+	@Column(nullable = false, length = 5)
+	private String gender;
+	
+	// 휴대폰 번호
+	@Column(nullable = false, length = 11, unique = true)
+	private String phone;
+	
+	// 포인트
+	@Column(nullable = false)
+	private int point;
+	
+	// 등급
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
-
-	@CreationTimestamp
-	private Timestamp createDate;
 	
+	// 인증
 	@Enumerated(EnumType.STRING)
 	private OAuthType oauth;
+
+	// 가입 날짜
+	@CreationTimestamp
+	private Timestamp createDate;
 	
 }

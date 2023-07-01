@@ -89,7 +89,6 @@ public class KakaoLoginService {
 		User user = new User();
 		user.setUsername(email);
 		user.setPassword(kakaoPassword);
-		user.setEmail(email);
 		user.setRole(RoleType.USER);
 		user.setOauth(OAuthType.KAKAO);
 		
