@@ -71,7 +71,7 @@
 					<!-- 휴대전화번호 -->
 					<div class="col-8 mt-3">
 						<div class="input-group">
-							<span class="input-group-text"><i class="bi bi-telephone"></i></span> <input type="text" class="form-control" id="phonenumber" placeholder="휴대전화번호"></input>
+							<span class="input-group-text"><i class="bi bi-telephone"></i></span> <input type="text" class="form-control" id="phonenumber" placeholder="휴대전화번호 (-제외)"></input>
 						</div>
 					</div>
 					<div class="col-4 mt-3">

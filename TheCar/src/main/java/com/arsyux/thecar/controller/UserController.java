@@ -1,6 +1,8 @@
 package com.arsyux.thecar.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -15,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,20 +43,19 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
-
 	@Value("${kakao.default.id}")
 	private String kakaoId;
-	
+
 	@Value("${kakao.default.password}")
 	private String kakaoPassword;
 
 	@Value("${google.default.password}")
 	private String googlePassword;
-	
+
 	@GetMapping("/user/get/{id}")
 	public @ResponseBody User getUser(@PathVariable int id) {
 		User findUser2 = userRepository.findById(id).orElseThrow(() -> {
@@ -61,18 +63,28 @@ public class UserController {
 		});
 		return findUser2;
 	}
-	
+
 	// 회원가입창
 	@GetMapping("/auth/insertUser")
 	public String insertUser() {
 		return "user/insertUser";
 	}
+
 	// 회원가입 로직
 	@PostMapping("/auth/insertUser")
 	public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 		
-		System.out.println(userDTO);
 		// 유효성 검사
+		if(bindingResult.hasErrors()) {
+			// 에러가 하나라도 있다면 에러 메시지를 Map에 등록
+			Map<String, String> errorMap = new HashMap<>();
+			for(FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+			}
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
+		}
+		
+		// User 객체로 변환
 		User user = modelMapper.map(userDTO, User.class);
 		User findUser = userService.getUser(user.getUsername());
 		
@@ -83,15 +95,7 @@ public class UserController {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUsername() + "님은 이미 회원입니다.");
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// 회원 삭제
 	@DeleteMapping("/user/{id}")
 	public @ResponseBody String deleteUser(@PathVariable int id) {
@@ -113,30 +117,27 @@ public class UserController {
 		return userRepository.findAll(pageable);
 	}
 
-	
-
-	
-	
 	@GetMapping("/auth/login")
 	public String login() {
 		return "system/login";
 	}
-	
+
 	@GetMapping("/user/updateUser")
 	public String updateUser() {
 		return "user/updateUser";
 	}
-	
+
 	@PutMapping("/user")
-	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user, @AuthenticationPrincipal UserDetailsImpl principal) {
-		if(principal.getUser().getOauth().equals(OAuthType.KAKAO)) {
+	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user,
+			@AuthenticationPrincipal UserDetailsImpl principal) {
+		if (principal.getUser().getOauth().equals(OAuthType.KAKAO)) {
 			user.setPassword(kakaoPassword);
-		}else if(principal.getUser().getOauth().equals(OAuthType.GOOGLE)) {
+		} else if (principal.getUser().getOauth().equals(OAuthType.GOOGLE)) {
 			user.setPassword(googlePassword);
 		}
-		
+
 		principal.setUser(userService.updateUser(user));
-		
+
 		return new ResponseDTO<>(HttpStatus.OK.value(), user.getId() + " 수정 완료");
 	}
 

@@ -1,12 +1,16 @@
 package com.arsyux.thecar.controller;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.dto.PhoneDTO;
 import com.arsyux.thecar.dto.ResponseDTO;
 
 import net.nurigo.sdk.NurigoApp;
@@ -16,20 +20,40 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.stereotype.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+
+import javax.validation.Valid;
 
 @Controller
 public class CoolSMSController {
 
 	private DefaultMessageService messageService;
 
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	public CoolSMSController() {
 		this.messageService = NurigoApp.INSTANCE.initialize("NCSPMZ9LPKXBOSKD", "ECWEL4SUDFKVMDN3RLWEP4EWXQCDU3KO",
 				"https://api.coolsms.co.kr");
 	}
 
 	@PostMapping("/auth/phoneCheck")
-	public @ResponseBody ResponseDTO<?> phoneCheck(@RequestBody User user, BindingResult bindingResult) {
+	public @ResponseBody ResponseDTO<?> phoneCheck(@Valid @RequestBody PhoneDTO phoneDTO, BindingResult bindingResult) {
+		
+		// 유효성 검사
+		if(bindingResult.hasErrors()) {
+			// 에러가 하나라도 있다면 에러 메시지를 Map에 등록
+			Map<String, String> errorMap = new HashMap<>();
+			for(FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+			}
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
+		}
+
+		User user = modelMapper.map(phoneDTO, User.class);
+		
 		Message message = new Message();
 		// 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
 		message.setFrom("01094436580");
