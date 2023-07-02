@@ -16,7 +16,7 @@ public class UserDTO {
 
 	@NotNull(message = "로그인 아이디가 전달되지 않았습니다.")
 	@NotBlank(message = "로그인 아이디는 필수 입력 항목입니다.")
-	@Size(min = 5, max = 10, message = "로그인 아이디는 다섯 글자 이상 10자 이하로 입력하세요.")
+	@Size(min = 5, max = 10, message = "로그인 아이디는 5자 이상 10자 이하로 입력하세요.")
 	private String username;
 	
 	@NotNull(message = "비밀번호가 전달되지 않았습니다.")
@@ -27,6 +27,7 @@ public class UserDTO {
 	@NotNull(message = "이름이 전달되지 않았습니다.")
 	@NotBlank(message = "이름은 필수 입력 항목입니다.")
 	@Pattern(regexp = "^[가-힣]+$", message = "이름을 확인하여주세요.")
+	@Size(min = 1, max = 30, message = "이름은 30자 이하로 입력하세요.")
 	private String realname;
 	
 	@NotNull(message = "생년월일이 전달되지 않았습니다.")
