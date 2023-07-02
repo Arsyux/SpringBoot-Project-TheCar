@@ -40,7 +40,7 @@ public class KakaoLoginController {
 		System.out.println("kakaoCallback: " + kakaoUser);
 		
 		// 3. 기존회원이 아니면 신규회원으로 등록한다.
-		User findUser = userService.getUser(kakaoUser.getUsername());
+		User findUser = userService.getUserByUsername(kakaoUser.getUsername());
 		if (findUser.getUsername() == null) {
 			userService.insertUser(kakaoUser);
 		}

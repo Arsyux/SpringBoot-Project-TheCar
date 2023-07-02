@@ -18,7 +18,25 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Transactional(readOnly = true)
+	public User getUserByPhone(String phone) {
+		User findUser = userRepository.findByPhone(phone).orElseGet(() -> {
+			return new User();
+		});
 
+		return findUser;
+	}
+	
+	@Transactional(readOnly = true)
+	public User getUserByUsername(String username) {
+		User findUser = userRepository.findByUsername(username).orElseGet(() -> {
+			return new User();
+		});
+
+		return findUser;
+	}
+	
 	@Transactional
 	public void insertUser(User user) {
 		
@@ -33,15 +51,6 @@ public class UserService {
 		}
 		
 		userRepository.save(user);
-	}
-
-	@Transactional(readOnly = true)
-	public User getUser(String username) {
-		User findUser = userRepository.findByUsername(username).orElseGet(() -> {
-			return new User();
-		});
-
-		return findUser;
 	}
 
 	@Transactional

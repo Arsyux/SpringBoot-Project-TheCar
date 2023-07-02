@@ -73,26 +73,35 @@ public class UserController {
 	// 회원가입 로직
 	@PostMapping("/auth/insertUser")
 	public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
-		
+
 		// 유효성 검사
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			// 에러가 하나라도 있다면 에러 메시지를 Map에 등록
 			Map<String, String> errorMap = new HashMap<>();
-			for(FieldError error : bindingResult.getFieldErrors()) {
+			for (FieldError error : bindingResult.getFieldErrors()) {
 				errorMap.put(error.getField(), error.getDefaultMessage());
 			}
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
 		}
-		
+
 		// User 객체로 변환
 		User user = modelMapper.map(userDTO, User.class);
-		User findUser = userService.getUser(user.getUsername());
+		User findUser1 = userService.getUserByPhone(user.getPhone());
+		User findUser2 = userService.getUserByUsername(user.getUsername());
 		
-		if (findUser.getUsername() == null) {
+		if (findUser1.getPhone() != null) {
+			Map<String, String> errorMap = new HashMap<>();
+			errorMap.put("phone", "이미 가입되어있는 휴대폰 번호입니다.");
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
+		}
+		
+		if (findUser2.getUsername() == null) {
 			userService.insertUser(user);
 			return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님, 회원가입되었습니다.");
 		} else {
-			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUsername() + "님은 이미 회원입니다.");
+			Map<String, String> errorMap = new HashMap<>();
+			errorMap.put("username", user.getUsername() +"님은 이미 회원입니다.");
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
 		}
 	}
 

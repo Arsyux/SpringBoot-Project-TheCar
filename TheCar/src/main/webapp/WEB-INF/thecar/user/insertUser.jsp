@@ -25,7 +25,9 @@
 					<!-- ID -->
 					<div class="col-12 mt-3">
 						<div class="input-group">
-							<span class="input-group-text"><i class="bi bi-person"></i></span> <input type="text" class="form-control" name="username" id="username" placeholder="아이디"></input>
+							<span class="input-group-text"><i class="bi bi-person"></i></span>
+							<input type="text" class="form-control" name="username" id="username" placeholder="아이디"></input>
+							<div id="usernameInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
 
@@ -33,6 +35,7 @@
 					<div class="col-12 mt-3">
 						<div class="input-group">
 							<span class="input-group-text"><i class="bi bi-lock"></i></span> <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"></input>
+							<div id="passwordInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
 
@@ -40,6 +43,7 @@
 					<div class="col-12  mt-3">
 						<div class="input-group">
 							<span class="input-group-text"><i class="bi bi-person"></i></span> <input type="text" class="form-control" name="realname" id="realname" placeholder="이름"></input>
+							<div id="realnameInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
 
@@ -47,6 +51,7 @@
 					<div class="col-12 mt-3">
 						<div class="input-group">
 							<span class="input-group-text"><i class="bi bi-calendar-event"></i></span> <input type="text" class="form-control" name="birthdate" id="birthdate" placeholder="생년월일 8자리"></input>
+							<div id="birthdateInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
 
@@ -55,14 +60,12 @@
 						<div class="input-group">
 							<div class="col-6 p-1" style="border: solid; border-width: 1px; border-radius: 0.25rem; border-color: #ced4da;">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdoMan" value="man" checked="checked">
-									<label class="form-check-label" for="inlineRadio1">남자</label>
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdoMan" value="남자" checked="checked"> <label class="form-check-label" for="inlineRadio1">남자</label>
 								</div>
 							</div>
 							<div class="col-6 p-1" style="border: solid; border-width: 1px; border-radius: 0.25rem; border-color: #ced4da;">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdoWoman" value="woman">
-									<label class="form-check-label" for="inlineRadio2">여자</label>
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdoWoman" value="여자"> <label class="form-check-label" for="inlineRadio2">여자</label>
 								</div>
 							</div>
 						</div>
@@ -72,12 +75,13 @@
 					<div class="col-8 mt-3">
 						<div class="input-group">
 							<span class="input-group-text"><i class="bi bi-telephone"></i></span> <input type="text" class="form-control" id="phonenumber" placeholder="휴대전화번호 (-제외)"></input>
+							<div id="phonenumberInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
 					<div class="col-4 mt-3">
 						<a id="btn-phoneCheck" class="btn btn-secondary w-100" href="#">인증요청</a>
 					</div>
-
+					
 					<!-- 인증번호 -->
 					<div class="col-12 mt-3 mb-3">
 						<div class="input-group">

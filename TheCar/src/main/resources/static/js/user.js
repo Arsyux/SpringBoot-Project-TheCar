@@ -2,18 +2,19 @@ let userObject = {
 
 	init: function() {
 		let _this = this;
-
+		
+		// 휴대전화 인증 요청 + 회원가입
+		$("#btn-phoneCheck").on("click", () => {
+			_this.phoneCheck();
+		});
+		
 		// 회원 정보 수정
 		$("#btn-update").on("click", () => {
 			_this.updateUser();
 		});
 
-		// 휴대전화 인증 요청
-		$("#btn-phoneCheck").on("click", () => {
-			_this.phoneCheck();
-		});
 	},
-
+	
 	phoneCheck: function() {
 		// 휴대전화 인증
 		let user1 = {
@@ -31,7 +32,7 @@ let userObject = {
 				alert('인증번호가 발송되었습니다.');
 				let code = response["data"];
 				// 휴대전화 번호 수정 불가
-				document.getElementById("phonenumber").classList.add("disabled");
+				document.getElementById("phonenumber").disabled = true;
 				// 휴대전화 인증확인 버튼 클릭 가능
 				document.getElementById("btn-save").classList.remove("disabled");
 
@@ -39,11 +40,9 @@ let userObject = {
 					let codeCheck = $("#phonenumberCheck").val();
 					if (code === codeCheck) {
 						// 성별
-						let g;
-						if (document.getElementById('rdoMan').checked) {
-							g = 'Man';
-						} else {
-							g = 'Woman';
+						let g = '남자';
+						if (document.getElementById('rdoWoman').checked) {
+							g = '여자';
 						}
 						let user2 = {
 							username: $("#username").val(),
@@ -64,15 +63,44 @@ let userObject = {
 								alert(response["data"]);
 								location = "/";
 							} else {
-								let warn = "";
 								let errors = response["data"];
-								if (errors.username != null) warn = warn + errors.username + "\n";
-								if (errors.password != null) warn = warn + errors.password + "\n";
-								if (errors.realname != null) warn = warn + errors.realname + "\n";
-								if (errors.birthdate != null) warn = warn + errors.birthdate + "\n";
-								if (errors.phone != null) warn = warn + errors.phone + "\n";
-								if (errors.gender != null) warn = warn + errors.gender + "\n";
-								alert(warn);
+								// 검사 항목 초기화
+								// username
+								document.getElementById("username").classList.remove('is-invalid');
+								$("#usernameInvalid").text('');
+								// password
+								document.getElementById("password").classList.remove('is-invalid');
+								$("#passwordInvalid").text('');
+								// 이름
+								document.getElementById("realname").classList.remove('is-invalid');
+								$("#realnameInvalid").text('');
+								// 생년월일
+								document.getElementById("birthdate").classList.remove('is-invalid');
+								$("#birthdateInvalid").text('');
+								// 휴대폰 번호
+								document.getElementById("phonenumber").classList.remove('is-invalid');
+								$("#phonenumberInvalid").text('');
+				
+								if (errors.username != null) {
+									document.getElementById("username").classList.add('is-invalid');
+									$("#usernameInvalid").text(errors.username);
+								}
+								if (errors.password != null) {
+									document.getElementById("password").classList.add('is-invalid');
+									$("#passwordInvalid").text(errors.password);
+								}
+								if (errors.realname != null) { 
+									document.getElementById("realname").classList.add('is-invalid');
+									$("#realnameInvalid").text(errors.realname);
+								}
+								if (errors.birthdate != null) {
+									document.getElementById("birthdate").classList.add('is-invalid');
+									$("#birthdateInvalid").text(errors.birthdate);
+								}
+								if (errors.phone != null) {
+									document.getElementById("phonenumber").classList.add('is-invalid');
+									$("#phonenumberInvalid").text(errors.phone);
+								}
 							}
 						}).fail(function(error) {
 							alert("인증 확인 요청에 실패하였습니다.");
@@ -83,10 +111,15 @@ let userObject = {
 					}
 				});
 			} else {
-				let warn = "";
 				let errors = response["data"];
-				if (errors.phone != null) warn = warn + errors.phone + "\n";
-				alert(warn);
+				
+				document.getElementById("phonenumber").classList.remove('is-invalid');
+				$("#phonenumberInvalid").text('');
+				
+				if (errors.phone != null) {
+					document.getElementById("phonenumber").classList.add('is-invalid');
+					$("#phonenumberInvalid").text(errors.phone);
+				}
 			}
 		}).fail(function(error) {
 			//let message = error["data"];
