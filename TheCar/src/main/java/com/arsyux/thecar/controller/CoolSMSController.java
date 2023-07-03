@@ -68,7 +68,7 @@ public class CoolSMSController {
 				code += new Random().nextInt(10);
 			}
 		}
-		message.setText("더카탁송 회원가입 인증번호입니다. [ " + code + " ]");
+		message.setText("더카탁송 인증번호입니다. [ " + code + " ]");
 
 		SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
 		System.out.println(response);

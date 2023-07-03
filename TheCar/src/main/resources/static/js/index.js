@@ -10,7 +10,6 @@ let indexObject = {
 	},
 
 	goTop: function(){
-		alert('Hello');
 		$('body, html').animate({ scrollTop: 0 }, 0); 
 	},
 }

@@ -3,6 +3,7 @@ package com.arsyux.thecar.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -29,11 +30,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.arsyux.thecar.domain.OAuthType;
 import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.UserDTO;
+import com.arsyux.thecar.dto.PhoneDTO;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.exception.TheCarException;
 import com.arsyux.thecar.persistence.UserRepository;
 import com.arsyux.thecar.security.UserDetailsImpl;
 import com.arsyux.thecar.service.UserService;
+
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 
 @Controller
 public class UserController {
@@ -88,37 +94,94 @@ public class UserController {
 		User user = modelMapper.map(userDTO, User.class);
 		User findUser1 = userService.getUserByPhone(user.getPhone());
 		User findUser2 = userService.getUserByUsername(user.getUsername());
-		
+
 		if (findUser1.getPhone() != null) {
 			Map<String, String> errorMap = new HashMap<>();
 			errorMap.put("phone", "이미 가입되어있는 휴대폰 번호입니다.");
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
 		}
-		
+
 		if (findUser2.getUsername() == null) {
 			userService.insertUser(user);
 			return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님, 회원가입되었습니다.");
 		} else {
 			Map<String, String> errorMap = new HashMap<>();
-			errorMap.put("username", user.getUsername() +"님은 이미 회원입니다.");
+			errorMap.put("username", user.getUsername() + "님은 이미 회원입니다.");
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
 		}
 	}
 
-	// 회원 삭제
+	// 아이디 찾기창
+	@GetMapping("/auth/findUsername")
+	public String findUsername() {
+		return "system/findUsername";
+	}
+
+	// 아이디 찾기 로직
+	@PostMapping("/auth/findUsername")
+	public @ResponseBody ResponseDTO<?> findUsername(@Valid @RequestBody PhoneDTO phoneDTO, BindingResult bindingResult) {
+
+		// 유효성 검사
+		if (bindingResult.hasErrors()) {
+			// 에러가 하나라도 있다면 에러 메시지를 Map에 등록
+			Map<String, String> errorMap = new HashMap<>();
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+			}
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
+		}
+
+		User user = modelMapper.map(phoneDTO, User.class);
+		User findUser1 = userService.getUserByPhone(user.getPhone());
+
+		if (findUser1.getPhone() == null) {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "가입되어있는 아이디가 없습니다.");
+		} else {
+			return new ResponseDTO<>(HttpStatus.OK.value(), "회원님의 아이디는 [ " + findUser1.getUsername() + " ] 입니다.");
+		}
+	}
+
+	// 비밀번호 찾기창
+	@GetMapping("/auth/findPassword")
+	public String findPassword() {
+		return "system/findPassword";
+	}
+
+	// 비밀번호 찾기 로직
+	@PostMapping("/auth/findPassword")
+	public @ResponseBody ResponseDTO<?> findPassword(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+
+		// 유효성 검사
+		if (bindingResult.hasErrors()) {
+			// 에러가 하나라도 있다면 에러 메시지를 Map에 등록
+			Map<String, String> errorMap = new HashMap<>();
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+			}
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
+		}
+
+		User user = modelMapper.map(userDTO, User.class);
+		User findUser1 = userService.getUserByPhone(user.getPhone());
+
+		if (findUser1.getPhone() == null) {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "가입되어있는 아이디가 없습니다.");
+		} else {
+			return new ResponseDTO<>(HttpStatus.OK.value(), "회원님의 아이디는 [ " + findUser1.getUsername() + " ] 입니다.");
+		}
+	}
+
 	@DeleteMapping("/user/{id}")
 	public @ResponseBody String deleteUser(@PathVariable int id) {
 		userRepository.deleteById(id);
 		return "회원 삭제 성공";
 	}
 
-	// 회원 목록 검색
 	@GetMapping("/user/list")
 	public @ResponseBody List<User> getUserList() {
 		return userRepository.findAll();
 	}
 
-	// 페이징 처리
 	@GetMapping("/user/page")
 	public @ResponseBody Page<User> getUserListPaging(
 			@PageableDefault(page = 0, size = 2, direction = Sort.Direction.DESC, sort = { "id",

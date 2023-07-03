@@ -2,19 +2,19 @@ let userObject = {
 
 	init: function() {
 		let _this = this;
-		
+
 		// 휴대전화 인증 요청 + 회원가입
 		$("#btn-phoneCheck").on("click", () => {
 			_this.phoneCheck();
 		});
-		
+
 		// 회원 정보 수정
 		$("#btn-update").on("click", () => {
 			_this.updateUser();
 		});
 
 	},
-	
+
 	phoneCheck: function() {
 		// 휴대전화 인증
 		let user1 = {
@@ -30,6 +30,8 @@ let userObject = {
 			if (status == 200) {
 				// 인증번호 발송
 				alert('인증번호가 발송되었습니다.');
+				document.getElementById("phonenumber").classList.remove('is-invalid');
+				$("#phonenumberInvalid").text('');
 				let code = response["data"];
 				// 휴대전화 번호 수정 불가
 				document.getElementById("phonenumber").disabled = true;
@@ -80,7 +82,7 @@ let userObject = {
 								// 휴대폰 번호
 								document.getElementById("phonenumber").classList.remove('is-invalid');
 								$("#phonenumberInvalid").text('');
-				
+
 								if (errors.username != null) {
 									document.getElementById("username").classList.add('is-invalid');
 									$("#usernameInvalid").text(errors.username);
@@ -89,7 +91,7 @@ let userObject = {
 									document.getElementById("password").classList.add('is-invalid');
 									$("#passwordInvalid").text(errors.password);
 								}
-								if (errors.realname != null) { 
+								if (errors.realname != null) {
 									document.getElementById("realname").classList.add('is-invalid');
 									$("#realnameInvalid").text(errors.realname);
 								}
@@ -112,10 +114,10 @@ let userObject = {
 				});
 			} else {
 				let errors = response["data"];
-				
+
 				document.getElementById("phonenumber").classList.remove('is-invalid');
 				$("#phonenumberInvalid").text('');
-				
+
 				if (errors.phone != null) {
 					document.getElementById("phonenumber").classList.add('is-invalid');
 					$("#phonenumberInvalid").text(errors.phone);
