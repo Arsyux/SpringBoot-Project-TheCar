@@ -3,7 +3,6 @@ package com.arsyux.thecar.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -36,10 +35,6 @@ import com.arsyux.thecar.exception.TheCarException;
 import com.arsyux.thecar.persistence.UserRepository;
 import com.arsyux.thecar.security.UserDetailsImpl;
 import com.arsyux.thecar.service.UserService;
-
-import net.nurigo.sdk.message.model.Message;
-import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
-import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 
 @Controller
 public class UserController {
