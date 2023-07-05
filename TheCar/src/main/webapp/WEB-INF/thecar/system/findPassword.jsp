@@ -39,7 +39,7 @@
 					</div>
 				</div>
 				<div class="col-4 mt-3">
-					<a id="btn-phoneCheck" class="btn btn-secondary w-100" href="#">인증요청</a>
+					<a id="btn-phoneCheck2" class="btn btn-secondary w-100" href="#">인증요청</a>
 				</div>
 
 				<!-- 인증번호 -->
@@ -52,14 +52,18 @@
 				<div class="col-12 mt-3">
 					<button id="btn-phonCheckOK" class="btn btn-secondary btn-large w-100 disabled">인증확인</button>
 				</div>
+				
 				<div id="findUsername" class="col-12 mt-3" style="text-align: center; display: none;"></div>
 
 				<!-- Password -->
-				<div class="col-12 mt-3">
+				<div id="changePassword" class="col-12 mt-3" style="text-align: center; display: none;">
 					<div class="input-group">
-						<span class="input-group-text"><i class="bi bi-lock"></i></span> <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"></input>
+						<span class="input-group-text"><i class="bi bi-lock"></i></span> <input type="password" class="form-control" name="password" id="password" placeholder="변경할 비밀번호"></input>
 						<div id="passwordInvalid" class="invalid-feedback"></div>
 					</div>
+				</div>
+				<div id="changePasswordOK" class="col-12 mt-3" style="text-align: center; display: none;">
+					<button id="btn-changePasswordOK" class="btn btn-secondary btn-large w-100">비밀번호 변경</button>
 				</div>
 				
 			</div>

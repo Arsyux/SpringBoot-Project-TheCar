@@ -30,6 +30,7 @@ import com.arsyux.thecar.domain.OAuthType;
 import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.UserDTO;
 import com.arsyux.thecar.dto.PhoneDTO;
+import com.arsyux.thecar.dto.PhoneDTO2;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.exception.TheCarException;
 import com.arsyux.thecar.persistence.UserRepository;
@@ -57,12 +58,10 @@ public class UserController {
 	@Value("${google.default.password}")
 	private String googlePassword;
 
-	@GetMapping("/user/get/{id}")
-	public @ResponseBody User getUser(@PathVariable int id) {
-		User findUser2 = userRepository.findById(id).orElseThrow(() -> {
-			return new TheCarException(id + "번 데이터가 없습니다.");
-		});
-		return findUser2;
+	// 로그인창
+	@GetMapping("/auth/login")
+	public String login() {
+		return "system/login";
 	}
 
 	// 회원가입창
@@ -114,7 +113,8 @@ public class UserController {
 
 	// 아이디 찾기 로직
 	@PostMapping("/auth/findUsername")
-	public @ResponseBody ResponseDTO<?> findUsername(@Valid @RequestBody PhoneDTO phoneDTO, BindingResult bindingResult) {
+	public @ResponseBody ResponseDTO<?> findUsername(@Valid @RequestBody PhoneDTO phoneDTO,
+			BindingResult bindingResult) {
 
 		// 유효성 검사
 		if (bindingResult.hasErrors()) {
@@ -144,7 +144,41 @@ public class UserController {
 
 	// 비밀번호 찾기 로직
 	@PostMapping("/auth/findPassword")
-	public @ResponseBody ResponseDTO<?> findPassword(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+	public @ResponseBody ResponseDTO<?> findPassword(@Valid @RequestBody PhoneDTO2 phoneDTO,
+			BindingResult bindingResult) {
+		// 유효성 검사
+		if (bindingResult.hasErrors()) {
+			// 에러가 하나라도 있다면 에러 메시지를 Map에 등록
+			Map<String, String> errorMap = new HashMap<>();
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+			}
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
+		}
+
+		User user = modelMapper.map(phoneDTO, User.class);
+		User findUser1 = userService.getUserByUsername(user.getUsername());
+
+		if (findUser1.getUsername() == null) {
+			// 아이디가 없을 경우
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "가입되어있는 아이디가 없습니다.");
+		} else {
+			// 아이디가 있을 경우 휴대전화번호로 찾은 아이디와 비교
+			User findUser2 = userService.getUserByPhone(user.getPhone());
+			if (findUser1.getUsername() == findUser2.getUsername()) {
+				// 아이디로 검색한 회원과 휴대전화번호로 검색한 회원이 같을 경우
+				return new ResponseDTO<>(HttpStatus.OK.value(), user);
+			} else {
+				// 다를 경우
+				return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "가입된 아이디와 휴대전화번호가 일치하지 않습니다.");
+			}
+		}
+	}
+
+	// 비밀번호 변경 로직
+	@PutMapping("/auth/updateUserPassword")
+	public @ResponseBody ResponseDTO<?> updateUserPassword(@Valid @RequestBody UserDTO userDTO,
+			BindingResult bindingResult) {
 
 		// 유효성 검사
 		if (bindingResult.hasErrors()) {
@@ -156,14 +190,40 @@ public class UserController {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
 		}
 
+		// User 객체로 변환
 		User user = modelMapper.map(userDTO, User.class);
-		User findUser1 = userService.getUserByPhone(user.getPhone());
 
-		if (findUser1.getPhone() == null) {
-			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "가입되어있는 아이디가 없습니다.");
-		} else {
-			return new ResponseDTO<>(HttpStatus.OK.value(), "회원님의 아이디는 [ " + findUser1.getUsername() + " ] 입니다.");
+		userService.updateUser(user);
+		
+		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 비밀번호가 변경되었습니다.");
+	}
+
+	// 회원정보 수정창
+	@GetMapping("/user/updateUser")
+	public String updateUser() {
+		return "user/updateUser";
+	}
+
+	@PutMapping("/user")
+	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user,
+			@AuthenticationPrincipal UserDetailsImpl principal) {
+		if (principal.getUser().getOauth().equals(OAuthType.KAKAO)) {
+			user.setPassword(kakaoPassword);
+		} else if (principal.getUser().getOauth().equals(OAuthType.GOOGLE)) {
+			user.setPassword(googlePassword);
 		}
+
+		principal.setUser(userService.updateUser(user));
+
+		return new ResponseDTO<>(HttpStatus.OK.value(), user.getId() + " 수정 완료");
+	}
+
+	@GetMapping("/user/get/{id}")
+	public @ResponseBody User getUser(@PathVariable int id) {
+		User findUser2 = userRepository.findById(id).orElseThrow(() -> {
+			return new TheCarException(id + "번 데이터가 없습니다.");
+		});
+		return findUser2;
 	}
 
 	@DeleteMapping("/user/{id}")
@@ -182,30 +242,6 @@ public class UserController {
 			@PageableDefault(page = 0, size = 2, direction = Sort.Direction.DESC, sort = { "id",
 					"username" }) Pageable pageable) {
 		return userRepository.findAll(pageable);
-	}
-
-	@GetMapping("/auth/login")
-	public String login() {
-		return "system/login";
-	}
-
-	@GetMapping("/user/updateUser")
-	public String updateUser() {
-		return "user/updateUser";
-	}
-
-	@PutMapping("/user")
-	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user,
-			@AuthenticationPrincipal UserDetailsImpl principal) {
-		if (principal.getUser().getOauth().equals(OAuthType.KAKAO)) {
-			user.setPassword(kakaoPassword);
-		} else if (principal.getUser().getOauth().equals(OAuthType.GOOGLE)) {
-			user.setPassword(googlePassword);
-		}
-
-		principal.setUser(userService.updateUser(user));
-
-		return new ResponseDTO<>(HttpStatus.OK.value(), user.getId() + " 수정 완료");
 	}
 
 }
