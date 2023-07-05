@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.arsyux.thecar.security.OAuth2UserDetailsServiceImpl;
 import com.arsyux.thecar.security.UserDetailsServiceImpl;
@@ -19,6 +20,10 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
+	
+	// 로그인 실패 핸들러 의존성 주입
+	@Autowired
+	private AuthenticationFailureHandler customFailureHandler;
 	
 	@Autowired
 	private OAuth2UserDetailsServiceImpl oauth2DetailsService;
@@ -37,9 +42,8 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 		http.authorizeRequests().anyRequest().authenticated();
 		http.csrf().disable();
 		http.formLogin().loginPage("/auth/login");
-		http.formLogin().loginProcessingUrl("/auth/securitylogin");
+		http.formLogin().loginProcessingUrl("/auth/securitylogin").failureHandler(customFailureHandler);
 		http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/");
-		
 		http.oauth2Login()
 		.userInfoEndpoint()
 		.userService(oauth2DetailsService);

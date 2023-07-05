@@ -7,16 +7,20 @@
 <div class="container mt-5 mb-5">
 
 	<!-- Logo -->
-	<div class="row">
+	<div class="row mb-5">
 		<div class="col-sm-0 col-md-4"></div>
 		<div class="col-sm-12 col-md-4">
 			<img class="w-100" src="/image/main/logo.png">
 		</div>
 		<div class="col-sm-0 col-md-4"></div>
 	</div>
+	
+	<c:if test="${error != null}">
+		<h4 class="mb-5" style="text-align: center; font-weight: bold; color: #333333;">${exception}</h4>
+	</c:if>
 
 	<!-- 영역 제한 -->
-	<div class="row mt-5">
+	<div class="row">
 		<div class="col-sm-0 col-md-2 col-lg-4"></div>
 		<div class="col-sm-0 col-md-8 col-lg-4">
 
@@ -44,17 +48,17 @@
 
 			<div class="row mb-3">
 				<div class="col-12" style="text-align: center;">
-					<a class="logintag" href="/auth/findUsername" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">아이디 찾기</a>
-					<a class="logintag" href="/auth/findPassword" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">비밀번호 찾기</a>
-					<a class="logintag" href="/auth/insertUser" style="padding-right: 10px; padding-left: 10px;">회원가입</a>
+					<a class="logintag" href="/auth/findUsername" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">아이디 찾기</a> <a class="logintag"
+						href="/auth/findPassword" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">비밀번호 찾기</a> <a class="logintag" href="/auth/insertUser"
+						style="padding-right: 10px; padding-left: 10px;">회원가입</a>
 				</div>
 			</div>
-			
+
 			<div class="row mb-3">
 				<!-- 카카오 로그인 -->
 				<div class="col-6" style="text-align: center;">
-					<a href="https://kauth.kakao.com/oauth/authorize?client_id=ee0b7525aab13922c886f01538c0d6f6&redirect_uri=http://localhost:5000/oauth/kakao&response_type=code">
-						<img height="38px" src="/image/loginbutton/kakao_login_btn.png">
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=ee0b7525aab13922c886f01538c0d6f6&redirect_uri=http://localhost:5000/oauth/kakao&response_type=code"> <img height="38px"
+						src="/image/loginbutton/kakao_login_btn.png">
 					</a>
 					<!-- 
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=ee0b7525aab13922c886f01538c0d6f6&redirect_uri=http://thecar-env.eba-26kgis3m.ap-northeast-2.elasticbeanstalk.com/oauth/kakao&response_type=code">
@@ -62,16 +66,15 @@
 					</a>
 					 -->
 				</div>
-				
+
 				<!-- 구글 로그인 -->
 				<div class="col-6" style="text-align: center;">
-					<a href="../oauth2/authorization/google">
-						<img height="38px" src="/image/loginbutton/google_login_btn.png">
+					<a href="../oauth2/authorization/google"> <img height="38px" src="/image/loginbutton/google_login_btn.png">
 					</a>
 				</div>
 			</div>
-			
-						
+
+
 		</div>
 
 		<div class="col-sm-0 col-md-2 col-lg-4"></div>

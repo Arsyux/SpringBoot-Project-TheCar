@@ -148,19 +148,36 @@ let userObject = {
 										username: userdata.username,
 										password: $("#password").val(), // 변경된 비밀번호
 										realname: userdata.realname,
-										birthdate: userdata.birthdate,
+										birthdate: userdata.birthDate,
 										gender: userdata.gender,
 										phone: userdata.phone
 									}
 									$.ajax({
-										type: "POST",
+										type: "PUT",
 										url: "/auth/updateUserPassword",
 										data: JSON.stringify(user3),
 										contentType: "application/json; charset=utf-8",
 									}).done(function(response) {
-										
-									}).fail(function(error){
-										
+										let status = response["status"];
+
+										if (status == 200) {
+											// 비밀번호 변경에 성공
+											let data2 = response["data"];
+											alert(data2);
+											location = "/";
+										} else {
+											let errors = response["data"];
+
+											document.getElementById("password").classList.remove('is-invalid');
+											$("#passwordInvalid").text('');
+
+											if (errors.password != null) {
+												document.getElementById("password").classList.add('is-invalid');
+												$("#passwordInvalid").text(errors.password);
+											}
+										}
+									}).fail(function(error) {
+										alert('비밀번호 변경 요청이 실패하였습니다.');
 									});
 								});
 							} else {

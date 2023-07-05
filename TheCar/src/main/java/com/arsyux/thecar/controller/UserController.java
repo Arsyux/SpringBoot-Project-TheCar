@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.OAuthType;
@@ -58,10 +61,18 @@ public class UserController {
 	@Value("${google.default.password}")
 	private String googlePassword;
 
-	// 로그인창
+	/*
 	@GetMapping("/auth/login")
 	public String login() {
 		return "system/login";
+	}
+	*/
+	// 로그인창
+	@GetMapping("/auth/login")
+	public String login(@RequestParam(value = "error", required = false)String error, @RequestParam(value = "exception", required = false)String exception, Model model) {
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);
+		return "/system/login";
 	}
 
 	// 회원가입창
@@ -167,7 +178,8 @@ public class UserController {
 			User findUser2 = userService.getUserByPhone(user.getPhone());
 			if (findUser1.getUsername() == findUser2.getUsername()) {
 				// 아이디로 검색한 회원과 휴대전화번호로 검색한 회원이 같을 경우
-				return new ResponseDTO<>(HttpStatus.OK.value(), user);
+				System.out.println(findUser1);
+				return new ResponseDTO<>(HttpStatus.OK.value(), findUser1);
 			} else {
 				// 다를 경우
 				return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "가입된 아이디와 휴대전화번호가 일치하지 않습니다.");
@@ -182,19 +194,25 @@ public class UserController {
 
 		// 유효성 검사
 		if (bindingResult.hasErrors()) {
+			System.out.println("에러 발견!");
 			// 에러가 하나라도 있다면 에러 메시지를 Map에 등록
 			Map<String, String> errorMap = new HashMap<>();
 			for (FieldError error : bindingResult.getFieldErrors()) {
 				errorMap.put(error.getField(), error.getDefaultMessage());
+				System.out.println(error.getDefaultMessage());
 			}
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
 		}
+
+		System.out.println("업데이트 시작!");
 
 		// User 객체로 변환
 		User user = modelMapper.map(userDTO, User.class);
 
 		userService.updateUser(user);
-		
+
+		System.out.println("업데이트 완료!");
+
 		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 비밀번호가 변경되었습니다.");
 	}
 

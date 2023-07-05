@@ -17,7 +17,7 @@ import com.arsyux.thecar.dto.ResponseDTO;
 @Aspect
 public class ValidationCheckAdvice {
 
-	@Around("execution(* com.ssamz..controller.*Controller.*(..))")
+	@Around("execution(* com.arsyux..controller.*Controller.*(..))")
 	public Object validationCheck(ProceedingJoinPoint jp) throws Throwable {
 		Object[] args = jp.getArgs();
 
