@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -61,12 +60,6 @@ public class UserController {
 	@Value("${google.default.password}")
 	private String googlePassword;
 
-	/*
-	@GetMapping("/auth/login")
-	public String login() {
-		return "system/login";
-	}
-	*/
 	// 로그인창
 	@GetMapping("/auth/login")
 	public String login(@RequestParam(value = "error", required = false)String error, @RequestParam(value = "exception", required = false)String exception, Model model) {

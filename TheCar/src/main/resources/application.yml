@@ -1,7 +1,6 @@
 # 서버 설정
 server:
   port: 5000
-  #port: 8080
   servlet:
     context-path: /
     encoding:
@@ -26,6 +25,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      #ddl-auto: create
       ddl-auto: update
       use-new-id-generator-mappings: false
     properties:
