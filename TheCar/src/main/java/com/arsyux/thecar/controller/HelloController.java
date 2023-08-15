@@ -1,6 +1,7 @@
 package com.arsyux.thecar.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -26,4 +27,13 @@ public class HelloController {
 		System.out.println("이미지 파일이 요청됨");
 		return "redirect:image/arsyux.png";
 	}
+	
+	// hello.jsp파일이 정상적으로 실행되기 위해서는 tomcat-embed-jasper.jar 파일이 필요하다.
+	@GetMapping("/jsp")
+	public String jsp(Model model) {
+		System.out.println("JSP 파일이 요청됨");
+		model.addAttribute("username", "Arsyux");
+		return "hello";
+	}
+	
 }
