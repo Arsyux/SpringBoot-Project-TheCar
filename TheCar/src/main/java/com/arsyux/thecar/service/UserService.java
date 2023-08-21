@@ -16,12 +16,16 @@ import com.arsyux.thecar.persistence.UserRepository;
 @Service
 public class UserService {
 
+	// JPA기반의 데이터베이스 연동을 UserService 클래스에서 처리하기 위해 UserRepository 객체 의존성을 주입한다.
 	@Autowired
 	private UserRepository userRepository;
 	
+	// @Transactional은 비즈니스 메소드에서 예외가 발생할 때 해당 메소드에 대한 트랜잭션을 ROLLBACK하고
+	// 정상 종료될 때는 트랜잭션을 자동으로 COMMIT한다.
 	@Transactional
 	public void insertUser(User user) {
 		user.setRole(RoleType.USER);
 		userRepository.save(user);
 	}
+	
 }
