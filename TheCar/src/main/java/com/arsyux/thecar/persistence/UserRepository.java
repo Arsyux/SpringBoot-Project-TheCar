@@ -1,6 +1,8 @@
 package com.arsyux.thecar.persistence;
 
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +32,22 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	// java.Util.Optional이다. 따라서 특정 타입의 객체를 반환할 때는 Optional의 get() 메소드를 사용해야 한다.
 	// save() 메소드도 중요한데, 이는 save() 메소드 하나로 엔티티 등록과 수정작업을 모두 처리하기 때문이다.
 	// save() 메소드는 인자로 전달된 엔티티에 식별자 값이 설정되어 있으면 수정 기능으로, 반대인 경우에는 등록 기능으로 동작한다.
+	
+	// JPA를 이용하여 목록 기능을 구현할 때는 일반적으로 자바 퍼시스턴트 쿼리 언어(Java Persistence Query Language, JPQL)를 사용한다.
+	// JPQL은 SQL과 비슷하지만 JPA 전용의 쿼리 언어로서 검색 대상이 테이블이 아닌 엔티티 객체라는 점에서 일반적인 SQL과 다르다.
+	// 다음은 특정 회원의 아이디로 상세 조회를 처리하는 쿼리를 일반적인 SQL과 JPQL로 나타낸 것이다.
+	// SQL
+	// SELECT ID, USERNAME, PASSWORD, EMAIL FROM USER WHERE USERNAME = ? ORDER BY ID DESC;
+	// JPQL
+	// SELECT u.ID, u.USERNAME, u.PASSWORD, u.EMAIL FROM USER u WHERE u.USERNAME = ? ORDER BY u.ID DESC;
+	// JPQL의 문법과 구조는 기존의 SQL과 비슷하다.
+	// 스프링에서는 이러한 JPQL을 좀 더 쉽게 사용할 수 있도록, 메소드명을 기반으로 JQPL을 생성하는 쿼리 메소드를 제공한다.
+	// 쿼리메소드: find + 엔티티명 + By + 변수명
+	// 예를 들어 findUserByUsername(String searchKeyword)는 User엔티티로 생성된 객체 중에서 username 변수의 값이
+	// searchKeyword와 동일한 객체만 조회한다.
+	// 이때 엔티티명 부분은 생략할 수 있다. 따라서 findUserByUsername() 메소드와 findByUsername() 메소드는 같은
+	// JPQL을 생성한다. 이 경우 선언된 제네릭 타입이 자동으로 리포지터리 인터페이스에 적용된다.
+	// SELECT * FROM USER WHERE USERNAME = ?;
+	Optional<User> findByUsername(String username);
 	
 }

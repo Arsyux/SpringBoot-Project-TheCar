@@ -1,47 +1,58 @@
 package com.arsyux.thecar.controller;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.arsyux.thecar.domain.RoleType;
 import com.arsyux.thecar.domain.User;
-import com.arsyux.thecar.exception.TheCarException;
-import com.arsyux.thecar.persistence.UserRepository;
+import com.arsyux.thecar.dto.ResponseDTO;
+import com.arsyux.thecar.service.UserService;
 
 // 비즈니스 컴포넌트가 사용자 요청을 처리하는 과정에서 데이터베이스 연동이 필요할 때, 리포지터리가 서비스 객체에 의해서 사용된다.
 @Controller
 public class UserController {
 	
+	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
+	
+	@GetMapping("/auth/insertUser")
+	public String insertUser() {
+		return "user/insertUser";
+	}
+	
+	// insertUser 메소드의 반환타입이 ResponseDTO<String>이 아닌 ResponseDTO<?>인 이유는
+	// 어떤 타입의 데이터가 반환될지 특정할 수 없기 때문이다.
+	// 지금은 회원 가입 성공에 해당하는 문자열을 저장하여 반환하면 되지만, 경우에 따라서 자바 객체나 컬렉션을 반환해야 할 수도 있다.
+	@PostMapping("/auth/insertUser")
+	public @ResponseBody ResponseDTO<?> insertUser(@RequestBody User user) {
+		userService.insertUser(user);
+		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 회원가입 성공!");
+	}
+
+	//@Autowired
+	//private UserRepository userRepository;
+	
 	// 삽입기능
 	// REST 컨트롤러를 구현할 때는 등록 기능의 메소드에 @PostMapping 어노테이션을 설정한다.
 	// insertUser() 메소드는 JSON으로 전달된 회원 정보를 User 객체로 받기 위해 User 타입의 매개변수를 가진다.
+	/*
 	@PostMapping("/user")
 	public @ResponseBody String insertUser(@RequestBody User user) {
 		user.setRole(RoleType.USER);
 		userRepository.save(user);
 		return user.getUsername() + "회원가입 성공";
 	}
+	*/
 
 	// 조회기능
 	// REST 컨트롤러를 구현할 때, 조회 기능의 메소드에는 @GetMapping을 설정한다.
+	/*
 	@GetMapping("/user/get/{id}")
 	public @ResponseBody User getUser(@PathVariable int id) {
 		// getUser()메소드는 요청 URL에 포함된 id 정보를 매개변수인 id에 할당하기 위해 @PathVariable을 사용한다.
@@ -65,12 +76,14 @@ public class UserController {
 		});
 		return findUser;
 	}
-
+	*/
+	
 	// 수정기능
 	// REST 컨트롤러를 구현할 때 수정 기능의 메소드에는 @PutMapping 어노테이션을 사용한다.
 	// @JPA는 수정 작업을 처리할 때 테이블의 모든 컬럼을 수정하는 UPDATE 구문을 사용한다.
 	// 이렇게 모든 컬럼 수정 원칙을 적용하면 하나의 UPDATE로 다양한 수정을 처리할 수 있기 때문에 효율적이다.
 	// 수정 기능을 구현할 때 save() 메소드를 호출하지않고 @Transactional 어노테이션을 적용해도 결과는 같다.
+	/*
 	@Transactional
 	@PutMapping("/user")
 	public @ResponseBody String updateUser(@RequestBody User user) {
@@ -87,22 +100,27 @@ public class UserController {
 		// userRepository.save(findUser);
 		return "회원 정보 수정 성공";
 	}
-
+	*/
+	
 	// 삭제기능
 	// REST 컨트롤러를 구현할 때, 삭제 기능의 메소드에는 @DeleteMapping을 설정한다.
 	// 요청 URL에 포함된 id 정보를 추출하기 위해 @PathVariable 어노테이션을 사용한다.
+	/*
 	@DeleteMapping("/user/{id}")
 	public @ResponseBody String deleteUser(@PathVariable int id) {
 		userRepository.deleteById(id);
 		return id + "번 회원이 삭제되었습니다.";
 	}
-
+	*/
+	
 	// 회원 목록
+	/*
 	@GetMapping("/user/list")
 	public @ResponseBody List<User> getUserList() {
 		return userRepository.findAll();
 	}
-
+	*/
+	
 	// 페이징 처리1
 	// 스프링에서는 페이징 기능을 쉽게 처리할 수 있도록 Page, Pageable, PageRequest 같은 API를 제공한다.
 	/*
@@ -122,16 +140,12 @@ public class UserController {
 	
 	// 페이징처리2
 	// @PageableDefault를 이용하면 PageRequest를 사용하는 것보다 쉽게 Pageable 객체를 생성할 수 있다.
+	/*
 	@GetMapping("/user/page")
 	public @ResponseBody Page<User> getUserListPaging(@PageableDefault(page = 0, size = 2, 
 	direction = Sort.Direction.DESC, sort = {"id", "username"}) Pageable pageable) {
 		return userRepository.findAll(pageable);
 	}
-
-	
-	@GetMapping("/auth/insertUser")
-	public String insertUser() {
-		return "user/insertUser";
-	}
+	*/
 	
 }
