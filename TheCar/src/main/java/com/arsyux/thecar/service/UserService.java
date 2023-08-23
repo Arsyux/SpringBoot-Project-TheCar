@@ -1,9 +1,9 @@
 package com.arsyux.thecar.service;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.arsyux.thecar.domain.RoleType;
 import com.arsyux.thecar.domain.User;
@@ -26,6 +26,21 @@ public class UserService {
 	public void insertUser(User user) {
 		user.setRole(RoleType.USER);
 		userRepository.save(user);
+	}
+	
+	// INSERT, UPDATE, DELETE 기능은 트랙잭션과 관련된 데이터 조작 언어(Data Manipulation Language, DML) 작업이기 때문에
+	// 비즈니스 메소드에 @Transactional을 설정해야한다. 반면, 검색 기능의 메소드는 트랜잭션과 무관하기 때문에 @Transactional 설정이 필요없다.
+	// 하지만 getUser()메소드에는 SELECT 기능을 구현하였으므로 @Transactional(readOnly = true)를 설정하여 메소드가 종료될 때까지
+	// 데이터 정합성을 유지하도록 한다.
+	@Transactional(readOnly = true)
+	public User getUser(String username) {
+		// getUser()메소드는 UserRepository 객체를 이용하여 회원 정보(User 엔티티)를 검색 후 반환한다.
+		// 회원 정보 검색 결과가 없을 때는 널(null)이 아닌 아무런 값도 설정되지 않은 빈 User 객체를 반환하도록 한다.
+		User findUser = userRepository.findByUsername(username).orElseGet(() -> {
+			return new User();
+		});
+		
+		return findUser;
 	}
 	
 }

@@ -31,8 +31,13 @@ public class UserController {
 	// 지금은 회원 가입 성공에 해당하는 문자열을 저장하여 반환하면 되지만, 경우에 따라서 자바 객체나 컬렉션을 반환해야 할 수도 있다.
 	@PostMapping("/auth/insertUser")
 	public @ResponseBody ResponseDTO<?> insertUser(@RequestBody User user) {
-		userService.insertUser(user);
-		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 회원가입 성공!");
+		User findUser = userService.getUser(user.getUsername());
+		if(findUser.getUsername() == null) {
+			userService.insertUser(user);
+			return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 회원가입 성공!");			
+		} else {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUsername() + "님은 이미 회원가입 되어있습니다.");	
+		}
 	}
 
 	//@Autowired
