@@ -23,6 +23,9 @@ public class UserController {
 	
 	@GetMapping("/auth/insertUser")
 	public String insertUser() {
+		// 시스템을 사용하는 중에 발생한 예외 역시 ResponseDTO로 처리할 수 있다.
+		// 에러 테스트
+		//System.out.println(9/0);
 		return "user/insertUser";
 	}
 	
