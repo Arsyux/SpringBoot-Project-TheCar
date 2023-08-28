@@ -12,6 +12,11 @@
 <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <!-- 제이쿼리 -->
 <script src="/webjars/jquery/3.6.0/dist/jquery.min.js"></script>
+<!-- 서머노트 -->
+<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+<!-- 아이콘 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 </head>
 <body>
 	<!--
