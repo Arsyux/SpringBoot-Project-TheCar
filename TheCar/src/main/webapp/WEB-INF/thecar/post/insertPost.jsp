@@ -18,8 +18,8 @@
 	
 </div>
 
-<!-- 서머노트 적용 -->
 <script>
+<!-- 서머노트 적용 -->
 $(document).ready(function () {
 	// <textarea> 태그의 id가 content
 	$("#content").summernote({
