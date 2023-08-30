@@ -27,7 +27,6 @@ let postObject = {
 			location = "/";
 		}).fail(function(error) {
 			let message = error["data"];
-			alert(message)
 			alert("에러 발생 : " + message);
 		});
 	},

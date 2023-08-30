@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,10 @@ public class PostController {
 	
 	// 기본 화면 설정
 	@GetMapping({ "", "/" })
-	public String getPostList() {
+	public String getPostList(Model model) {
+		// getPostList() 메소드에서 검색된 포스트 목록을 "postList"라는 이름으로 Model에 등록한다.
+		// 이렇게 Model에 등록한 포스트 목록은 index.jsp 파일에서 표현식 언어(Expression Language, EL)을 통해 사용할 수 있다.
+		model.addAttribute("postList", postService.getPostList());
 		return "index";
 	}
 
@@ -44,5 +48,5 @@ public class PostController {
 		postService.insertPost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
 	}
-
+	
 }
