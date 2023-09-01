@@ -18,7 +18,7 @@ let postObject = {
 		
 		$.ajax({
 			type: "POST",
-			url: "/auth/insertPost",
+			url: "/post/insertPost",
 			data: JSON.stringify(post),
 			contentType: "application/json; charset=utf-8"
 		}).done(function(response) {
