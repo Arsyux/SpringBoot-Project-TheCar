@@ -9,9 +9,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -62,7 +64,7 @@ public class PostController {
 		
 		postService.insertPost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
-	}
+	}	
 	
 	// getPost() 메소드는 @PathVariable을 이용하여 조회할 포스트의 id 정보를 획득한다.
 	// 그리고 PostService 클래스의 getPost()메소드를 호출하여 Post엔티티를 검색하고, 검색 결과를 Model에 등록한다.
@@ -70,6 +72,28 @@ public class PostController {
 	public String getPost(@PathVariable int id, Model model) {
 		model.addAttribute("post", postService.getPost(id));
 		return "post/getPost";
+	}
+	
+	@GetMapping("/post/updatePost/{id}")
+	public String updatePost(@PathVariable int id, Model model) {
+		model.addAttribute("post", postService.getPost(id));
+		return "post/updatePost";
+	}
+	
+	// Rest컨트롤러에서 수정 기능은 PUT방식으로 처리하기 때문에 @PutMapping 어노테이션을 사용한다.
+	// 그 후 PostService 클래스의 updatePost() 메소드를 호출하여 포스트 수정을 처리한다.
+	@PutMapping("/post")
+	public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
+		postService.updatePost(post);
+		return new ResponseDTO<>(HttpStatus.OK.value(), post.getId() + "번 포스트를 수정했습니다.");
+	}
+	
+	// Rest컨트롤러에서 삭제 기능은 DELETE 방식으로 처리하기 때문에 deletePost() 메소드에 @DeleteMapping을 설정한다.
+	// 그 후 PostService 클래스의 deletePost() 메소드를 호출하여 포스트 삭제를 처리한다.
+	@DeleteMapping("/post/{id}")
+	public @ResponseBody ResponseDTO<?> deletePost(@PathVariable int id) {
+		postService.deletePost(id);
+		return new ResponseDTO<>(HttpStatus.OK.value(), id + "번 포스트를 삭제했습니다.");
 	}
 	
 }
