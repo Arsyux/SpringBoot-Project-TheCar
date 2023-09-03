@@ -40,4 +40,11 @@ public class PostService {
 		return postRepository.findAll(pageable);
 	}
 	
+	// JpaRepository 인터페이스의 findById() 메소드를 사용하여 Post 엔티티에 대한 상세 조회 기능을 처리한다.
+	// 검색 기능인 getPost() 메소드도 getPostList()메소드와 마찬가지로 트랜잭션을 읽기전용(readOnly = true)으로 설정한다.
+	@Transactional(readOnly = true)
+	public Post getPost(int id) {
+		return postRepository.findById(id).get();
+	}
+	
 }

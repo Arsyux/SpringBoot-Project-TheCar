@@ -8,23 +8,19 @@
 		<div class="card">
 		<c:forEach var="post" items="${ postList.content }">
 			<div class="card-body">
+				<h4 class="card-title">ID: ${ post.id }</h4>
 				<h4 class="card-title">${ post.title }</h4>
-				<h4 class="card-content">id: ${ post.id }</h4>
-				<a href="#" class="btn btn-secondary card-link">상세보기</a>
+				<a href="/post/${ post.id }" class="btn btn-secondary card-link">상세보기</a>
 			</div>
 		</c:forEach>
 		</div>
 		
 		<br>
+		
+		<!-- 페이지네이션 -->
 		<!-- 시작 페이지의 정수형 연산을 위해 fmt 사용 -->
 		<fmt:parseNumber integerOnly="true" var="startPage" value="${ (postList.number / 5) }"></fmt:parseNumber>
 		<fmt:parseNumber integerOnly="true" var="startPageNumber" value="${ startPage * 5 + 1 }"></fmt:parseNumber>
-		<!--
-			<p>${ postList.totalPages }</p>
-			<p>${ startPageNumber }</p>
-		-->
-		
-		<!-- 페이지네이션 -->
 		<ul class="pagination justify-content-center">
 			<!-- 이전 페이지로 이동 -->
 			<c:if test="${ postList.number > 4 }">
