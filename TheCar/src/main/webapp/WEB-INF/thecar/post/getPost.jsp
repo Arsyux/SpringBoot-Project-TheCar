@@ -28,6 +28,27 @@
 	</c:if>
 	
 	<br><br>
+	
+	<!-- 댓글을 등록할 때 포스트 번호를 hidden으로 전달하여 해당 댓글을 어느 포스트에 등록할지 지정한다. -->
+	<div class="container mt-3">
+		<input type="hidden" id="postId" value="${ post.id }">
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th><h4>댓글 목록</h4></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr align="right">
+				<td>
+					<textarea id="reply-content" rows="1" class="form-control"></textarea>
+					<button id="btn-save-reply" class="btn btn-secondary">댓글 등록</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
 </div>
 
 <script src="/js/post.js"></script>
