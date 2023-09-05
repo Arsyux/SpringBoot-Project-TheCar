@@ -1,6 +1,7 @@
 package com.arsyux.thecar.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -68,5 +71,9 @@ public class Post {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userid")
 	private User user;
+	
+	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+	@OrderBy("id desc")
+	private List<Reply> replyList;
 	
 }

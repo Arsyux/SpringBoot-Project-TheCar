@@ -52,5 +52,6 @@
 </div>
 
 <script src="/js/post.js"></script>
+<script src="/js/reply.js"></script>
 
 <%@ include file="../layout/footer.jsp" %>
