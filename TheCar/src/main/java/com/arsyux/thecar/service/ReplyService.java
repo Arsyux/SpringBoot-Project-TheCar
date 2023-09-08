@@ -21,6 +21,8 @@ public class ReplyService {
 	@Autowired
 	private ReplyRepository replyRepository;
 	
+	// Post id를 사용하여 해당하는 Post를 찾고,
+	// 댓글을 쓴 유저정보를 입력해준다. 
 	@Transactional
 	public void insertReply(int postId, Reply reply, User user) {
 		Post post = postRepository.findById(postId).get();
