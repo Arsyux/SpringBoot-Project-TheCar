@@ -39,6 +39,12 @@
 					</tr>
 				</thead>
 				<tbody>
+					<!--
+						댓글 목록 화면을 구성하기 위해서는 JSP파일이 실행되기 바로 직전에 JSP파일에서
+						사용할 데이터가 Model에 등록되어 있어야 한다. 이는 컨트롤러에서 진행되어야 할 부분인데,
+						ReplyController 클래스와 PostController 클래스 어디에도 댓글 목록을 조회하는 메소드를 제공하지 않는다.
+						그럼에도 댓글 목록을 출력할 수 있는 이유는 앞에서 Reply와 Post를 양방향으로 매핑했기 때문이다.
+					-->
 					<c:forEach var="reply" items="${ post.replyList }">
 						<tr>
 							<td>${ reply.content }</td>
