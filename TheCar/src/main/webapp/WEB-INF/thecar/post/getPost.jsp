@@ -28,7 +28,28 @@
 	</c:if>
 	
 	<br><br>
-	
+	<c:if test="${! empty post.replyList }">
+		<div class="container mt-3">
+			<table>
+				<thead>
+					<tr>
+						<th width="80%">내용</th>
+						<th width="10%">작성자</th>
+						<th width="10%">삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="reply" items="${ post.replyList }">
+						<tr>
+							<td>${ reply.content }</td>
+							<td>${ reply.user.username }</td>
+							<td><button>삭제</button></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</c:if>
 	<!-- 댓글을 등록할 때 포스트 번호를 hidden으로 전달하여 해당 댓글을 어느 포스트에 등록할지 지정한다. -->
 	<div class="container mt-3">
 		<input type="hidden" id="postId" value="${ post.id }">
