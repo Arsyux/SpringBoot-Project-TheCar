@@ -29,4 +29,9 @@ public class ReplyService {
 		replyRepository.save(reply);
 	}
 	
+	// JpaRepository 객체의 deleteById() 메소드를 이용하여 Reply 객체를 삭제한다.
+	@Transactional
+	public void deleteReply(int replyId) {
+		replyRepository.deleteById(replyId);
+	}
 }

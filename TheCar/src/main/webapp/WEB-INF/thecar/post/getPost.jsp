@@ -35,7 +35,9 @@
 					<tr>
 						<th width="80%">내용</th>
 						<th width="10%">작성자</th>
-						<th width="10%">삭제</th>
+						<c:if test="${ reply.user.username != null && reply.user.username == principal.username }">
+							<th width="10%">삭제</th>
+						</c:if>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,7 +51,13 @@
 						<tr>
 							<td>${ reply.content }</td>
 							<td>${ reply.user.username }</td>
-							<td><button>삭제</button></td>
+							<!-- 
+								Reply 객체에 매핑된 User 엔티티의 username과 세션에 등록된 User 엔티티의 username이 같은지 비교한 후
+								같은 경우에만 <삭제>버튼이 보이도록 설정한다.
+							-->
+							<c:if test="${ reply.user.username != null && reply.user.username == principal.username }">
+								<td><button onclick="replyObject.deleteReply(${ post.id }, ${ reply.id })">삭제</button></td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>
