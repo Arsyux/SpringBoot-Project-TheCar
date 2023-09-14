@@ -3,6 +3,7 @@ package com.arsyux.thecar.domain;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -75,7 +76,11 @@ public class Post {
 	// Post와 Reply를 1:N (일 대 다) 관계로 매핑하기 위해 replyList 변수에 @OneToMany을 설정한다.
 	// 하나의 Post를 조회할 때 연관된 Reply 엔티티 목록이 같이 조회되도록 fetch 속성을 FetchType.EAGER로 설정했기 때문에,
 	// 연관된 댓글 목록이 JOIN 쿼리로 같이 조회될 것이다.
-	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+	//
+	// CASCADE 설정
+	// JPA에서 특정 엔티티에 대한 등록, 수정, 삭제가 발생할 때 연관된 엔티티도 같이 등록, 수정, 삭제되도록 설정할 수 있다.
+	// 다음 설정을 통해 Reply가 모두 삭제된 후 Post가 마지막으로 제거되게 된다.
+	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@OrderBy("id desc")
 	private List<Reply> replyList;
 	
