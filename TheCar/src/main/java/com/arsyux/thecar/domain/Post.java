@@ -79,7 +79,7 @@ public class Post {
 	//
 	// CASCADE 설정
 	// JPA에서 특정 엔티티에 대한 등록, 수정, 삭제가 발생할 때 연관된 엔티티도 같이 등록, 수정, 삭제되도록 설정할 수 있다.
-	// 다음 설정을 통해 Reply가 모두 삭제된 후 Post가 마지막으로 제거되게 된다.
+	// cascade 설정을 통해 Reply가 모두 삭제된 후 Post가 마지막으로 제거되게 된다.
 	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@OrderBy("id desc")
 	private List<Reply> replyList;
