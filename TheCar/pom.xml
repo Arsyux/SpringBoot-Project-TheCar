@@ -124,6 +124,17 @@
 			<version>0.8.10</version>
 		</dependency>
 		
+		<!--
+			validation 스타터
+			회원 가입 화면이나 포스트 등록 화면에서 사용자가 아무런 값도 입력 하지 않고 등록 버튼을 클릭하면
+			USERS 테이블이나 POST 테이블에는 빈 문자열("")이 저장된다.
+			이러한 문제를 해결하기 위해 유효성 검사 라이브러리를 추가한다.
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
