@@ -49,7 +49,7 @@ public class Post {
 	@CreationTimestamp
 	private Timestamp createDate;
 	
-	// 어디에 사용하는지 조사후 추후 삭제필요
+	// 조회수
 	private int cnt;
 	
 	// Post 클래스에서 가장 중요한 변수는 user이며 User 엔티티와의 연관 매핑을 담당한다.
