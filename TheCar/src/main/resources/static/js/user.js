@@ -40,9 +40,26 @@ let userObject = {
 			// 응답으로 들어온 JSON 데이터를 response로 받는다.
 		}).done(function(response) {
 			// 응답 메시지를 콘솔에 출력하고 메인 페이지로 이동
-			console.log(response);
-			location = "/";
+			//console.log(response);
+			//location = "/";
 			// 에러 발생 시 error로 에러 정보를 받는다.
+			
+			// 유효성 검사 결과는 브라우저를 통해 사용자에게 전달되어야한다.
+			// 응답 상태코드가 200이 아닐 때 문제가 있는 상태로 분류하고 alert() 함수를 통해 에러 메시지를 브라우저에 출력한다.
+			// 따라서 회원가입 화면에서 유효성 검사 기능을 확인할 수 있다.
+			let status = response["status"];
+			if(status == 200) {
+				let message = response["data"];
+				alert(message);
+				location = "/";	
+			} else {
+				let warn = "";
+				let errors = response["data"];
+				if(errors.username != null) { warn = warn + errors.username + "\n" }
+				if(errors.password != null) { warn = warn + errors.password + "\n" }
+				if(errors.email != null) { warn = warn + errors.email }
+				alert(warn);
+			}
 		}).fail(function(error) {
 			// 에러 메시지를 알림창에 출력
 			alert("에러 발생 : " + error);

@@ -1,11 +1,19 @@
 package com.arsyux.thecar.config;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class TheCarMvcConfiguration implements WebMvcConfigurer {
+	
+	// 스프링 컨테이너가 ModelMapper를 생성할 수 있도록 @Bean 어노테이션으로 메소드를 등록한다.
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {

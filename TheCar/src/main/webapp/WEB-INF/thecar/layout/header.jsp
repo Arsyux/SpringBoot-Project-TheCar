@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- 정수의 몫을 구하기 위해 라이브러리 추가 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!-- JSP에서 다국어 메시지를 출력하기 위해 스프링에서 제공하는 태그 라이브러리를 선언한다. -->
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <!DOCTYPE html>
 <html>
 <head>

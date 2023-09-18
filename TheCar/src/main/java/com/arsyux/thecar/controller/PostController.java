@@ -1,7 +1,9 @@
 package com.arsyux.thecar.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -9,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.Post;
 import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.dto.PostDTO;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.service.PostService;
 
@@ -27,6 +31,9 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	// 기본 화면 설정
 	/*
@@ -54,7 +61,23 @@ public class PostController {
 	}
 
 	@PostMapping("/post/insertPost")
-	public @ResponseBody ResponseDTO<?> insertPost(@RequestBody Post post, HttpSession session) {
+	public @ResponseBody ResponseDTO<?> insertPost(@Valid @RequestBody PostDTO postDTO, BindingResult bindingResult, HttpSession session) {
+		
+		// ValidationCheckAdvice 클래스를 사용하여 통합
+		//
+		// PostDTO 객체에 대한 유효성 검사
+		//if (bindingResult.hasErrors()) {
+		//  // 에러가 하나라도 있다면 에러 메시지를 Map에 등록
+		//	Map<String, String> errorMap = new HashMap<>();
+		//	for(FieldError error : bindingResult.getFieldErrors()) {
+		//		errorMap.put(error.getField(), error.getDefaultMessage());
+		//	}
+		//	return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
+		//}
+		
+		// PostDTO -> Post 객체로 변환
+		Post post = modelMapper.map(postDTO, Post.class);
+		
 		// Post 객체를 영속화 하기 전 연관된 User 엔티티 설정
 		User principal = (User) session.getAttribute("principal");
 		// 새로운 포스트를 등록하기 위해서는 세션에 등록된 사용자(User) 정보를 꺼내서 Post 엔티티에 설정해야 한다.
@@ -64,7 +87,7 @@ public class PostController {
 		
 		postService.insertPost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
-	}	
+	}
 	
 	// getPost() 메소드는 @PathVariable을 이용하여 조회할 포스트의 id 정보를 획득한다.
 	// 그리고 PostService 클래스의 getPost()메소드를 호출하여 Post엔티티를 검색하고, 검색 결과를 Model에 등록한다.
