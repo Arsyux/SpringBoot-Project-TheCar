@@ -168,6 +168,16 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!--
+			JSP 스프링 시큐리티 라이브러리
+			스프링 시큐리티는 인증에 성공한 사용자의 정보를 자동으로 세션에 등록한다.
+			이렇게 세션에 등록된 사용자 정보를 JSP 파일에서 사용하기 위해서는 시큐리티가 제공하는 커스텀 태그를 사용해야한다.
+		-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -28,6 +28,12 @@ public class UserController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	// 로그인 창으로 이동
+	@GetMapping("/auth/login")
+	public String login() {
+		return "system/login";
+	}
+	
 	@GetMapping("/auth/insertUser")
 	public String insertUser() {
 		// 시스템을 사용하는 중에 발생한 예외 역시 ResponseDTO로 처리할 수 있다.

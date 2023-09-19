@@ -5,6 +5,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!-- JSP에서 다국어 메시지를 출력하기 위해 스프링에서 제공하는 태그 라이브러리를 선언한다. -->
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<!-- 시큐리티가 제공하는 커스텀 라이브러리에 대한 태그 라이브러리 설정 -->
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
+<!-- 로그인 인증에 성공한 브라우저만 접근할 수 있는 영역 -->
+<sec:authorize access="isAuthenticated()">
+	<!--
+		principal은 로그인을 성공한 사용자(User) 객체에 접근할 수 있는 변수이다.
+		스프링 시큐리티에서 제공하는 sec:authorize 태그를 사용하여 인증에 성공했을 때 principal이라는 변수에
+		사용자 정보가 저장된 principal 객체가 할당되도록 한다.
+		이를 통해 principal 변수에 할당된 사용자 정보를 화면에 출력할 수 있으며 principal 객체의 존재 여부를 기준으로 메뉴 구성을 다르게 나타낼 수도 있다.
+	-->
+	<sec:authentication var="principal" property="principal"/>
+</sec:authorize>
 
 <!DOCTYPE html>
 <html>
@@ -46,7 +59,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<c:choose>
-					<c:when test="${sessionScope.principal == null}">
+					<c:when test="${principal == null}">
 						<ul class="navbar-nav me-auto">
 							<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
 							<li class="nav-item"><a class="nav-link" href="/auth/insertUser">회원가입</a></li>
