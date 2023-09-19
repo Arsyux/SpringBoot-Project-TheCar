@@ -39,13 +39,16 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int id;
 	
+	// 제목
 	@Column(nullable = false, length = 100)
 	private String title;
 	
+	// 내용
 	@Lob
 	@Column(nullable = false)
 	private String content;
 	
+	// 작성 날짜
 	@CreationTimestamp
 	private Timestamp createDate;
 	
@@ -71,7 +74,7 @@ public class Post {
 	// 이때, @JoinColumn의 name 속성을 사용한다.
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userid")
-	private User user;
+	private User user; // 작성한 유저
 	
 	// Post와 Reply를 1:N (일 대 다) 관계로 매핑하기 위해 replyList 변수에 @OneToMany을 설정한다.
 	// 하나의 Post를 조회할 때 연관된 Reply 엔티티 목록이 같이 조회되도록 fetch 속성을 FetchType.EAGER로 설정했기 때문에,
@@ -82,6 +85,6 @@ public class Post {
 	// cascade 설정을 통해 Reply가 모두 삭제된 후 Post가 마지막으로 제거되게 된다.
 	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@OrderBy("id desc")
-	private List<Reply> replyList;
+	private List<Reply> replyList; // 댓글 목록
 	
 }

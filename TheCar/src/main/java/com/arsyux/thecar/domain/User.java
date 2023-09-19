@@ -44,18 +44,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; // 회원 번호
 	
+	// 로그인 아이디
 	@Column(nullable = false, length = 50, unique = true)
-	private String username; // 로그인 아이디
+	private String username;
 	
+	// 비밀번호
 	@Column(length = 100)
-	private String password; // 비밀번호
+	private String password;
 	
+	// 이메일
 	@Column(nullable = false, length = 100)
-	private String email; // 이메일
+	private String email;
 	
+	// 회원 분류
 	@Enumerated(EnumType.STRING)
-	private RoleType role; // 회원 분류
+	private RoleType role;
 	
+	// 생성 날짜
 	@CreationTimestamp
-	private Timestamp createDate; // 생성 날짜
+	private Timestamp createDate;
 }

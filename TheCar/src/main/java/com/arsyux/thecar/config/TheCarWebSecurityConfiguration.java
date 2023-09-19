@@ -79,15 +79,4 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 		http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/");
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
