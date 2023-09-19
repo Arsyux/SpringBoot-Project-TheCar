@@ -1,5 +1,7 @@
 package com.arsyux.thecar.controller;
 
+//스프링 시큐리티 적용 작업
+/*
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,3 +55,4 @@ public class LoginController {
 	}
 
 }
+*/

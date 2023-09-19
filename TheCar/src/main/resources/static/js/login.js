@@ -1,3 +1,5 @@
+// 스프링 시큐리티 적용 작업
+/*
 // loginObject 선언
 let loginObject = {
 	
@@ -33,3 +35,4 @@ let loginObject = {
 
 // loginObject 객체의 init() 함수 호출
 loginObject.init();
+*/

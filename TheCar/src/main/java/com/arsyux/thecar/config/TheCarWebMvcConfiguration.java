@@ -28,7 +28,8 @@ public class TheCarWebMvcConfiguration implements WebMvcConfigurer {
 		// addPathPatterns를 통해 인증이 필요한 경로를 계속 추가할 수 있다.
 		
 		// 로그인 인증에 성공한 사용자에게만 포스트 상세 화면을 제공하기 위해 post가 포함된 모든 요청에 대해서도 동작하도록 수정한다.
-		registry.addInterceptor(new AuthenticateInterceptor()).addPathPatterns("/").addPathPatterns("/post/**");
+		// 스프링 시큐리티 적용 작업
+		//registry.addInterceptor(new AuthenticateInterceptor()).addPathPatterns("/").addPathPatterns("/post/**");
 		// 다국어 설정 적용
 		registry.addInterceptor(localeChangeInterceptor());
 	}

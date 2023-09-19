@@ -1,5 +1,7 @@
 package com.arsyux.thecar.config;
 
+//스프링 시큐리티 적용 작업
+/*
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +25,7 @@ public class AuthenticateInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception { 
 		// 세션에 회원 정보가 존재하는지 확인
-		HttpSession session = request.getSession();		
+		HttpSession session = request.getSession();
 		User principal = (User) session.getAttribute("principal");
 		
 		if(principal == null) {
@@ -34,3 +36,4 @@ public class AuthenticateInterceptor implements HandlerInterceptor {
 	}
 	
 }
+*/
