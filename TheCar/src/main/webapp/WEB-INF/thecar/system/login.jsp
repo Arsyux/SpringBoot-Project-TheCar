@@ -5,6 +5,10 @@
 <div class="container mt-3">
 	<form>
 		<div class="mb-3">
+			<!--
+				JSP 파일에서 다국어를 출력할 때는 spring:message 태그를 사용하며
+				code 속성의 속성값으로 메시지 파일에 등록된 메시지의 키를 등록한다.
+			-->
 			<label for="uname"><spring:message code="user.login.form.username"/>:</label>
 			<input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
 		</div>
