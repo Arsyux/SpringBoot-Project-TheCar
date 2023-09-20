@@ -1,5 +1,6 @@
 package com.arsyux.thecar.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -29,48 +30,77 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDetailsImpl implements UserDetails {
-
+	
+	// UserDetailsImpl 클래스에서 UserDetails 인터페이스를 구현했으므로 UserDetails의 추상 메소드를 모두 오버라이딩한다.
+	// 이때 생성자 매개변수로 받은 User 객체의 설정값을 적절히 이용하여 오버라이딩된 메소드들을 구현한다.
+	
 	private static final long serialVersionUID = 1L;
 	
-	
+	// USERS 테이블과 매핑된 엔티티
 	private User user;
 	
-	public UserDetailsImpl() {
+	public UserDetailsImpl(User user) {
+		this.user = user;
 	}
 	
 	@Override
 	public String getPassword() {
-		return null;
+		// noop: 암호화하지 않기 위한 설정
+		return "{noop}" + user.getPassword();
 	}
 	
 	@Override
 	public String getUsername() {
-		return null;
+		return user.getUsername();
 	}
 
+	// 계정이 만료되지 않았는지 반환
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return true;
 	}
 	
+	// 계정이 잠겨있는지 반환
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return true;
 	}
 	
+	// 비밀번호가 만료되지 않았는지 반환
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 
+	// 계정이 활성화되었는지 반환
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return true;
 	}
 	
+	// 계정이 가지고 있는 권한 목록 저장하여 반환
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		// 권한 목록
+		Collection<GrantedAuthority> roleList = new ArrayList<>();
+		// 권한 목록 설정
+		/*
+		roleList.add(new GrantedAuthority() {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String getAuthority() {
+				return "ROLE_" + user.getRole();
+			}
+			
+		});
+		*/
+		// 권한 목록 설정 - 람다식 사용
+		roleList.add(() -> {
+			return "ROLE_" + user.getRole();
+		});
+		return roleList;
 	}
 	
 }
