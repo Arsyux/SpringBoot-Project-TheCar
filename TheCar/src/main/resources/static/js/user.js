@@ -13,7 +13,11 @@ let userObject = {
 		// id 선택자인 #id를 통해 찾는다. class의 경우 .class를 사용
 		$("#btn-save").on("click", () => {
 			_this.insertUser();
-		})
+		});
+		
+		$("#btn-update").on("click", () => {
+			_this.updateUser();
+		});
 	},
 	
 	insertUser: function(){
@@ -63,6 +67,30 @@ let userObject = {
 		}).fail(function(error) {
 			// 에러 메시지를 알림창에 출력
 			alert("에러 발생 : " + error);
+		});
+	},
+	
+	updateUser: function(){
+		alert("회원 정보 수정 요청됨");
+		// 사용자가 입력한 값 추출
+		let user = {
+			username : $("#username").val(),
+			password : $("#password").val(),
+			email : $("#email").val()
+		}
+
+		$.ajax({
+			type: "PUT",
+			url: "/user",
+			data: JSON.stringify(user),
+			contentType: "application/json; charset=utf-8"
+		}).done(function(response) {
+			let message = response["data"];
+			alert(message);
+			location = "/";	
+		}).fail(function(error) {
+			let message = error["data"];
+			alert("에러 발생 : " + message);
 		});
 	},
 }

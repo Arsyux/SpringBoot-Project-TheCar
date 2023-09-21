@@ -1,6 +1,5 @@
 package com.arsyux.thecar.controller;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -9,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.Post;
-import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.PostDTO;
 import com.arsyux.thecar.dto.ResponseDTO;
+import com.arsyux.thecar.security.UserDetailsImpl;
 import com.arsyux.thecar.service.PostService;
 
 @Controller
@@ -60,9 +60,18 @@ public class PostController {
 		return "post/insertPost";
 	}
 
+	// 세션 갱신 - 연관 매핑 수정
+	// 회원 정보 수정과 관련하여 포스트 등록 기능과 댓글 등록 기능을 수정해야한다.
+	// 앞에서 새로운 Post 객체나 Reply 객체를 등록할 때 연관관계에 있는 User 엔티티를 설정했다.
+	// 그래야 외래키 컬럼에 USERS의 PK 값이 적절히 설정되기 때문이다.
+	// 지금까지는 User 엔티티를 세션(HttpSession)으로부터 직접 추출했으나
+	// 이제는 HttpSession에 저장된 SecurityContext에서 가져와야한다.
+	// => HttpSession대신 @AuthenticationPrincipal 어노테이션이 설정된 UserDetailsImpl 객체를 이용하도록 수정한다.
 	@PostMapping("/post/insertPost")
-	public @ResponseBody ResponseDTO<?> insertPost(@Valid @RequestBody PostDTO postDTO, BindingResult bindingResult, HttpSession session) {
-		
+	public @ResponseBody ResponseDTO<?> insertPost(@Valid @RequestBody PostDTO postDTO, BindingResult bindingResult, 
+			@AuthenticationPrincipal UserDetailsImpl principal) {
+	//public @ResponseBody ResponseDTO<?> insertPost(@Valid @RequestBody PostDTO postDTO, BindingResult bindingResult, HttpSession session) {
+				
 		// ValidationCheckAdvice 클래스를 사용하여 통합
 		//
 		// PostDTO 객체에 대한 유효성 검사
@@ -79,10 +88,12 @@ public class PostController {
 		Post post = modelMapper.map(postDTO, Post.class);
 		
 		// Post 객체를 영속화 하기 전 연관된 User 엔티티 설정
-		User principal = (User) session.getAttribute("principal");
+		//User principal = (User) session.getAttribute("principal");
+		post.setUser(principal.getUser());
+		
 		// 새로운 포스트를 등록하기 위해서는 세션에 등록된 사용자(User) 정보를 꺼내서 Post 엔티티에 설정해야 한다.
 		// 그리고 PostService의 insertPost() 메소드를 호출할 때, 인자로 전달하면 된다.
-		post.setUser(principal);
+		//post.setUser(principal);
 		post.setCnt(0);
 		
 		postService.insertPost(post);

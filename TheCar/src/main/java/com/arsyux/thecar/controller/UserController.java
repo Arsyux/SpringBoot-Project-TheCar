@@ -5,16 +5,19 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.dto.UserDTO;
+import com.arsyux.thecar.security.UserDetailsImpl;
 import com.arsyux.thecar.service.UserService;
 
 // 비즈니스 컴포넌트가 사용자 요청을 처리하는 과정에서 데이터베이스 연동이 필요할 때, 리포지터리가 서비스 객체에 의해서 사용된다.
@@ -79,7 +82,31 @@ public class UserController {
 		}
 		
 	}
+	
+	@GetMapping("/user/updateUser")
+	public String updateUser() {
+		return "user/updateUser";
+	}
+	
+	// 회원 정보를 수정하는 updateUser()메소드 작성
+	// DB의 회원정보는 수정되지만, 세션이 갱신되지 않아 화면에는 여전히 수정되기 전 회원 정보가 출력된다.
+	// 수정된 회원 정보를 회원 상세화면에 출력하기 위해서는 로그아웃을 하고 다시 로그인해야 한다.
+	@PutMapping("/user")
+	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user, @AuthenticationPrincipal UserDetailsImpl principal) {
 
+		//userService.updateUser(user);
+		
+		// 회원 정보 수정과 동시에 세션 갱신
+		principal.setUser(userService.updateUser(user));
+		
+		// 기존의 updateUser() 메소드는 회원 정보 수정만 처리했었다.
+		// 회원 정보 수정과 동시에 세션을 갱신해야하므로 updateUser()메소드에서 회원 정보를 수정하고 UserService.updateUser() 메소드가 반환한 User 객체로
+		// SecurityContext에 등록된 AUthentication 객체의 User를 변경하도록 한다.
+		
+		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + " 수정 완료");
+	}
+	
+	
 	//@Autowired
 	//private UserRepository userRepository;
 	
