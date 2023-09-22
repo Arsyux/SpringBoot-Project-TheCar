@@ -22,19 +22,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Bootstrap Example</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 부트스트랩 -->
-<link href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-<script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-<!-- 제이쿼리 -->
-<script src="/webjars/jquery/3.6.0/dist/jquery.min.js"></script>
-<!-- 서머노트 -->
-<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
-<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
-<!-- 아이콘 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<title>더카탁송 1599-5866</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 부트스트랩 -->
+	<link href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+	<script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+	<!-- 제이쿼리 -->
+	<script src="/webjars/jquery/3.6.0/dist/jquery.min.js"></script>
+	<!-- 서머노트 -->
+	<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+	<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+	<!-- 아이콘 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 </head>
 <body>
 	<!--
@@ -50,7 +50,7 @@
 		인덱스 페이지는 웹 애플리케이션을 이용하는 사용자가 처음으로 접하는 화면이다.
 		일반적으로 자바 기반의 웹 애플리케이션은 index.jsp파일을 이용하여 인덱스 페이지를 구성한다.
  	-->
-
+	<!--
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/">Main</a>
@@ -73,6 +73,32 @@
 						</ul>
 					</c:otherwise>
 				</c:choose>
+			</div>
+		</div>
+	</nav>
+	-->
+	<nav class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #111111;">
+		<div class="container-md">
+
+			<a class="navbar-brand me-5" href="/"><img class="rounded-pill" src="/image/main/logo.png" style="width: 100%; max-width: 230px;"></a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav" style="width: 100%;">
+					<li class="nav-item"><a class="nav-link" href="#">로드탁송</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">세이프티탁송</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">카캐리어탁송</a></li>
+					<c:if test="${ principal == null }">
+						<li class="nav-item"><a class="nav-link" href="#">탁송예약</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
+					</c:if>
+					<c:if test="${ principal != null }">
+						<li class="nav-item"><a class="nav-link" href="#">탁송예약</a></li>
+						<li class="nav-item"><a class="nav-link" href="/auth/logout">로그아웃</a></li>
+					</c:if>
+				</ul>
 			</div>
 		</div>
 	</nav>
