@@ -40,27 +40,54 @@ public class User {
 	// @GeneratedValue - 식별자 변수에 자동으로 증가된 값을 할당한다.
 	// YAML 파일에 설정한 Dialect 클래스에 따라 식별자 값 전략이 자동으로 결정된다.
 	// 예를 들어, OracleDialect는 시퀀스(sequence) 전략이 적용되고 H2Dialect는 아이덴티티(identity)전략이 적용된다.
+	
+	// 회원 번호 (PK)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id; // 회원 번호
+	private int id;
 	
 	// 로그인 아이디
 	@Column(nullable = false, length = 50, unique = true)
 	private String username;
 	
 	// 비밀번호
-	@Column(length = 100)
+	@Column(nullable = false, length = 100)
 	private String password;
+	
+	// 이름
+	@Column(nullable = false, length = 50)
+	private String name;
+	
+	// 성별
+	@Column(nullable = false, columnDefinition = "char(1) default 'M'")
+	private Character gender;
+	
+	// 생년월일
+	@Column(nullable = false)
+	private Timestamp birthDate;
+	
+	// 휴대폰 번호
+	@Column(nullable = false)
+	private String phone;
 	
 	// 이메일
 	@Column(nullable = false, length = 100)
 	private String email;
+	
+	// 주소
+	@Column(nullable = false, length = 200)
+	private String address;
+	
+	// 마일리지
+	@Column(nullable = false)
+	private int mileage;
 	
 	// 회원 분류
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
 	
 	// 생성 날짜
+	@Column(nullable = false)
 	@CreationTimestamp
 	private Timestamp createDate;
 }

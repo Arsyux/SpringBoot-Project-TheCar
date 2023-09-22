@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+@media ( max-width :768px) {
+	.nav-item {
+		width: 100%;
+	}
+}
+
+@media ( min-width :769px) {
+	.nav-item {
+		width: 20%;
+	}
+}
