@@ -51,59 +51,38 @@
 		일반적으로 자바 기반의 웹 애플리케이션은 index.jsp파일을 이용하여 인덱스 페이지를 구성한다.
  	-->
 	<!--
-	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="/">Main</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="mynavbar">
-				<c:choose>
-					<c:when test="${principal == null}">
-						<ul class="navbar-nav me-auto">
-							<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
-							<li class="nav-item"><a class="nav-link" href="/auth/insertUser">회원가입</a></li>
-						</ul>
-					</c:when>
-					<c:otherwise>
-						<ul class="navbar-nav me-auto">
-							<li class="nav-item"><a class="nav-link" href="/user/updateUser">회원 정보</a></li>
-							<li class="nav-item"><a class="nav-link" href="/post/insertPost">포스트 등록</a></li>
-							<li class="nav-item"><a class="nav-link" href="/auth/logout">로그아웃</a></li>
-						</ul>
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-	</nav>
+		<li class="nav-item"><a class="nav-link" href="/post/insertPost">포스트 등록</a></li>
 	-->
 	<nav class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #111111;">
 		<div class="container-md">
 
-			<a class="navbar-brand me-5" href="/"><img class="rounded-pill" src="/image/main/logo.png" style="width: 100%; max-width: 230px;"></a>
+			<a class="navbar-brand" href="/"><img class="rounded-pill" src="/image/main/logo.png" style="width: 100%; max-width: 230px;"></a>
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+			
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
-				<ul class="navbar-nav" style="width: 100%;">
-					<li class="nav-item"><a class="nav-link" href="#">로드탁송</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">세이프티탁송</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">카캐리어탁송</a></li>
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="#" style="color: #CCCCCC;">탁송 예약</a></li>
+					
+					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
+					
+					<li class="nav-item"><a class="nav-link" href="#">탁송 예약 확인</a></li>
+					
+					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
 					<c:choose>
 						<c:when test="${ principal == null }">
-							<li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
+						
+							<li class="nav-item"><a class="nav-link" href="/auth/login"><i class="bi bi-box-arrow-in-right"></i> 로그인</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/auth/logout">로그아웃</a></li>
+							<li class="nav-item"><a class="nav-link" href="/user/updateUser"><i class="bi bi-person"></i> 회원 정보</a></li>
+							<li class="nav-item"><a class="nav-link" href="/auth/logout"><i class="bi bi-box-arrow-in-left"></i> 로그아웃</a></li>
 						</c:otherwise>
 					</c:choose>
-					<!--
-					<li class="nav-item"><a class="nav-link" href="#">제주도차량탁송</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">박스카캐리어탁송</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">해외차량탁송</a></li>
-					-->
 				</ul>
 			</div>
+			
 		</div>
 	</nav>
