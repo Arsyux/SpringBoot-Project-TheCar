@@ -71,6 +71,8 @@
 					<li class="nav-item"><a class="nav-link" href="#">탁송 예약 확인</a></li>
 					
 					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
+					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
+					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
 					<c:choose>
 						<c:when test="${ principal == null }">
 						
