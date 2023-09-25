@@ -8,6 +8,15 @@ import org.springframework.stereotype.Repository;
 
 import com.arsyux.thecar.domain.User;
 
+// 마이바티스를 적용하기 위한 절차
+// 마이바티스 라이브러리 추가
+// 테이블 생성
+// 데이터 소스 설정
+// 도메인 클래스 작성
+// 매퍼(Mapper) 작성
+// 데이터 접근 객체(Data Access Object, DAO) 작성
+// DAO에 대한 테스트케이스 작성
+//
 // 비즈니스 컴포넌트의 실질적인 데이터베이스 연동은 DAO 클래스에서 담당한다.
 @Repository
 public class UserDAO {
