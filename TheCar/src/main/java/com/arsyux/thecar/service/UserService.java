@@ -32,6 +32,8 @@ public class UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		user.setRole(RoleType.USER);
+		user.setMileage(0);
+		
 		userRepository.save(user);
 	}
 	

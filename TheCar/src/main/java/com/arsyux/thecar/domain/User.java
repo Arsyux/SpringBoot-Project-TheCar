@@ -64,7 +64,7 @@ public class User {
 	
 	// 생년월일
 	@Column(nullable = false)
-	private Timestamp birthDate;
+	private String birthDate;
 	
 	// 휴대폰 번호
 	@Column(nullable = false)
@@ -87,7 +87,6 @@ public class User {
 	private RoleType role;
 	
 	// 생성 날짜
-	@Column(nullable = false)
 	@CreationTimestamp
 	private Timestamp createDate;
 }

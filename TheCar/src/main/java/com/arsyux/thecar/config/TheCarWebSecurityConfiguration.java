@@ -78,7 +78,7 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception {
 		// 인증 없이 접근을 허용하는 경로
 		// antMatcher() 메소드를 이용하여 특정 경로에 대한 접근은 인증 없이 모두 허용한다.
-		http.authorizeRequests().antMatchers("/webjars/**", "/js/**", "/image/**", "/", "/auth/**").permitAll();
+		http.authorizeRequests().antMatchers("/webjars/**", "/js/**", "/image/**", "/", "/auth/**", "/css/**").permitAll();
 		
 		// 나머지 경로는 인증이 필요하도록 설정한다.
 		// 이제 로그인 하지 않은 상태에서 인덱스 화면까지는 볼 수 있으나 <상세보기> 버튼을 클릭하면 403접근 에러가 발생한다.

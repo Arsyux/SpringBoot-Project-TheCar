@@ -24,9 +24,29 @@ public class UserDTO {
 	@Size(min = 1, max=20, message = "Password는 한 글자 이상 20자 미만으로 입력하세요.")
 	private String password;
 	
+	@NotNull(message = "이름이 전달되지 않았습니다.")
+	@NotBlank(message = "이름은 필수 입력 항목입니다.")
+	private String name;
+	
+	@NotNull(message = "성별이 전달되지 않았습니다.")
+	@NotBlank(message = "성별은 필수 입력 항목입니다.")
+	private String gender;
+	
+	@NotNull(message = "생년월일이 전달되지 않았습니다.")
+	@NotBlank(message = "생년월일은 필수 입력 항목입니다.")
+	private String birthDate;
+	
+	@NotNull(message = "휴대폰번호가 전달되지 않았습니다.")
+	@NotBlank(message = "휴대폰번호는 필수 입력 항목입니다.")
+	private String phone;
+	
 	@NotNull(message = "Email이 전달되지 않았습니다.")
 	@NotBlank(message = "Email은 필수 입력 항목입니다.")
 	@Email(message = "이메일 형식이 아닙니다.")
 	private String email;
-		
+	
+	@NotNull(message = "주소가 전달되지 않았습니다.")
+	@NotBlank(message = "주소는 필수 입력 항목입니다.")
+	private String address;
+	
 }

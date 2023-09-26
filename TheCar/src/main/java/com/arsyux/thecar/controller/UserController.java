@@ -72,6 +72,7 @@ public class UserController {
 		// UserSevice 객체의 insertUser() 메소드를 호출할 때는 인자로 UserDTO가 아닌 User 엔티티를 전달해야한다.
 		// 따라서 의존성을 주입한 ModelMapper를 이용하여 UserDTO에 설정된 데이터를 User 객체에 복사한다.
 		User user = modelMapper.map(userDTO, User.class);
+		
 		User findUser = userService.getUser(user.getUsername());
 		
 		if(findUser.getUsername() == null) {

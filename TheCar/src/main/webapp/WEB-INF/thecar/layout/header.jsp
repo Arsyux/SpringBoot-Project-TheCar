@@ -35,6 +35,9 @@
 	<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
 	<!-- 아이콘 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	
+	<!-- login.css -->
+	<link rel="stylesheet" type="text/css" href="/css/header.css">
 </head>
 <body>
 	<!--
@@ -66,21 +69,17 @@
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="#" style="color: #CCCCCC;">탁송 예약</a></li>
 					
-					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
 					
-					<li class="nav-item"><a class="nav-link" href="#">탁송 예약 확인</a></li>
+					<li class="nav-item"><a class="nav-link" href="#" style="color: #CCCCCC;">탁송 예약 확인</a></li>
 					
-					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
-					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
-					<li class="nav-item"><img src="/image/menu_v_line_s_cb.png"></li>
 					<c:choose>
 						<c:when test="${ principal == null }">
 						
-							<li class="nav-item"><a class="nav-link" href="/auth/login"><i class="bi bi-box-arrow-in-right"></i> 로그인</a></li>
+							<li class="nav-item"><a class="nav-link" href="/auth/login" style="color: #CCCCCC;"><i class="bi bi-box-arrow-in-right"></i> 로그인</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/user/updateUser"><i class="bi bi-person"></i> 회원 정보</a></li>
-							<li class="nav-item"><a class="nav-link" href="/auth/logout"><i class="bi bi-box-arrow-in-left"></i> 로그아웃</a></li>
+							<li class="nav-item"><a class="nav-link" href="/user/updateUser" style="color: #CCCCCC;"><i class="bi bi-person"></i> 회원 정보</a></li>
+							<li class="nav-item"><a class="nav-link" href="/auth/logout" style="color: #CCCCCC;"><i class="bi bi-box-arrow-in-left"></i> 로그아웃</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

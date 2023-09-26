@@ -22,14 +22,26 @@ let userObject = {
 	
 	insertUser: function(){
 		alert("회원가입 요청됨");
+		let genderVal;
+		if(document.getElementById("rdoMan").checked){
+			genderVal = 'M';
+		} else {
+			genderVal = 'W';
+		}
+		$("#gender").val();
 		// 사용자가 입력한 값 추출
 		let user = {
 			username : $("#username").val(),
 			password : $("#password").val(),
-			email : $("#email").val()
+			name : $("#name").val(),
+			gender : genderVal,
+			birthDate : $("#birthDate").val(),
+			phone : $("#phone").val(),
+			email : $("#email").val(),
+			address : $("#address").val()
 		}
 		// user객체의 값을 콘솔에 출력
-		//console.log(user);
+		console.log(user);
 		
 		// Ajax를 이용한 비동기 호출
 		// done(): 요청 처리에 성공했을 때 실행될 코드
