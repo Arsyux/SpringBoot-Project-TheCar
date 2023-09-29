@@ -12,4 +12,6 @@ public class ConsignmentController {
 		return "consignment/reservationConsignment";
 	}
 	
+	// 탁송 예약 PostMapping
+	
 }
