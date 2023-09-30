@@ -13,5 +13,7 @@ public class ConsignmentController {
 	}
 	
 	// 탁송 예약 PostMapping
+	//@PostMapping("/consignment/reservationConsignment")
+	
 	
 }
