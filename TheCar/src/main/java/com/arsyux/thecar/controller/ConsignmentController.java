@@ -30,7 +30,7 @@ public class ConsignmentController {
 	@PostMapping("/post/reservationConsignment")
 	public @ResponseBody ResponseDTO<?> reservationConsignment(@Valid @RequestBody PostDTO postDTO, BindingResult bindingResult, 
 			@AuthenticationPrincipal UserDetailsImpl principal) {
-		// PostDTO -> Post 객체로 변환
+		// ConsignmentDTO -> Consignment 객체로 변환
 		Post post = modelMapper.map(postDTO, Post.class);
 		
 		// Post 객체를 영속화 하기 전 연관된 User 엔티티 설정
