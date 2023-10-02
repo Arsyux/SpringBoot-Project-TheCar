@@ -33,10 +33,6 @@ public class ConsignmentController {
 		// ConsignmentDTO -> Consignment 객체로 변환
 		Post post = modelMapper.map(postDTO, Post.class);
 		
-		// Post 객체를 영속화 하기 전 연관된 User 엔티티 설정
-		//User principal = (User) session.getAttribute("principal");
-		post.setUser(principal.getUser());
-		
 		// 새로운 포스트를 등록하기 위해서는 세션에 등록된 사용자(User) 정보를 꺼내서 Post 엔티티에 설정해야 한다.
 		// 그리고 PostService의 insertPost() 메소드를 호출할 때, 인자로 전달하면 된다.
 		//post.setUser(principal);
