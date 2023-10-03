@@ -20,16 +20,17 @@ import com.arsyux.thecar.security.UserDetailsImpl;
 public class ConsignmentController {
 	
 	// 탁송 예약 GetMapping
-	@GetMapping("/consignment/reservationConsignment")
+	@GetMapping("/consignment/insertConsignment")
 	public String reservationConsignment() {
 		return "consignment/reservationConsignment";
 	}
 	
 	// 탁송 예약 PostMapping
 	//@PostMapping("/consignment/reservationConsignment")
-	@PostMapping("/post/reservationConsignment")
+	@PostMapping("/post/insertConsignment")
 	public @ResponseBody ResponseDTO<?> reservationConsignment(@Valid @RequestBody PostDTO postDTO, BindingResult bindingResult, 
 			@AuthenticationPrincipal UserDetailsImpl principal) {
+		
 		// ConsignmentDTO -> Consignment 객체로 변환
 		Post post = modelMapper.map(postDTO, Post.class);
 		
