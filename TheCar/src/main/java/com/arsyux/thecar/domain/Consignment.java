@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
+//@Entity
 public class Consignment {
 
 		@Id
@@ -44,10 +44,6 @@ public class Consignment {
 		@Column(nullable = false)
 		private String type;
 
-		// 예약일정
-		@
-		private Timestamp createDate;
-		
 		
 		@Column(nullable = false, length = 100)
 		private String title;

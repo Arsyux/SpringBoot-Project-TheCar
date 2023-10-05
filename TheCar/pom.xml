@@ -5,7 +5,6 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<!-- 교재와 버전을 맞추기위해 2.6.7 사용 -->
 		<version>2.6.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
@@ -19,13 +18,7 @@
 	</properties>
 	<dependencies>
 		
-		<!--
-			JPA 라이브러리
-			객체와 관계형 데이터베이스의 데이터를 자동으로 매핑해주는 ORM(Object Relational Mapping, 객체 관계 매핑)이
-			마이바티스 같은 데이터 매퍼와 궁극적으로 다른 점은 애플리케이션에서 사용하는 SQL까지 제공한다는 것이다.
-			따라서 ORM을 사용하면 직접 SQL을 관리하는데 사용했던 시간과 노력을 줄일 수 있다.
-			JPA는 JDBC같은 API에 불과하기 때문에 데이터베이스 연동을 처리할 때 운영 과정에서 구현체를 쉽게 교체할 수 있다.
-		-->
+		<!-- JPA 라이브러리 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -51,10 +44,7 @@
 			<optional>true</optional>
 		</dependency>
 		
-		<!-- 
-			h2 Database 라이브러리
-			메인 db작업 전에 테스트용으로 사용하기 좋아서 사용.
-		-->
+		<!-- h2 Database 라이브러리 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -74,14 +64,10 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!--
-			마이바티스(mybatis) 라이브러리
-			JPA에 대한 수요가 점점 늘어나고는 있지만, 여전히 상당수의 애플리케이션은 마이바티스를 기반으로 데이터베이스 연동을 처리하고 있다.
-		-->
+		<!-- 마이바티스(mybatis) 라이브러리 -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter-test</artifactId>
-			<!-- 교재와 버전을 맞추기위해 2.2.0 사용 -->
 			<version>2.2.0</version>
 			<scope>test</scope>
 		</dependency>

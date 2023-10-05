@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
+//@Entity
 public class Post {
 
 	// 비즈니스 컴포넌트를 작성하는 순서는 엔티티 -> 리포지터리 -> 서비스 순이다.

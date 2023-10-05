@@ -11,7 +11,7 @@
 - **Language** : Java 11
 - **IDE** : STS4
 - **Framework** : SpringBoot 2.6.7
-- **Database** : MariaDB
-- **ORM** : Mybatis
+- **Database** : MariaDB 10.6.12
+- **ORM** : Mybatis 2.2.0
 
 ## 📌주요 기능
