@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.domain.Users;
 
 @RestController
 public class RESTController {
@@ -25,8 +25,8 @@ public class RESTController {
 	
 	// 앞에서 작성한 User 객체를 반환값으로 사용할 수 있도록 httpGET() 메소드 수정
 	@GetMapping("/thecar")
-	public User httpGET() {
-		User findUser = User.builder()
+	public Users httpGET() {
+		Users findUser = Users.builder()
 				.id(1)
 				.username("arsyux")
 				.password("123")

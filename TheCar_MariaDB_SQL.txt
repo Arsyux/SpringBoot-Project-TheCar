@@ -1,0 +1,5 @@
+# 유저 테이블
+
+CREATE TABLE USERS (
+
+);

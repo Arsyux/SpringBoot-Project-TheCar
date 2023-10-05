@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.domain.Users;
 import com.arsyux.thecar.persistence.UserRepository;
 import com.arsyux.thecar.security.UserDetailsImpl;
 
@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	// 그리고 검색 결과를 바탕으로 앞서 작성한 UserDetailsImpl 객체를 생성하여 반환한다.
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User principal = userRepository.findByUsername(username).orElseThrow(()->{
+		Users principal = userRepository.findByUsername(username).orElseThrow(()->{
 			return new UsernameNotFoundException(username + " 사용자가 없습니다.");
 		});
 		return new UserDetailsImpl(principal);
