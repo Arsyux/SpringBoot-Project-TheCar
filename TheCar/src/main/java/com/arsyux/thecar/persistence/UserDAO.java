@@ -33,6 +33,12 @@ public class UserDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
+	// 회원 가입
+	public void insertUser(User user) {
+		mybatis.insert("insertUser", user);
+	}
+	
+	// 회원 1명 조회
 	public User getUser(User user) {
 		return mybatis.selectOne("getUser", user);
 	}
@@ -41,9 +47,7 @@ public class UserDAO {
 		return mybatis.selectList("getUserList");
 	}
 	
-	public void insertUser(User user) {
-		mybatis.insert("insertUser", user);
-	}
+	
 	
 	public void updateUser(User user) {
 		mybatis.update("updateUser", user);

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.arsyux.thecar.domain.User;
 //import com.arsyux.thecar.persistence.UserRepository;
+import com.arsyux.thecar.persistence.UserDAO;
 
 // 문법적으로는 컨트롤러가 리포지터리를 바로 호출해도 되지만, 일반적으로 컨트롤러는 서비스 클래스를 호출하고
 // 서비스 클래스에서 리포지터리를 사용한다.
@@ -17,34 +18,32 @@ import com.arsyux.thecar.domain.User;
 public class UserService {
 
 	@Autowired
+	private UserDAO userDAO;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	// @Transactional은 비즈니스 메소드에서 예외가 발생할 때 해당 메소드에 대한 트랜잭션을 ROLLBACK하고
-	// 정상 종료될 때는 트랜잭션을 자동으로 COMMIT한다.
 	@Transactional
 	public void insertUser(User user) {
 		// 비밀번호를 암호화하여 설정한다.
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
-		//user.setRole(RoleType.USER);
+		System.out.println("user => " + user);
 		
-		//userRepository.save(user);
+		userDAO.insertUser(user);
 	}
 	
-	// INSERT, UPDATE, DELETE 기능은 트랙잭션과 관련된 데이터 조작 언어(Data Manipulation Language, DML) 작업이기 때문에
-	// 비즈니스 메소드에 @Transactional을 설정해야한다. 반면, 검색 기능의 메소드는 트랜잭션과 무관하기 때문에 @Transactional 설정이 필요없다.
-	// 하지만 getUser()메소드에는 SELECT 기능을 구현하였으므로 @Transactional(readOnly = true)를 설정하여 메소드가 종료될 때까지
-	// 데이터 정합성을 유지하도록 한다.
 	@Transactional(readOnly = true)
-	public User getUser(String username) {
+	public User getUser(User user) {
 		// getUser()메소드는 UserRepository 객체를 이용하여 회원 정보(User 엔티티)를 검색 후 반환한다.
 		// 회원 정보 검색 결과가 없을 때는 널(null)이 아닌 아무런 값도 설정되지 않은 빈 User 객체를 반환하도록 한다.
 		//User findUser = userRepository.findByUsername(username).orElseGet(() -> {
 		//	return new User();
 		//});
-		
-		//return findUser;
-		return new User(1, "test", "123");
+		System.out.println(user.toString());
+		User findUser = userDAO.getUser(user);
+		if(findUser == null) { findUser = new User(); }
+		return findUser;
 	}
 	
 	// 스프링 시큐리티의 인증 처리 과정 - 세션 갱신

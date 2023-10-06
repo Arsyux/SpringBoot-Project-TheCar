@@ -51,15 +51,9 @@
 			
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/consignment/insertConsignment" style="color: #CCCCCC;">탁송 예약</a></li>
-					
-					
-					<li class="nav-item"><a class="nav-link" href="#" style="color: #CCCCCC;">탁송 예약 확인</a></li>
-					
 					<c:choose>
 						<c:when test="${ principal == null }">
-						
-							<li class="nav-item"><a class="nav-link" href="/auth/login" style="color: #CCCCCC;"><i class="bi bi-box-arrow-in-right"></i> 로그인</a></li>
+							<li class="nav-item"><a class="nav-link" href="/auth/loginUser" style="color: #CCCCCC;"><i class="bi bi-box-arrow-in-right"></i> 로그인</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a class="nav-link" href="/user/updateUser" style="color: #CCCCCC;"><i class="bi bi-person"></i> 회원 정보</a></li>

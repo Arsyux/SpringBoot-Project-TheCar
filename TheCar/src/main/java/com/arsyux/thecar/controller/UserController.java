@@ -20,10 +20,8 @@ import com.arsyux.thecar.dto.UserDTO;
 import com.arsyux.thecar.security.UserDetailsImpl;
 import com.arsyux.thecar.service.UserService;
 
-// 비즈니스 컴포넌트가 사용자 요청을 처리하는 과정에서 데이터베이스 연동이 필요할 때, 리포지터리가 서비스 객체에 의해서 사용된다.
 @Controller
 public class UserController {
-	
 	
 	@Autowired
 	private UserService userService;
@@ -32,48 +30,30 @@ public class UserController {
 	private ModelMapper modelMapper;
 	
 	// 로그인 창으로 이동
-	@GetMapping("/auth/login")
+	@GetMapping("/auth/loginUser")
 	public String login() {
-		return "system/login";
+		return "user/loginUser";
 	}
 	
 	@GetMapping("/auth/insertUser")
 	public String insertUser() {
-		// 시스템을 사용하는 중에 발생한 예외 역시 ResponseDTO로 처리할 수 있다.
-		// 에러 테스트
-		//System.out.println(9/0);
 		return "user/insertUser";
 	}
+
+	@GetMapping("/user/updateUser")
+	public String updateUser() {
+		return "user/updateUser";
+	}
 	
-	// insertUser 메소드의 반환타입이 ResponseDTO<String>이 아닌 ResponseDTO<?>인 이유는
-	// 어떤 타입의 데이터가 반환될지 특정할 수 없기 때문이다.
-	// 지금은 회원 가입 성공에 해당하는 문자열을 저장하여 반환하면 되지만, 경우에 따라서 자바 객체나 컬렉션을 반환해야 할 수도 있다.
-	//
-	// 매개변수로 사용했던 기존의 User 엔티티를 유효성 검사 어노테이션이 적용된 UserDTO로 변경한다.
-	// @Valid에 의해 유효성 검사 기능이 동작하고 그 결과가 자동으로 BindingResult 타입의 객체에 저장된다.
-	// 여기에서 중요한 문법적 사항은 BindingResult 변수는 반드시 @Valid 어노테이션 다음에 위치해야 한다.
-	// BindingResult 객체에 등록된 에러가 있다면 해당 에러 정보를 HashMap에 전달하고, ResponseDTO에 HashMap을 포함하여 반환한다.
+	
+	
 	@PostMapping("/auth/insertUser")
 	public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 		
-		// ValidationCheckAdvice 클래스를 사용하여 통합
-		//
-		// UserDTO 객체에 대한 유효성 검사
-		//if(bindingResult.hasErrors()) {
-		//	// 에러가 하나라도 있다면 에러 메시지를 Map에 등록
-		//	Map<String, String> errorMap = new HashMap<>();
-		//	for (FieldError error : bindingResult.getFieldErrors()) {
-		//		errorMap.put(error.getField(), error.getDefaultMessage());
-		//	}
-		//	return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
-		//}
-		
-		// UserDTO -> User 객체로 변환
-		// UserSevice 객체의 insertUser() 메소드를 호출할 때는 인자로 UserDTO가 아닌 User 엔티티를 전달해야한다.
-		// 따라서 의존성을 주입한 ModelMapper를 이용하여 UserDTO에 설정된 데이터를 User 객체에 복사한다.
 		User user = modelMapper.map(userDTO, User.class);
 		
-		User findUser = userService.getUser(user.getUsername());
+		User findUser = userService.getUser(user);
+		System.out.println("findUser => " + findUser);
 		
 		if(findUser.getUsername() == null) {
 			userService.insertUser(user);
@@ -84,10 +64,6 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/user/updateUser")
-	public String updateUser() {
-		return "user/updateUser";
-	}
 	
 	// 회원 정보를 수정하는 updateUser()메소드 작성
 	// DB의 회원정보는 수정되지만, 세션이 갱신되지 않아 화면에는 여전히 수정되기 전 회원 정보가 출력된다.

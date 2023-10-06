@@ -10,20 +10,37 @@ import org.apache.ibatis.annotations.Update;
 
 import com.arsyux.thecar.domain.User;
 
-// mybatis사용시 @Mapper가 설정된 interface에 추상 메소드를 선언하고
-// @Select, @Insert, @Update, @Delete를 이용하여 SQL 구문을 등록한다.
-// @Mapper가 설정된 인터페이스를 작성만 하면, 마이바티스에서 자동으로 매퍼 인터페이스가 구현된 클래스를 제공한다.
 @Mapper
 public interface UserMapper {
 
+	// 회원 가입
+	//@Insert("INSERT INTO USER(ID, USERNAME, PASSWORD) VALUES((SELECT NVL(MAX(ID), 0) + 1 FROM USER), #{username}, #{password})")
+	@Insert("INSERT INTO USER(USERNAME, PASSWORD) VALUES(#{username}, #{password})")
+	public void insertUser(User user);
+		
+	// 회원 1명 조회
 	@Select("SELECT * FROM USER WHERE USERNAME = #{username}")
 	public User getUser(User user);
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Select("SELECT * FROM USER ORDER BY USERNAME DESC")
 	public List<User> getUserList();
 
-	@Insert("INSERT INTO USER(ID, USERNAME, PASSWORD) VALUES((SELECT NVL(MAX(ID), 0)+1 FROM USER), #{username}, #{password})")
-	public void insertUser(User user);
+	
 
 	@Update("UPDATE USER SET PASSWORD = #{password} WHERE ID = #{id}")
 	public void updateUser(User user);
