@@ -16,20 +16,19 @@ import com.arsyux.thecar.domain.User;
 @Mapper
 public interface UserMapper {
 
-	@Select("SELECT * FROM USERS WHERE USERNAME = #{username}")
+	@Select("SELECT * FROM USER WHERE USERNAME = #{username}")
 	public User getUser(User user);
 
-	@Select("SELECT * FROM USERS ORDER BY USERNAME DESC")
+	@Select("SELECT * FROM USER ORDER BY USERNAME DESC")
 	public List<User> getUserList();
 
-	@Insert("INSERT INTO USERS(ID, USERNAME, PASSWORD, EMAIL) "
-			+ "VALUES((SELECT NVL(MAX(ID), 0)+1 FROM USERS), #{username}, #{password}, #{email})")
+	@Insert("INSERT INTO USER(ID, USERNAME, PASSWORD) VALUES((SELECT NVL(MAX(ID), 0)+1 FROM USER), #{username}, #{password})")
 	public void insertUser(User user);
 
-	@Update("UPDATE USERS SET PASSWORD = #{password}, EMAIL = #{email} WHERE ID = #{id}")
+	@Update("UPDATE USER SET PASSWORD = #{password} WHERE ID = #{id}")
 	public void updateUser(User user);
 
-	@Delete("DELETE USERS WHERE ID = #{id}")
+	@Delete("DELETE USER WHERE ID = #{id}")
 	public void deleteUser(User user);
 
 }

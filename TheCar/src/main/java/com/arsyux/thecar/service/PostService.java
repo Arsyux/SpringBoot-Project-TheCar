@@ -7,21 +7,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.arsyux.thecar.domain.Post;
-import com.arsyux.thecar.persistence.PostRepository;
 
 @Service
 public class PostService {
 
 	// PostService에서는 PostRepository 의존성을 주입하여 데이터베이스 연동을 처리한다.
-	@Autowired
-	private PostRepository postRepository;
+	//@Autowired
+	//private PostRepository postRepository;
 	
 	// PostRepository 객체의 save() 메소드를 이용하여 insertPost() 메소드를 구현
 	@Transactional
 	public void insertPost(Post post) {
 		// POST 등록시 외래키인 USER 엔티티가 Post.user 변수에 할당되어야한다.
 		post.setCnt(0);
-		postRepository.save(post);
+		//postRepository.save(post);
 	}
 	
 	// getPostList()의 기능은 등록된 포스트의 목록을 조회하는 것 뿐이므로 @Transactional(readOnly = true)으로 설정한다.
@@ -35,16 +34,17 @@ public class PostService {
 	
 	// 페이징 처리를 위해 Pageable 타입의 객체를 매개변수로 받는다.
 	// 또한 반환타입을 List에서 페이지 정보를 가지고 있는 Page로 수정한다.
-	@Transactional(readOnly = true)
-	public Page<Post> getPostList(Pageable pageable) {
-		return postRepository.findAll(pageable);
-	}
+	//@Transactional(readOnly = true)
+	//public Page<Post> getPostList(Pageable pageable) {
+		//return postRepository.findAll(pageable);
+	//}
 	
 	// JpaRepository 인터페이스의 findById() 메소드를 사용하여 Post 엔티티에 대한 상세 조회 기능을 처리한다.
 	// 검색 기능인 getPost() 메소드도 getPostList()메소드와 마찬가지로 트랜잭션을 읽기전용(readOnly = true)으로 설정한다.
 	@Transactional(readOnly = true)
 	public Post getPost(int id) {
-		return postRepository.findById(id).get();
+		//return postRepository.findById(id).get();
+		return new Post();
 	}
 	
 	// 검색한 Post 엔티티의 title과 content를 사용자가 입력한 값으로 변경하고,
@@ -56,15 +56,15 @@ public class PostService {
 	// updatePost() 메소드에서 Post 엔티티를 수정한 후에 save() 메소드를 호출하지 않는 것은 updatePost() 메소드에 @Transactional을 설정했기 때문이다.
 	@Transactional
 	public void updatePost(Post post) {
-		Post findPost = postRepository.findById(post.getId()).get();
-		findPost.setTitle(post.getTitle());
-		findPost.setContent(post.getContent());
+		//Post findPost = postRepository.findById(post.getId()).get();
+		//findPost.setTitle(post.getTitle());
+		//findPost.setContent(post.getContent());
 	}
 	
 	// 특정 Post 엔티티를 삭제하기 위해 deletePost() 메소드에서 JpaRepository 객체의 deleteById() 메소드를 사용한다.
 	@Transactional
 	public void deletePost(int id) {
-		postRepository.deleteById(id);
+		//postRepository.deleteById(id);
 	}
 	
 }

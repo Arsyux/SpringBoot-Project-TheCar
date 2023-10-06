@@ -6,9 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.arsyux.thecar.domain.RoleType;
 import com.arsyux.thecar.domain.User;
-import com.arsyux.thecar.persistence.UserRepository;
+//import com.arsyux.thecar.persistence.UserRepository;
 
 // 문법적으로는 컨트롤러가 리포지터리를 바로 호출해도 되지만, 일반적으로 컨트롤러는 서비스 클래스를 호출하고
 // 서비스 클래스에서 리포지터리를 사용한다.
@@ -17,10 +16,6 @@ import com.arsyux.thecar.persistence.UserRepository;
 @Service
 public class UserService {
 
-	// JPA기반의 데이터베이스 연동을 UserService 클래스에서 처리하기 위해 UserRepository 객체 의존성을 주입한다.
-	@Autowired
-	private UserRepository userRepository;
-	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -31,9 +26,9 @@ public class UserService {
 		// 비밀번호를 암호화하여 설정한다.
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
-		user.setRole(RoleType.USER);
+		//user.setRole(RoleType.USER);
 		
-		userRepository.save(user);
+		//userRepository.save(user);
 	}
 	
 	// INSERT, UPDATE, DELETE 기능은 트랙잭션과 관련된 데이터 조작 언어(Data Manipulation Language, DML) 작업이기 때문에
@@ -44,11 +39,12 @@ public class UserService {
 	public User getUser(String username) {
 		// getUser()메소드는 UserRepository 객체를 이용하여 회원 정보(User 엔티티)를 검색 후 반환한다.
 		// 회원 정보 검색 결과가 없을 때는 널(null)이 아닌 아무런 값도 설정되지 않은 빈 User 객체를 반환하도록 한다.
-		User findUser = userRepository.findByUsername(username).orElseGet(() -> {
-			return new User();
-		});
+		//User findUser = userRepository.findByUsername(username).orElseGet(() -> {
+		//	return new User();
+		//});
 		
-		return findUser;
+		//return findUser;
+		return new User(1, "test", "123");
 	}
 	
 	// 스프링 시큐리티의 인증 처리 과정 - 세션 갱신
@@ -59,11 +55,12 @@ public class UserService {
 	// 이렇게 세션에 등록된 SecurityContext에는 컨트롤러에서 @AuthenticationPrincipal 어노테이션을 이용하여 접근할 수 있다.
 	@Transactional
 	public User updateUser(User user) {
-		User findUser = userRepository.findById(user.getId()).get();
-		findUser.setUsername(user.getUsername());
-		findUser.setPassword(passwordEncoder.encode(user.getPassword()));
-		findUser.setEmail(user.getEmail());
+		//User findUser = userRepository.findById(user.getId()).get();
+		//findUser.setUsername(user.getUsername());
+		//findUser.setPassword(passwordEncoder.encode(user.getPassword()));
+		//findUser.setEmail(user.getEmail());
 		
-		return findUser;
+		//return findUser;
+		return new User(1, "test", "123");
 	}
 }

@@ -4,9 +4,6 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.Post;
-import com.arsyux.thecar.dto.PostDTO;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.security.UserDetailsImpl;
 import com.arsyux.thecar.service.PostService;
@@ -36,17 +32,17 @@ public class PostController {
 	private ModelMapper modelMapper;
 	
 	// 기본 화면 설정
-	/*
 	@GetMapping({ "", "/" })
 	public String getPostList(Model model) {
 		// getPostList() 메소드에서 검색된 포스트 목록을 "postList"라는 이름으로 Model에 등록한다.
 		// 이렇게 Model에 등록한 포스트 목록은 index.jsp 파일에서 표현식 언어(Expression Language, EL)을 통해 사용할 수 있다.
-		model.addAttribute("postList", postService.getPostList());
+		//model.addAttribute("postList", postService.getPostList());
 		return "index";
 	}
-	*/
+	
 	
 	// 기본 화면 설정 - 페이징 추가
+	/*
 	@GetMapping({ "", "/" })
 	public String getPostList(Model model, @PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
 		// @PageableDefault로 설정한 Pageable 객체는 한 화면에 3개의 포스트 데이터를 출력한다.
@@ -54,6 +50,7 @@ public class PostController {
 		model.addAttribute("postList", postService.getPostList(pageable));
 		return "index";
 	}
+	*/
 	
 	@GetMapping("/post/insertPost")
 	public String insertPost() {
@@ -67,6 +64,7 @@ public class PostController {
 	// 지금까지는 User 엔티티를 세션(HttpSession)으로부터 직접 추출했으나
 	// 이제는 HttpSession에 저장된 SecurityContext에서 가져와야한다.
 	// => HttpSession대신 @AuthenticationPrincipal 어노테이션이 설정된 UserDetailsImpl 객체를 이용하도록 수정한다.
+	/*
 	@PostMapping("/post/insertPost")
 	public @ResponseBody ResponseDTO<?> insertPost(@Valid @RequestBody PostDTO postDTO, BindingResult bindingResult, 
 			@AuthenticationPrincipal UserDetailsImpl principal) {
@@ -99,6 +97,7 @@ public class PostController {
 		postService.insertPost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
 	}
+	*/
 	
 	// getPost() 메소드는 @PathVariable을 이용하여 조회할 포스트의 id 정보를 획득한다.
 	// 그리고 PostService 클래스의 getPost()메소드를 호출하여 Post엔티티를 검색하고, 검색 결과를 Model에 등록한다.

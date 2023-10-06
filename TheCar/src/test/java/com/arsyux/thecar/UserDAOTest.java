@@ -25,7 +25,6 @@ public class UserDAOTest {
 		User user = new User();
 		user.setUsername("test");
 		user.setPassword("test123");
-		user.setEmail("test@gmail.com");
 
 		int before = userDAO.getUserList().size();
 		userDAO.insertUser(user);
@@ -38,7 +37,7 @@ public class UserDAOTest {
 	// 첫번째 User의 비밀번호를 수정한 후 변경되었는지 테스트
 	@Test
 	void updateUserTest() {
-		User before = userDAO.getUser(User.builder().username("test").build());
+		User before = userDAO.getUser(new User(1, "test", "123"));
 		before.setPassword("test111");
 
 		userDAO.updateUser(before);
