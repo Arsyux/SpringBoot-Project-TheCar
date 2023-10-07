@@ -1,14 +1,12 @@
 package com.arsyux.thecar.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class User {
 	
 	// 회원 번호 (PK)

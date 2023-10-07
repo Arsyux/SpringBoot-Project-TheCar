@@ -23,28 +23,40 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	// 회원가입
 	@Transactional
 	public void insertUser(User user) {
-		// 비밀번호를 암호화하여 설정한다.
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
-		System.out.println("user => " + user);
 		
 		userDAO.insertUser(user);
 	}
 	
+	// 회원 정보 조회
+	/*
 	@Transactional(readOnly = true)
 	public User getUser(User user) {
-		// getUser()메소드는 UserRepository 객체를 이용하여 회원 정보(User 엔티티)를 검색 후 반환한다.
-		// 회원 정보 검색 결과가 없을 때는 널(null)이 아닌 아무런 값도 설정되지 않은 빈 User 객체를 반환하도록 한다.
-		//User findUser = userRepository.findByUsername(username).orElseGet(() -> {
-		//	return new User();
-		//});
-		System.out.println(user.toString());
 		User findUser = userDAO.getUser(user);
 		if(findUser == null) { findUser = new User(); }
 		return findUser;
 	}
+	*/
+	@Transactional(readOnly = true)
+	public User findByUsername(String username) {
+		User findUser = userDAO.findByUsername(username);
+		if(findUser == null) { findUser = new User(); }
+		return findUser;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 스프링 시큐리티의 인증 처리 과정 - 세션 갱신
 	// 회원 정보를 수정한 후에 수정된 회원 정보로 세션을 갱신하기 위해서는 스프링 시큐리리티의 인증 처리 과정을 이해해야한다.

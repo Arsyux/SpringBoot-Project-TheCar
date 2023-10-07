@@ -10,19 +10,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.arsyux.thecar.service.UserDetailsServiceImpl;
+import com.arsyux.thecar.security.UserDetailsServiceImpl;
 
+// 시큐리티 설정 클래스
 @Configuration
 @EnableWebSecurity
 public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	// 환경 설정 클래스를 수정하여 스프링 시큐리티가 기본적으로 사용하던 UserDetailsService 객체가 아닌
-	// UserDetailsServiceImpl 객체를 이용하도록 한다.
+	// 기본적으로 사용하는 UserDetailsService에서 UserDetailsServiceImpl 객체를 이용하도록 수정
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
-	
-	// 비밀번호 암호화
-	// BCrytPasswordEncoder 객체를 생성하는 passwordEncoder() 메소드를 추가한다.
+
+	// 스프링 컨테이너가 PasswordEncoder를 생성할 수 있도록 @Bean 어노테이션 등록
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -42,26 +41,22 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	// 시큐리티 권한 제어
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// 인증 없이 접근을 허용하는 경로
+		// 인증 없이 접근을 허용하는 경로 설정
 		http.authorizeRequests().antMatchers("/webjars/**", "/js/**", "/image/**", "/", "/auth/**", "/css/**").permitAll();
 		
 		// 나머지 경로는 인증이 필요하도록 설정
 		http.authorizeRequests().anyRequest().authenticated();
 		
-		// HTTP 요청에서 사이트 간 요청 위조(Cross Site Request Forgery, CSRF) 토큰을 받지 않기 위한 설정을 추가한다.
+		// CSRF 토큰 거부 설정
 		http.csrf().disable();
 		
 		// 로그인 화면 설정
-		// 기본 로그인 화면 제공
-		// 사용자가 인덱스 화면에서 포스트 상세 화면으로 이동하기 위해서는 반드시 인증에 성공해야 한다.
-		// 사용자 정의 로그인
 		http.formLogin().loginPage("/auth/loginUser");
 		
-		// 로그인 요청 URI를 변경한다.
+		// 로그인 요청 URI 변경
 		http.formLogin().loginProcessingUrl("/auth/securitylogin");
 		
 		// 로그 아웃 처리
-		// 사용자가 /auth/logout 요청을 서버에 전송하면 로그아웃되며 인덱스 페이지("/")로 이동하도록 설정한다.
 		http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/");
 	}
 	

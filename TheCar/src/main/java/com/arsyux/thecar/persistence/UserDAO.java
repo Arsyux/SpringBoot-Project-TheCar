@@ -20,9 +20,19 @@ public class UserDAO {
 	}
 	
 	// 회원 1명 조회
-	public User getUser(User user) {
-		return mybatis.selectOne("getUser", user);
+	public User findByUsername(String username) {
+		return mybatis.selectOne("getUser", username);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public List<User> getUserList(){
 		return mybatis.selectList("getUserList");

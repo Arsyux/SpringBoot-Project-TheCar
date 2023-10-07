@@ -14,14 +14,13 @@ import com.arsyux.thecar.domain.User;
 public interface UserMapper {
 
 	// 회원 가입
-	//@Insert("INSERT INTO USER(ID, USERNAME, PASSWORD) VALUES((SELECT NVL(MAX(ID), 0) + 1 FROM USER), #{username}, #{password})")
+	// PK는 AUTO_INCREMENT처리
 	@Insert("INSERT INTO USER(USERNAME, PASSWORD) VALUES(#{username}, #{password})")
 	public void insertUser(User user);
 		
 	// 회원 1명 조회
 	@Select("SELECT * FROM USER WHERE USERNAME = #{username}")
-	public User getUser(User user);
-
+	public User getUser(String username);
 	
 	
 	

@@ -14,13 +14,11 @@ let userObject = {
 	},
 	
 	insertUser: function(){
-		alert("회원가입 요청됨");
 		// 사용자가 입력한 값 추출
 		let user = {
 			username : $("#username").val(),
 			password : $("#password").val(),
 		}
-		alert(JSON.stringify(user));
 		
 		// Ajax를 이용한 비동기 호출
 		$.ajax({
