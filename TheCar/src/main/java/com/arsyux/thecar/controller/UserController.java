@@ -67,10 +67,6 @@ public class UserController {
 	}
 	
 	
-	
-	
-	
-	
 	// 회원 정보를 수정하는 updateUser()메소드 작성
 	@PutMapping("/user")
 	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user, @AuthenticationPrincipal UserDetailsImpl principal) {
