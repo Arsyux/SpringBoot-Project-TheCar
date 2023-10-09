@@ -72,8 +72,6 @@ public class UserController {
 	
 	
 	// 회원 정보를 수정하는 updateUser()메소드 작성
-	// DB의 회원정보는 수정되지만, 세션이 갱신되지 않아 화면에는 여전히 수정되기 전 회원 정보가 출력된다.
-	// 수정된 회원 정보를 회원 상세화면에 출력하기 위해서는 로그아웃을 하고 다시 로그인해야 한다.
 	@PutMapping("/user")
 	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user, @AuthenticationPrincipal UserDetailsImpl principal) {
 
