@@ -7,21 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.arsyux.thecar.dto.ResponseDTO;
 
-// 스프링에서는 애플리케이션에서 예외가 발생했을 때, 예외 처리 핸들러로 예외를 일괄 처리할 수 있다.
-// TheCarException을 비롯한 모든 종류의 예외를 처리하기 위한 예외 처리 핸들러를 작성한다.
+// 모든 종류의 예외를 처리하기 위한 예외 처리 핸들러를 작성
 @ControllerAdvice
 @RestController
 public class TheCarExceptionHandler {
 
-	// globalExceptionHandler() 메소드는 애플리케이션에서 발생된 모든 예외를 받아서 HTML메시지로 반환한다.
-	/*
-	@ExceptionHandler(value = Exception.class)
-	public String globalExceptionHandler(Exception e) {
-		return "<h1>" + e.getMessage() + "</h1>";
-	}
-	*/
-	// ResponseDTO 객체를 반환하도록 수정
-	// -> JSON 형태로 에러를 반환한다.
 	@ExceptionHandler(value = Exception.class)
 	public ResponseDTO<String> globalExceptionHandler(Exception e) {
 		return new ResponseDTO<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());

@@ -40,6 +40,28 @@ public class UserController {
 	public String insertUser() {
 		return "user/insertUser";
 	}
+	// 아이디 중복 검사
+	@PostMapping("/auth/insertUserCheck")
+	//public @ResponseBody ResponseDTO<?> insertUserCheck(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+	public @ResponseBody ResponseDTO<?> insertUserCheck(@RequestBody User user, BindingResult bindingResult) {
+		if(user.getUsername() ==  null || user.getUsername().equals("")) {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "아이디가 입력되지 않았습니다.");
+		}
+		if(user.getUsername().length() > 100) {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "올바른 값이 아닙니다.");
+		}
+		
+		// 중복되는 아이디 검색
+		User findUser = userService.findByUsername(user.getUsername());
+		
+		if(findUser.getUsername() == null) {
+			// 중복되는 아이디가 없을 경우 중복확인 완료처리
+			return new ResponseDTO<>(HttpStatus.OK.value(), "회원가입이 가능한 아이디입니다.");	
+		} else {
+			// 중복되는 아이디가 있을 경우 알림 표시
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미 사용중인 아이디입니다.");	
+		}
+	}
 	// 회원 가입 기능
 	@PostMapping("/auth/insertUser")
 	public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {

@@ -13,11 +13,11 @@ import org.springframework.validation.FieldError;
 
 import com.arsyux.thecar.dto.ResponseDTO;
 
+// AOP를 이용한 유효성 검사
 @Component
 @Aspect
 public class ValidationCheckAdvice {
 
-	// AOP를 이용한 유효성 검사
 	@Around("execution(* com.arsyux..controller.*Controller.*(..))")
 	public Object validationCheck(ProceedingJoinPoint jp) throws Throwable {
 		
