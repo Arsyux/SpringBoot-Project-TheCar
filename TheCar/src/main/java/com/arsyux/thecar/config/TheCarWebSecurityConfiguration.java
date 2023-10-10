@@ -20,7 +20,7 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	// 기본적으로 사용하는 UserDetailsService에서 UserDetailsServiceImpl 객체를 이용하도록 수정
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
-
+	
 	// 스프링 컨테이너가 PasswordEncoder를 생성할 수 있도록 @Bean 어노테이션 등록
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -32,11 +32,7 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// configure() 메소드에서 UserDetilsService 객체로 인증을 처리할 때 BCrytPassworEncoder를 이용하도록 추가한다.
-		try {
-			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-		}catch (Exception e) {
-			System.out.println("에러발생! " + e.toString());
-		}
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 	
 	// 시큐리티 권한 제어
@@ -53,10 +49,8 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 		
 		// 로그인 화면 설정
 		http.formLogin().loginPage("/auth/loginUser");
-		
 		// 로그인 요청 URI 변경
 		http.formLogin().loginProcessingUrl("/auth/securitylogin");
-		
 		// 로그 아웃 처리
 		http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/");
 	}

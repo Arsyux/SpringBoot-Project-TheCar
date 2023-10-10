@@ -28,7 +28,7 @@ public class UserController {
 
 	@Autowired
 	private ModelMapper modelMapper;
-
+	
 	// 로그인 이동
 	@GetMapping("/auth/loginUser")
 	public String login() {
@@ -38,6 +38,7 @@ public class UserController {
 	// 회원 가입 이동
 	@GetMapping("/auth/insertUser")
 	public String insertUser() {
+		System.out.println(5/0);
 		return "user/insertUser";
 	}
 	// 아이디 중복 검사
@@ -65,6 +66,7 @@ public class UserController {
 	// 회원 가입 기능
 	@PostMapping("/auth/insertUser")
 	public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+		
 		// UserDTO를 통해 유효성 검사
 		User user = modelMapper.map(userDTO, User.class);
 		

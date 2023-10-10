@@ -9,7 +9,7 @@
 <div class="container mt-5 mb-5">
 
 	<!-- Logo -->
-	<div class="row mb-5">
+	<div class="row">
 		<div class="col-sm-0 col-md-4"></div>
 		<div class="col-sm-12 col-md-4">
 			<img class="w-100" src="/image/main/logo.png">
@@ -17,18 +17,25 @@
 		<div class="col-sm-0 col-md-4"></div>
 	</div>
 	
+	<h3 align="center" style="font-weight: bold;">로그인</h3>
+
 	<c:if test="${error != null}">
-		<h4 class="mb-5" style="text-align: center; font-weight: bold; color: #333333;">${exception}</h4>
+		<h4 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: #333333;">${error}</h4>
+		<h4 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: #333333;">${exception}</h4>
+	</c:if>
+	<c:if test="${ error == null }">
+		<h4 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: #333333;">ㅇㅅㅇ</h4>
+
 	</c:if>
 
 	<!-- 영역 제한 -->
-	<div class="row">
+	<div class="row mt-3">
 		<div class="col-sm-0 col-md-2 col-lg-4"></div>
 		<div class="col-sm-0 col-md-8 col-lg-4">
 
 			<div class="row mb-3" style="border-style: solid; border-color: #DDDDDD; border-radius: 5px; border-width: 1px;">
 				<form action="/auth/securitylogin" method="post">
-				
+					
 					<!-- ID -->
 					<div class="input-group mt-3 mb-3">
 						<span class="input-group-text"><i class="bi bi-person"></i></span> <input type="text" class="form-control" name="username" placeholder="아이디"></input>
