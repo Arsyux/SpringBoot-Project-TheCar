@@ -67,9 +67,9 @@ public class UserDetailsImpl implements UserDetails {
 		// 권한 목록
 		Collection<GrantedAuthority> roleList = new ArrayList<>();
 		// 권한 목록 설정 - 람다식 사용
-		//roleList.add(() -> {
-		//	return "ROLE_" + user.getRole();
-		//});
+		roleList.add(() -> {
+			return "ROLE_";// + user.getRole();
+		});
 		
 		return roleList;
 	}

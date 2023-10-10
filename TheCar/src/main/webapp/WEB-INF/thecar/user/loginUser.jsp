@@ -18,14 +18,10 @@
 	</div>
 	
 	<h3 align="center" style="font-weight: bold;">로그인</h3>
-
-	<c:if test="${error != null}">
-		<h4 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: #333333;">${error}</h4>
-		<h4 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: #333333;">${exception}</h4>
-	</c:if>
-	<c:if test="${ error == null }">
-		<h4 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: #333333;">ㅇㅅㅇ</h4>
-
+	
+	<!-- 로그인 실패시 exception 출력 -->
+	<c:if test="${ error != null}">
+			<h4 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: #333333;">${exception}</h4>
 	</c:if>
 
 	<!-- 영역 제한 -->
@@ -47,7 +43,7 @@
 					</div>
 					<div class="row mb-3">
 						<div class="col-12">
-							<button id="btn-login" class="btn btn-dark w-100">
+							<button class="btn btn-dark w-100">
 								<spring:message code="user.login.form.login_btn" />
 							</button>
 						</div>

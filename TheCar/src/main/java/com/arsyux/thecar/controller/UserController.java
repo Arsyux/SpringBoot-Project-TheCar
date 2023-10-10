@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.User;
@@ -30,8 +32,18 @@ public class UserController {
 	private ModelMapper modelMapper;
 	
 	// 로그인 이동
+	/*
 	@GetMapping("/auth/loginUser")
 	public String login() {
+		return "user/loginUser";
+	}
+	*/
+	@GetMapping("/auth/loginUser")
+	public String login(@RequestParam(value = "error", required = false)String error,
+						@RequestParam(value = "exception", required = false)String exception,
+						Model model) {
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);
 		return "user/loginUser";
 	}
 	

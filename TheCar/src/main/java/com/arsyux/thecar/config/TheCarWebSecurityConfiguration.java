@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.arsyux.thecar.security.UserDetailsServiceImpl;
 
@@ -20,6 +21,9 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	// 기본적으로 사용하는 UserDetailsService에서 UserDetailsServiceImpl 객체를 이용하도록 수정
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
+
+	@Autowired
+	private AuthenticationFailureHandler customFailureHandler;
 	
 	// 스프링 컨테이너가 PasswordEncoder를 생성할 수 있도록 @Bean 어노테이션 등록
 	@Bean
@@ -38,6 +42,20 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	// 시큐리티 권한 제어
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
+			.antMatchers("/webjars/**", "/js/**", "/image/**", "/", "/auth/**", "/css/**").permitAll()
+			.anyRequest().authenticated()
+			.and()
+			.formLogin()
+			.loginPage("/auth/loginUser").failureHandler(customFailureHandler)
+			.loginProcessingUrl("/auth/securitylogin")
+			.and()
+			.logout()
+			.logoutUrl("/auth/logout")
+			.logoutSuccessUrl("/")
+			.and()
+			.csrf().disable();
+		/*
 		// 인증 없이 접근을 허용하는 경로 설정
 		http.authorizeRequests().antMatchers("/webjars/**", "/js/**", "/image/**", "/", "/auth/**", "/css/**").permitAll();
 		
@@ -53,6 +71,7 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 		http.formLogin().loginProcessingUrl("/auth/securitylogin");
 		// 로그 아웃 처리
 		http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/");
+		*/
 	}
 	
 }
