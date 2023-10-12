@@ -19,11 +19,14 @@ public class UserDAO {
 		mybatis.insert("insertUser", user);
 	}
 	
-	// 회원 1명 조회
+	// 로그인 아이디로 회원 1명 조회
 	public User findByUsername(String username) {
-		return mybatis.selectOne("getUser", username);
+		return mybatis.selectOne("findByUsername", username);
 	}
-	
+	// 휴대폰으로 회원 1명 조회
+	public User findByPhone(String phone) {
+		return mybatis.selectOne("findByPhone", phone);
+	}
 	
 	
 	

@@ -45,15 +45,15 @@
 					<div class="col-12  mt-3">
 						<div class="input-group">
 							<span class="input-group-text"><i class="bi bi-person-fill"></i></span> <input type="text" class="form-control" name="name" id="name" placeholder="이름"></input>
-							<div id="realnameInvalid" class="invalid-feedback"></div>
+							<div id="nameInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
 
 					<!-- 생년월일 -->
 					<div class="col-12 mt-3">
 						<div class="input-group">
-							<span class="input-group-text"><i class="bi bi-calendar-event"></i></span> <input type="text" class="form-control" name="birthDate" id="birthDate" placeholder="생년월일 8자리"></input>
-							<div id="birthdateInvalid" class="invalid-feedback"></div>
+							<span class="input-group-text"><i class="bi bi-calendar-event"></i></span> <input type="text" class="form-control" name="birth" id="birth" placeholder="생년월일 8자리"></input>
+							<div id="birthInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
 

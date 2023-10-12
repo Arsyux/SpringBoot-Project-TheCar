@@ -26,19 +26,30 @@ public class UserService {
 	// 회원가입
 	@Transactional
 	public void insertUser(User user) {
+		// 비밀번호 암호화
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
+		// 회원 정보 저장
 		userDAO.insertUser(user);
 	}
 	
-	// 회원 정보 조회
+	// 로그인 아이디로 회원 정보 조회
 	@Transactional(readOnly = true)
 	public User findByUsername(String username) {
+		// 로그인 아이디로 회원정보 검색
 		User findUser = userDAO.findByUsername(username);
+		// 검색된 유저가 없을경우 처리
 		if(findUser == null) { findUser = new User(); }
 		return findUser;
 	}
-	
+	// 휴대폰으로 회원 정보 조회
+	@Transactional(readOnly = true)
+	public User findByPhone(String phone) {
+		// 휴대폰으로 회원정보 검색
+		User findUser = userDAO.findByPhone(phone);
+		// 검색된 유저가 없을경우 처리
+		if(findUser == null) { findUser = new User(); }
+		return findUser;
+	}
 	
 	
 	

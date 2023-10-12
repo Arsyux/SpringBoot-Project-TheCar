@@ -14,15 +14,19 @@ import com.arsyux.thecar.domain.User;
 public interface UserMapper {
 
 	// 회원 가입
-	// PK는 AUTO_INCREMENT처리
-	@Insert("INSERT INTO USER(USERNAME, PASSWORD) VALUES(#{username}, #{password})")
+	// pk는 AUTO_INCREMENT처리
+	// regdate는 CURRENT_TIMESTAMP 처리
+	@Insert("INSERT INTO USER(USERNAME, PASSWORD, NAME, BIRTH, GENDER, PHONE, EMAIL) "
+			+ "VALUES(#{username}, #{password}, #{name}, #{birth}, #{gender}, #{phone}, #{email})")
 	public void insertUser(User user);
 		
-	// 회원 1명 조회
+	// 로그인 아이디로 회원 1명 조회
 	@Select("SELECT * FROM USER WHERE USERNAME = #{username}")
-	public User getUser(String username);
+	public User findByUsername(String username);
 	
-	
+	// 휴대폰으로 회원 1명 조회
+	@Select("SELECT * FROM USER WHERE PHONE = #{phone}")
+	public User findByPhone(String phone);
 	
 	
 	

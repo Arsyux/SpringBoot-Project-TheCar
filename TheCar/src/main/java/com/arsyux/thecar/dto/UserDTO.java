@@ -1,7 +1,5 @@
 package com.arsyux.thecar.dto;
 
-import java.util.Date;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -62,9 +60,5 @@ public class UserDTO {
 	@Size(min = 1, max = 100, message = "이메일은 1자 이상 100자 미만으로 입력해주세요.")
 	@Email(message = "이메일 형식이 아닙니다.")
 	private String email;
-	
-	@NotNull
-	@NotBlank
-	private Date regdate;
 	
 }

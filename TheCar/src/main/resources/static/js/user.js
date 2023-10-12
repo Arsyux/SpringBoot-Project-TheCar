@@ -4,6 +4,7 @@ let userObject = {
 	init: function() {
 		let _this = this;
 		
+		// 회원가입
 		$("#btn-insertUser").on("click", () => {
 			_this.insertUser();
 		});
@@ -13,11 +14,25 @@ let userObject = {
 		});
 	},
 	
+	// 회원가입
 	insertUser: function(){
+		// 성별 값
+		let genderVal;
+		if(document.getElementById("rdoMan").checked){
+			genderVal = 'M';
+		} else {
+			genderVal = 'W';
+		}
+		
 		// 사용자가 입력한 값 추출
 		let user = {
 			username : $("#username").val(),
 			password : $("#password").val(),
+			name : $("#name").val(),
+			birth : $("#birth").val(),
+			gender : genderVal,
+			phone : $("#phone").val(),
+			email : $("#email").val()
 		}
 		
 		// Ajax를 이용한 비동기 호출
@@ -29,15 +44,45 @@ let userObject = {
 		}).done(function(response) {
 			let status = response["status"];
 			if(status == 200) {
+				// 회원가입 성공
 				let message = response["data"];
 				alert(message);
 				location = "/";	
 			} else {
-				let warn = "";
+				// 회원가입 실패
 				let errors = response["data"];
-				if(errors.username != null) { warn = warn + errors.username + "\n" }
-				if(errors.password != null) { warn = warn + errors.password }
-				alert(warn);
+				
+				// errors가 JSON인지 체크
+				let jsonCheck = false;
+				try{
+					let jsonValue = JSON.parse(JSON.stringify(errors));
+					jsonCheck = typeof jsonValue === 'object';
+					
+					if (jsonCheck) {
+						// 값이 JSON 형태일 경우 (유효성 검사에서 에러가 발견된 경우)
+						if(jsonValue['username'] != null) {
+							alert('ㅎ');
+						} else {
+							alert('ㅗ');
+						}
+						alert(jsonValue["username"]);
+					} else {
+						alert("정상, jsonCheck false");
+					}
+				} catch (e) {
+					jsonCheck = false;
+					alert("에러, jsonCheck false");
+				}			
+	
+				//let warn = "";
+				
+				
+				//if(errors.username != null) { 
+				//	warn = warn + errors.username + "\n"
+				//}
+				//if(errors.password != null) {
+				//	warn = warn + errors.password
+				//}
 			}
 		}).fail(function(error) {
 			alert("에러 발생 : " + error);
