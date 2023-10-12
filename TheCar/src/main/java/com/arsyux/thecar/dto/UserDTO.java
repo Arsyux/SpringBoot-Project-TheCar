@@ -37,22 +37,30 @@ public class UserDTO {
 	private String name;
 	
 	// 생년월일 8자리
-	@Pattern(regexp = "^(19|20)([0-9]{2})(0[0-9]|1[0-2])((0|1|2)[0-9]|3[0-1])$")
+	@NotNull(message = "생년월일이 전달되지 않았습니다.")
+	@NotBlank(message = "생년월일은 필수 입력 항목입니다.")
+	@Pattern(regexp = "^(19|20)([0-9]{2})(0[0-9]|1[0-2])((0|1|2)[0-9]|3[0-1])$",
+				message = "생년월일을 정확히 입력해주세요.")
 	private String birth;
 	
 	// 성별
-	@Pattern(regexp = "^[M|W]$")
+	@NotNull(message = "성별이 전달되지 않았습니다.")
+	@NotBlank(message = "성별은 필수 입력 항목입니다.")
+	@Pattern(regexp = "^[M|W]$", message = "성별을 정확히 선택해주세요.")
 	private String gender;
 	
 	// 휴대폰
-	@Pattern(regexp = "^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$")
+	@NotNull(message = "휴대폰 번호가 전달되지 않았습니다.")
+	@NotBlank(message = "휴대폰 번호는 필수 입력 항목입니다.")
+	@Pattern(regexp = "^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$",
+				message = "휴대폰 번호를 정확히 입력해주세요.")
 	private String phone;
 	
 	// 이메일
 	@NotNull(message = "이메일이 전달되지 않았습니다.")
 	@NotBlank(message = "이메일은 필수 입력 항목입니다.")
 	@Size(min = 1, max = 100, message = "이메일은 1자 이상 100자 미만으로 입력해주세요.")
-	@Email
+	@Email(message = "이메일 형식이 아닙니다.")
 	private String email;
 	
 	@NotNull
