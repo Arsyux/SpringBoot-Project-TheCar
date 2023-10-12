@@ -34,7 +34,7 @@
 	<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
 	<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
 	<!-- 아이콘 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 	
 	<!-- login.css -->
 	<link rel="stylesheet" type="text/css" href="/css/header.css">

@@ -21,8 +21,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		User principal = userDAO.findByUsername(username);
 		
 		// 검색한 id가 존재하지 않을 경우 UsernameNotFoundException을 throw한다.
-		if(principal == null) { throw new UsernameNotFoundException(username + " 사용자가 없습니다."); }
-		
+		if(principal == null) { throw new UsernameNotFoundException("존재하지 않는 아이디입니다."); }
+
 		return new UserDetailsImpl(principal);
 	}
 	

@@ -25,15 +25,12 @@
 				<div class="row mb-3" style="border-style: solid; border-color: #DDDDDD; border-radius: 5px; border-width: 1px;">
 
 					<!-- ID -->
-					<div class="col-8 mt-3">
+					<div class="col-12 mt-3">
 						<div class="input-group">
 							<span class="input-group-text"><i class="bi bi-person"></i></span>
-							<input type="text" class="form-control" name="username" id="username" placeholder="아이디"></input>
+							<input type="text" class="form-control" name="username" id="username" placeholder="로그인 아이디"></input>
 							<div id="usernameInvalid" class="invalid-feedback"></div>
 						</div>
-					</div>
-					<div class="col-4 mt-3">
-						<button id="btn-insertUserCheck" class="btn btn-dark btn-large w-100">중복 검사</button>
 					</div>
 
 					<!-- Password -->
@@ -47,7 +44,7 @@
 					<!-- 이름 -->
 					<div class="col-12  mt-3">
 						<div class="input-group">
-							<span class="input-group-text"><i class="bi bi-person"></i></span> <input type="text" class="form-control" name="name" id="name" placeholder="이름"></input>
+							<span class="input-group-text"><i class="bi bi-person-fill"></i></span> <input type="text" class="form-control" name="name" id="name" placeholder="이름"></input>
 							<div id="realnameInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>

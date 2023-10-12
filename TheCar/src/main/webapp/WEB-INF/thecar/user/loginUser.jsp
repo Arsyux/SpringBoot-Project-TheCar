@@ -21,7 +21,7 @@
 	
 	<!-- 로그인 실패시 exception 출력 -->
 	<c:if test="${ error != null}">
-			<h4 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: #333333;">${exception}</h4>
+			<h6 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: CRIMSON;">${exception}</h6>
 	</c:if>
 
 	<!-- 영역 제한 -->

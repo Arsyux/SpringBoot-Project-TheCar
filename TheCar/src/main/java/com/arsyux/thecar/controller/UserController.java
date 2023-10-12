@@ -32,12 +32,6 @@ public class UserController {
 	private ModelMapper modelMapper;
 	
 	// 로그인 이동
-	/*
-	@GetMapping("/auth/loginUser")
-	public String login() {
-		return "user/loginUser";
-	}
-	*/
 	@GetMapping("/auth/loginUser")
 	public String login(@RequestParam(value = "error", required = false)String error,
 						@RequestParam(value = "exception", required = false)String exception,
@@ -50,13 +44,12 @@ public class UserController {
 	// 회원 가입 이동
 	@GetMapping("/auth/insertUser")
 	public String insertUser() {
-		System.out.println(5/0);
 		return "user/insertUser";
 	}
 	// 아이디 중복 검사
 	@PostMapping("/auth/insertUserCheck")
 	//public @ResponseBody ResponseDTO<?> insertUserCheck(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
-	public @ResponseBody ResponseDTO<?> insertUserCheck(@RequestBody User user, BindingResult bindingResult) {
+	public @ResponseBody ResponseDTO<?> insertUserCheck(@RequestBody User user) {
 		if(user.getUsername() ==  null || user.getUsername().equals("")) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "아이디가 입력되지 않았습니다.");
 		}
@@ -102,7 +95,7 @@ public class UserController {
 		return "user/updateUser";
 	}
 	
-	
+	/*
 	// 회원 정보를 수정하는 updateUser()메소드 작성
 	@PutMapping("/user")
 	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user, @AuthenticationPrincipal UserDetailsImpl principal) {
@@ -118,5 +111,6 @@ public class UserController {
 		
 		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + " 수정 완료");
 	}
+	*/
 	
 }

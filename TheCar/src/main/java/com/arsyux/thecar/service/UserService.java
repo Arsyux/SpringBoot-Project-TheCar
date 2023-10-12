@@ -32,14 +32,6 @@ public class UserService {
 	}
 	
 	// 회원 정보 조회
-	/*
-	@Transactional(readOnly = true)
-	public User getUser(User user) {
-		User findUser = userDAO.getUser(user);
-		if(findUser == null) { findUser = new User(); }
-		return findUser;
-	}
-	*/
 	@Transactional(readOnly = true)
 	public User findByUsername(String username) {
 		User findUser = userDAO.findByUsername(username);
@@ -51,13 +43,7 @@ public class UserService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	/*
 	// 스프링 시큐리티의 인증 처리 과정 - 세션 갱신
 	// 회원 정보를 수정한 후에 수정된 회원 정보로 세션을 갱신하기 위해서는 스프링 시큐리리티의 인증 처리 과정을 이해해야한다.
 	// 스프링 시큐리티는 사용자가 입력한 정보를 바탕으로 회원을 조회하고, 조회된 정보를 이용하여 Authentication을 생성한다.
@@ -74,4 +60,5 @@ public class UserService {
 		//return findUser;
 		return new User(1, "test", "123");
 	}
+	*/
 }
