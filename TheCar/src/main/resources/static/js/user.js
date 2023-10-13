@@ -149,7 +149,7 @@ let userObject = {
 						
 						// 작업중
 						// 로그인 아이디 유효성 검사
-						if(jsonValue['username'] != null) {
+						if(                   ) {
 							if(document.getElementById('username').classList.contains('is-valid')){
 								document.getElementById('username').classList.remove('is-valid');
 							}
