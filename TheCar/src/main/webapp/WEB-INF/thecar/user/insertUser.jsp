@@ -80,7 +80,7 @@
 						<div class="input-group">
 							<span class="input-group-text"><i class="bi bi-telephone"></i></span>
 								<input type="text" class="form-control" name="phone" id="phone" placeholder="휴대전화번호 (-제외)"></input>
-							<div id="phonenumberInvalid" class="invalid-feedback"></div>
+							<div id="phoneInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
 					
