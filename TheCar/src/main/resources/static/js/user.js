@@ -149,7 +149,7 @@ let userObject = {
 						
 						// 작업중
 						// 로그인 아이디 유효성 검사
-						if(                   ) {
+						if(errors) {
 							if(document.getElementById('username').classList.contains('is-valid')){
 								document.getElementById('username').classList.remove('is-valid');
 							}
@@ -163,19 +163,52 @@ let userObject = {
 							document.getElementById('usernameInvalid').innerText = '';
 						}
 						// 비밀번호 유효성 검사
-						if(jsonValue['password'] != null) {
-							if(document.getElementById('password').classList.contains('is-valid')){
-								document.getElementById('password').classList.remove('is-valid');
-							}
-							document.getElementById('password').classList.add('is-invalid');
-							document.getElementById('passwordInvalid').innerText = jsonValue['password'];
-						} else {
-							if(document.getElementById('password').classList.contains('is-invalid')){
-								document.getElementById('password').classList.remove('is-invalid');
-							}
-							document.getElementById('password').classList.add('is-valid');
-							document.getElementById('passwordInvalid').innerText = '';
+						if(document.getElementById('username').classList.contains('is-invalid')){
+							document.getElementById('username').classList.remove('is-invalid');
 						}
+						document.getElementById('username').classList.add('is-valid');
+						document.getElementById('usernameInvalid').innerText = '';
+						
+						// 비밀번호 유효성 검사
+						if(document.getElementById('password').classList.contains('is-invalid')){
+							document.getElementById('password').classList.remove('is-invalid');
+						}
+						document.getElementById('password').classList.add('is-valid');
+						document.getElementById('passwordInvalid').innerText = '';
+						
+						// 이름 유효성 검사
+						if(document.getElementById('name').classList.contains('is-invalid')){
+							document.getElementById('name').classList.remove('is-invalid');
+						}
+						document.getElementById('name').classList.add('is-valid');
+						document.getElementById('nameInvalid').innerText = '';
+						
+						// 생년월일 유효성 검사
+						if(document.getElementById('birth').classList.contains('is-invalid')){
+							document.getElementById('birth').classList.remove('is-invalid');
+						}
+						document.getElementById('birth').classList.add('is-valid');
+						document.getElementById('birthInvalid').innerText = '';
+						
+						// 휴대폰 유효성 검사
+						if(jsonValue['phone'] != null) {
+							if(document.getElementById('phone').classList.contains('is-valid')){
+								document.getElementById('phone').classList.remove('is-valid');
+							}
+							document.getElementById('phone').classList.add('is-invalid');
+							document.getElementById('phoneInvalid').innerText = jsonValue['phone'];
+						} else {
+							if(document.getElementById('phone').classList.contains('is-invalid')){
+								document.getElementById('phone').classList.remove('is-invalid');
+							}
+							document.getElementById('phone').classList.add('is-valid');
+							document.getElementById('phoneInvalid').innerText = '';
+						}
+						if(document.getElementById('email').classList.contains('is-invalid')){
+							document.getElementById('email').classList.remove('is-invalid');
+						}
+						document.getElementById('email').classList.add('is-valid');
+						document.getElementById('emailInvalid').innerText = '';
 					}
 				} catch (e) {
 					//jsonCheck = false;
