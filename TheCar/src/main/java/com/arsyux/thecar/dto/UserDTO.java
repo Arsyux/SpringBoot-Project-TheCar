@@ -41,6 +41,11 @@ public class UserDTO {
 				message = "생년월일을 정확히 입력해주세요.")
 	private String birth;
 	
+	@NotNull(message = "성별이 전달되지 않았습니다.")
+	@NotBlank(message = "성별은 필수 입력 항목입니다.")
+	@Pattern(regexp = "^[W|M]$")
+	private String gender;
+	
 	// 휴대폰
 	@NotNull(message = "휴대폰 번호가 전달되지 않았습니다.")
 	@NotBlank(message = "휴대폰 번호는 필수 입력 항목입니다.")
