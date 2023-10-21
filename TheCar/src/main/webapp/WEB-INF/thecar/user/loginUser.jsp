@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 
-<br>
-
-<!-- login.css -->
-<link rel="stylesheet" type="text/css" href="/css/login.css">
+<!-- main.css -->
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 <div class="container mt-5 mb-5">
 
@@ -54,8 +52,8 @@
 
 			<div class="row mb-3">
 				<div class="col-12" style="text-align: center;">
-					<a class="logintag" href="/auth/findUsername" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">아이디 찾기</a> <a class="logintag"
-						href="/auth/findPassword" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">비밀번호 찾기</a> <a class="logintag" href="/auth/insertUser"
+					<a class="loginTag" href="/auth/findUsername" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">아이디 찾기</a> <a class="loginTag"
+						href="/auth/findPassword" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">비밀번호 찾기</a> <a class="loginTag" href="/auth/insertUser"
 						style="padding-right: 10px; padding-left: 10px;">회원가입</a>
 				</div>
 			</div>

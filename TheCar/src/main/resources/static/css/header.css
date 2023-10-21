@@ -1,24 +1,10 @@
 @charset "UTF-8";
 
 @media ( max-width :768px) {
-	/*
-	.nav-item {
-		width: 100%;
-	}
-	.nav-item .nav-line>img {
-		display: none;
-	}
-	*/
+	/*  */
 }
 
 @media ( min-width :769px) {
-	/*
-	.nav-item {
-		width: 20%;
-	}
-	.nav-item .nav-line {
-		
-	}
-	*/
+	/*  */
 }
 

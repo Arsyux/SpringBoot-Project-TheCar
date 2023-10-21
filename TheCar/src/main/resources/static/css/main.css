@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.mainBorder {
+	border: solid;
+	border-width: 2px;
+	border-radius: 5px;
+	border-color: #999999;
+}
+
+
+.loginTag {
+	color: #555555;
+	text-decoration: none;
+}
+
+.loginTag:hover {
+	color: orange;
+}
