@@ -5,6 +5,20 @@
 <!-- main.css -->
 <link rel="stylesheet" type="text/css" href="/css/main.css">
 
+<!-- 캐러셀 -->
+<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+	<!-- 캐러셀 이미지 -->
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<img src="/image/main/Safety Loader1.png" class="d-block w-100">
+		</div>
+		<div class="carousel-item">
+			<img src="/image/main/Safety Loader2.png" class="d-block w-100">
+		</div>
+	</div>
+</div>
+
+
 <div class="container mt-3">
 	<div class="row">
 		<!-- 메인 컨텐츠 -->
@@ -19,7 +33,7 @@
 			<c:choose>
 				<c:when test="${ principal == null }">
 					<div class="mainBorder p-3">
-						<a href="/auth/loginUser" class="btn btn-secondary w-100">로그인 하기</a>
+						<a href="/auth/loginUser" class="btn btn-secondary w-100">로그인</a>
 					</div>
 				</c:when>
 				<c:otherwise>
