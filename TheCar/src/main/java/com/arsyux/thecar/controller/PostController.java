@@ -20,7 +20,7 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
-	
+
 	//@Autowired
 	//private ModelMapper modelMapper;
 	
@@ -32,8 +32,7 @@ public class PostController {
 		//model.addAttribute("postList", postService.getPostList());
 		return "index";
 	}
-	
-	
+		
 	// 기본 화면 설정 - 페이징 추가
 	/*
 	@GetMapping({ "", "/" })
@@ -44,6 +43,69 @@ public class PostController {
 		return "index";
 	}
 	*/
+	
+	// 인사말
+	@GetMapping("/info/greetings")
+	public String greetings() {
+		return "info/greetings";
+	}
+	// 회사개요
+	@GetMapping("/info/outline")
+	public String outline() {
+		return "info/outline";
+	}
+	// 오시는길
+	@GetMapping("/info/wayToCome")
+	public String wayToCome() {
+		return "info/wayToCome";
+	}
+	// 5톤 카캐리어
+	@GetMapping("/info/fiveTonCarCarrier")
+	public String fiveTonCarCarrier() {
+		return "info/fiveTonCarCarrier";
+	}
+	// 풀카 트레일러 카캐리어
+	@GetMapping("/info/fullCarTrailerCarCarrier")
+	public String fullCarTrailerCarCarrier() {
+		return "info/fullCarTrailerCarCarrier";
+	}
+	// 저상형 세이프티
+	@GetMapping("/info/lowProfileSafety")
+	public String lowProfileSafety() {
+		return "info/lowProfileSafety";
+	}
+	// 고상형 세이프티
+	@GetMapping("info/solidSafety")
+	public String solidSafety() {
+		return "info/solidSafety";
+	}
+	// 승용차 탁송
+	@GetMapping("info/carConsignment")
+	public String carConsignment() {
+		return "info/carConsignment";
+	}
+	// 대형차 탁송
+	@GetMapping("info/largeCarConsignment")
+	public String largeCarConsignment() {
+		return "info/largeCarConsignment";
+	}
+	// 제주도 탁송
+	@GetMapping("info/jejuConsignment")
+	public String jejuConsignment() {
+		return "info/jejuConsignment";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/post/insertPost")
 	public String insertPost() {
