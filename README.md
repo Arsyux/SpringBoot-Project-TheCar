@@ -1,4 +1,4 @@
-# SpringBoot-Project-TheCar
+# thecar-springboot-project
 스프링부트를 사용한 자동차 탁송사이트
 
 ## 🖥️ 프로젝트소개
