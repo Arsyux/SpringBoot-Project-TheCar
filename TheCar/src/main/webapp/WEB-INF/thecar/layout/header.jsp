@@ -49,17 +49,45 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			
-			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<div class="collapse navbar-collapse justify-content-center row" id="collapsibleNavbar">
 				<ul class="navbar-nav">
-					<c:choose>
-						<c:when test="${ principal == null }">
-							<li class="nav-item"><a class="nav-link" href="/auth/loginUser" style="color: #CCCCCC;"><i class="bi bi-box-arrow-in-right"></i> 로그인</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/user/updateUser" style="color: #CCCCCC;"><i class="bi bi-person"></i> 회원 정보</a></li>
-							<li class="nav-item"><a class="nav-link" href="/auth/logout" style="color: #CCCCCC;"><i class="bi bi-box-arrow-in-left"></i> 로그아웃</a></li>
-						</c:otherwise>
-					</c:choose>
+					<li class="col"></li>
+					<li class="col"></li>
+					<li class="col nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">회사소개</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">인사말</a></li>
+							<li><a class="dropdown-item" href="#">회사개요</a></li>
+							<li><a class="dropdown-item" href="#">오시는길</a></li>
+						</ul>
+					</li>
+					<li class="col nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">카캐리어</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">5톤 카캐리어</a></li>
+							<li><a class="dropdown-item" href="#">풀카 트레일러 카캐리어</a></li>
+						</ul>
+					</li>
+					<li class="col nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">세이프티로더</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">저상형 SAFETY</a></li>
+							<li><a class="dropdown-item" href="#">고상형 SAFETY</a></li>
+						</ul>
+					</li>
+					<li class="col nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">로드탁송</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">승용차탁송</a></li>
+							<li><a class="dropdown-item" href="#">대형차탁송</a></li>
+						</ul>
+					</li>
+					<li class="col nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">제주도탁송</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">제주도탁송</a></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			

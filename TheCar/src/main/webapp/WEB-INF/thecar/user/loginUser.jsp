@@ -41,9 +41,7 @@
 					</div>
 					<div class="row mb-3">
 						<div class="col-12">
-							<button class="btn btn-dark w-100">
-								<spring:message code="user.login.form.login_btn" />
-							</button>
+							<button class="btn btn-dark w-100">로그인</button>
 						</div>
 					</div>
 
