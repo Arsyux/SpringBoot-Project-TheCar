@@ -37,6 +37,6 @@
 	
 </div>
 
-<script src="/js/user.js"></script>
+<script src="/js/updateUser.js"></script>
 
 <%@ include file="../layout/footer.jsp" %>

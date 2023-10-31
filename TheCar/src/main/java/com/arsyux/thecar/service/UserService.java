@@ -50,6 +50,15 @@ public class UserService {
 		if(findUser == null) { findUser = new User(); }
 		return findUser;
 	}
+	// 휴대폰으로 회원 정보 조회
+	@Transactional(readOnly = true)
+	public User findByEmail(String email) {
+		// 휴대폰으로 회원정보 검색
+		User findUser = userDAO.findByEmail(email);
+		// 검색된 유저가 없을경우 처리
+		if(findUser == null) { findUser = new User(); }
+		return findUser;
+	}
 	
 	// 회원 정보 수정
 	@Transactional
@@ -58,7 +67,6 @@ public class UserService {
 		User findUser = userDAO.findById(user.getId());
 		
 		findUser.setPassword(passwordEncoder.encode(user.getPassword()));
-		findUser.setEmail(user.getEmail());
 		
 		return findUser;
 	}

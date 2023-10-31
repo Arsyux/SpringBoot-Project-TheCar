@@ -32,7 +32,11 @@ public interface UserMapper {
 	@Select("SELECT * FROM USER WHERE PHONE = #{phone}")
 	public User findByPhone(String phone);
 	
+	// 휴대폰으로 회원 1명 조회
+	@Select("SELECT * FROM USER WHERE EMAIL = #{email}")
+	public User findByEmail(String email);
 	
+		
 	
 	
 	

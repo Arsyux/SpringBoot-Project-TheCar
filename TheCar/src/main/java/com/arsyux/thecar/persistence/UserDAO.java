@@ -30,7 +30,10 @@ public class UserDAO {
 	public User findByPhone(String phone) {
 		return mybatis.selectOne("findByPhone", phone);
 	}
-	
+	// 휴대폰으로 회원 1명 조회
+	public User findByEmail(String email) {
+		return mybatis.selectOne("findByEmail", email);
+	}
 	
 	
 	
