@@ -19,7 +19,11 @@ public interface UserMapper {
 	@Insert("INSERT INTO USER(USERNAME, PASSWORD, NAME, BIRTH, GENDER, PHONE, EMAIL) "
 			+ "VALUES(#{username}, #{password}, #{name}, #{birth}, #{gender}, #{phone}, #{email})")
 	public void insertUser(User user);
-		
+	
+	// 회원 번호로 회원 1명 조회
+	@Select("SELECT * FROM USER WHERE ID = #{id}")
+	public User findById(int id);
+	
 	// 로그인 아이디로 회원 1명 조회
 	@Select("SELECT * FROM USER WHERE USERNAME = #{username}")
 	public User findByUsername(String username);

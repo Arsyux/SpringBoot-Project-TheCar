@@ -6,17 +6,30 @@
 
 	<form>
 		<input type="hidden" id="id" value="${ principal.user.id }">
-		<div class="mb-3">
-			<label for="uname">로그인 아이디</label>
-			<input type="text" class="form-control" name="username" value="${ principal.user.username }">
+		
+		<!-- Password -->
+		<div class="col-12 mt-3">
+			<div class="input-group">
+				<span class="input-group-text"><i class="bi bi-lock"></i></span> <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"></input>
+				<div id="passwordInvalid" class="invalid-feedback"></div>
+			</div>
 		</div>
-		<div class="mb-3">
-			<label for="password">비밀번호</label>
-			<input type="password" class="form-control" name="password" placeholder="Enter password">
+		
+		<!-- 이메일 -->
+		<div class="col-12 mt-3 mb-3">
+			<div class="input-group">
+				<span class="input-group-text"><i class="bi bi-at"></i></span>
+					<input type="email" class="form-control" name="email" id="email" placeholder="이메일" value="${ principal.user.email }"></input>
+				<div id="emailInvalid" class="invalid-feedback"></div>
+			</div>
 		</div>
-		<div class="mb-3">
-			<label for="email">Email:</label>
-			<input type="email" class="form-control" name="email" value="${ principal.user.email }">
+		
+		<!-- 포인트 -->
+		<div class="col-12 mt-3 mb-3">
+			<div class="input-group">
+				<span class="input-group-text"><i class="bi bi-piggy-bank"></i></span>
+					<input type="text" class="form-control" name="point" id="point" value="${ principal.user.point }"></input>
+			</div>
 		</div>
 	</form>
 	

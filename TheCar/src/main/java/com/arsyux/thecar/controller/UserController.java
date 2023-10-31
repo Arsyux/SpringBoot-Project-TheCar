@@ -5,18 +5,22 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.ResponseDTO;
+import com.arsyux.thecar.dto.UpdateUserDTO;
 import com.arsyux.thecar.dto.UserDTO;
+import com.arsyux.thecar.security.UserDetailsImpl;
 import com.arsyux.thecar.service.UserService;
 
 @Controller
@@ -72,29 +76,23 @@ public class UserController {
 		
 	}
 	
-	
-	
+	// 회원 정보 수정 이동
 	@GetMapping("/user/updateUser")
 	public String updateUser() {
 		return "user/updateUser";
 	}
-	
-	/*
-	// 회원 정보를 수정하는 updateUser()메소드 작성
-	@PutMapping("/user")
-	public @ResponseBody ResponseDTO<?> updateUser(@RequestBody User user, @AuthenticationPrincipal UserDetailsImpl principal) {
+	// 회원 정보 수정
+	@PutMapping("/user/updateUser")
+	public @ResponseBody ResponseDTO<?> updateUser(@Valid @RequestBody UpdateUserDTO updateUserDTO, @AuthenticationPrincipal UserDetailsImpl principal) {
 
-		//userService.updateUser(user);
+		// UpdateUserDTO를 통해 유효성 검사
+		User user = modelMapper.map(updateUserDTO, User.class);
 		
-		// 회원 정보 수정과 동시에 세션 갱신
-		principal.setUser(userService.updateUser(user));
-		
-		// 기존의 updateUser() 메소드는 회원 정보 수정만 처리했었다.
 		// 회원 정보 수정과 동시에 세션을 갱신해야하므로 updateUser()메소드에서 회원 정보를 수정하고 UserService.updateUser() 메소드가 반환한 User 객체로
 		// SecurityContext에 등록된 AUthentication 객체의 User를 변경하도록 한다.
+		principal.setUser(userService.updateUser(user));
 		
-		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + " 수정 완료");
+		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 정보가 수정되었습니다.");
 	}
-	*/
 	
 }

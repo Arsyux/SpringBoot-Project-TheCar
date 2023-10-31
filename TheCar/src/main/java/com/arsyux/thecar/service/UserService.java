@@ -51,8 +51,17 @@ public class UserService {
 		return findUser;
 	}
 	
-	
-	
+	// 회원 정보 수정
+	@Transactional
+	public User updateUser(User user) {
+		
+		User findUser = userDAO.findById(user.getId());
+		
+		findUser.setPassword(passwordEncoder.encode(user.getPassword()));
+		findUser.setEmail(user.getEmail());
+		
+		return findUser;
+	}
 	
 	/*
 	// 스프링 시큐리티의 인증 처리 과정 - 세션 갱신
@@ -68,7 +77,6 @@ public class UserService {
 		//findUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		//findUser.setEmail(user.getEmail());
 		
-		//return findUser;
 		return new User(1, "test", "123");
 	}
 	*/

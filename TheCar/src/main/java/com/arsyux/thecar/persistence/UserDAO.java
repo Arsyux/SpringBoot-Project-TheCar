@@ -18,7 +18,10 @@ public class UserDAO {
 	public void insertUser(User user) {
 		mybatis.insert("insertUser", user);
 	}
-	
+	// 회원 번호로 1명 조회
+	public User findById(int id) {
+		return mybatis.selectOne("findById", id);
+	}
 	// 로그인 아이디로 회원 1명 조회
 	public User findByUsername(String username) {
 		return mybatis.selectOne("findByUsername", username);

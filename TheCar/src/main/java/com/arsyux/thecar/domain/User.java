@@ -25,15 +25,18 @@ public class User {
 	
 	// 생년월일
 	private String birth;
-	
+
 	// 성별
 	private String gender; 
 	
 	// 휴대폰 번호
 	private String phone;
-	
+
 	// 이메일
 	private String email;
+	
+	// 마일리지
+	private int point;
 	
 	// 가입일
 	private Date regdate;
