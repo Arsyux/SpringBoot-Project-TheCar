@@ -33,12 +33,12 @@
 			<c:choose>
 				<c:when test="${ principal == null }">
 					<div class="mainBorder p-3">
-						<a href="/auth/loginUser" class="btn btn-secondary w-100">로그인</a>
+						<a href="/auth/loginUser" class="btn btn-dark w-100">로그인</a>
 					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="mainBorder p-3">
-						<a href="/auth/loginUser" class="btn btn-secondary w-100">로그아웃</a>
+						<a href="/auth/loginUser" class="btn btn-dark w-100">로그아웃</a>
 					</div>
 				</c:otherwise>
 			</c:choose>

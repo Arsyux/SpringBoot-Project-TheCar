@@ -92,9 +92,7 @@
 							<div id="emailInvalid" class="invalid-feedback"></div>
 						</div>
 					</div>
-					
-					
-					
+										
 				</div>
 			</form>
 
