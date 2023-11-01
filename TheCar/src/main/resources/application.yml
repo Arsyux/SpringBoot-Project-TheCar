@@ -19,3 +19,4 @@ spring:
     username: ${DB_ID}
     password: ${DB_PASSWORD}
 
+kakaomap_key: ${JAVASCRIPT_KEY}

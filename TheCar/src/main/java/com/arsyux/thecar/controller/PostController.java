@@ -1,6 +1,7 @@
 package com.arsyux.thecar.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +25,18 @@ public class PostController {
 	//@Autowired
 	//private ModelMapper modelMapper;
 	
+	@Value("${kakaomap_key}")
+	private String kakaoMapKey;
+	
 	// 기본 화면 설정
 	@GetMapping({ "", "/" })
 	public String getPostList(Model model) {
 		// getPostList() 메소드에서 검색된 포스트 목록을 "postList"라는 이름으로 Model에 등록한다.
 		// 이렇게 Model에 등록한 포스트 목록은 index.jsp 파일에서 표현식 언어(Expression Language, EL)을 통해 사용할 수 있다.
 		//model.addAttribute("postList", postService.getPostList());
+		
+		// 카카오맵 API키 삽입
+		model.addAttribute("kakaoMapKey", kakaoMapKey);
 		return "index";
 	}
 		
@@ -56,7 +63,9 @@ public class PostController {
 	}
 	// 오시는길
 	@GetMapping("/info/wayToCome")
-	public String wayToCome() {
+	public String wayToCome(Model model) {
+		// 카카오맵 API키 삽입
+		model.addAttribute("kakaoMapKey", kakaoMapKey);
 		return "info/wayToCome";
 	}
 	// 5톤 카캐리어
