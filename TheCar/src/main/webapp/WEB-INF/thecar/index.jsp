@@ -10,10 +10,10 @@
 	<!-- 캐러셀 이미지 -->
 	<div class="carousel-inner">
 		<div class="carousel-item active">
-			<img src="/image/main/Safety Loader1.png" class="d-block w-100">
+			<img src="/image/main/safetyLoader1.png" class="d-block w-100">
 		</div>
 		<div class="carousel-item">
-			<img src="/image/main/Safety Loader2.png" class="d-block w-100">
+			<img src="/image/main/safetyLoader2.png" class="d-block w-100">
 		</div>
 	</div>
 </div>
