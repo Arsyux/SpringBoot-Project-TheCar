@@ -18,3 +18,4 @@ spring:
     url: jdbc:mariadb://localhost:3306/test
     username: ${DB_ID}
     password: ${DB_PASSWORD}
+

@@ -5,20 +5,6 @@
 <!-- main.css -->
 <link rel="stylesheet" type="text/css" href="/css/main.css">
 
-<!-- 캐러셀 -->
-<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
-	<!-- 캐러셀 이미지 -->
-	<div class="carousel-inner">
-		<div class="carousel-item active">
-			<img src="/image/main/safetyLoader1.png" class="d-block w-100">
-		</div>
-		<div class="carousel-item">
-			<img src="/image/main/safetyLoader2.png" class="d-block w-100">
-		</div>
-	</div>
-</div>
-
-
 <div class="container mt-3" style="min-height: 500px;">
 	<div class="row">
 	
