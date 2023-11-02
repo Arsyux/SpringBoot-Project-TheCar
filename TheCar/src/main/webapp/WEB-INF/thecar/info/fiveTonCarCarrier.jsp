@@ -3,7 +3,11 @@
 
 
 
-<h1>fiveTonCarCarrier!</h1>
+
+<div class="container">
+	<h1>fiveTonCarCarrier!</h1>
+
+</div>
 
 
 <%@ include file="../layout/footer.jsp" %>
