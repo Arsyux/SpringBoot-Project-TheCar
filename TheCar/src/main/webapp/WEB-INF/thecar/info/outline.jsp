@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 
+<!-- 캐러셀 -->
+<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+	<!-- 캐러셀 이미지 -->
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<img src="/image/main/safetyLoader1.png" class="d-block w-100">
+		</div>
+		<div class="carousel-item">
+			<img src="/image/main/safetyLoader2.png" class="d-block w-100">
+		</div>
+	</div>
+</div>
+
 <!-- 회사개요 -->
 <div class="container mt-4">
 	<div class="row mb-5">
@@ -23,7 +36,7 @@
 		<h4 style="color: crimson; text-align: center;">더카탁송 <span style="color: crimson; text-align: center; font-weight: bold;">1599-5866</span></h4>
 	</div>
 	<div class="mb-4" style="text-align: center;">
-		<h4 style="color: #666666; text-align: center; font-weight: bold;">국내 차량탁송업계 1등기업</h4>
+		<h4 style="color: #666666; text-align: center; font-weight: bold;">국내 차량탁송업계 1등기업 더카 탁송</h4>
 	</div>
 	
 	<div class="row mb-3">

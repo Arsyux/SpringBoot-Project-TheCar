@@ -51,9 +51,8 @@
 			
 			<div class="collapse navbar-collapse justify-content-center row" id="collapsibleNavbar">
 				<ul class="navbar-nav">
-					<li class="col nav-item"></li>
-					<li class="col nav-item"></li>
-					<li class="col nav-item dropdown">
+					<li class="col-2 nav-item"></li>
+					<li class="col-2 nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">회사소개</a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="/info/greetings">인사말</a></li>
@@ -61,21 +60,21 @@
 							<li><a class="dropdown-item" href="/info/wayToCome">오시는길</a></li>
 						</ul>
 					</li>
-					<li class="col nav-item dropdown">
+					<li class="col-2 nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">카캐리어</a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="/info/fiveTonCarCarrier">5톤 카캐리어</a></li>
 							<li><a class="dropdown-item" href="/info/fullCarTrailerCarCarrier">풀카 트레일러 카캐리어</a></li>
 						</ul>
 					</li>
-					<li class="col nav-item dropdown">
+					<li class="col-2 nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">세이프티로더</a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="/info/lowProfileSafety">저상형 SAFETY</a></li>
 							<li><a class="dropdown-item" href="/info/solidSafety">고상형 SAFETY</a></li>
 						</ul>
 					</li>
-					<li class="col nav-item dropdown">
+					<li class="col-2 nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">로드탁송</a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="/info/carConsignment">승용차탁송</a></li>
@@ -85,13 +84,12 @@
 					
 					<c:choose>
 						<c:when test="${ principal == null }">
-							<li class="col nav-item"><a class="nav-link" href="/auth/loginUser" style="color: #CCCCCC;">로그인</a></li>
+							<li class="col-2 nav-item"><a class="nav-link" href="/auth/loginUser" style="color: #CCCCCC;">로그인</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="col nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">회원정보</a>
+							<li class="col-2 nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;"><b>${ principal.user.name }</b> 님</a>
 								<ul class="dropdown-menu">
-									<li><span class="dropdown-item-text"><b>${ principal.user.name }</b> 님</span></li>
 									<li><span class="dropdown-item-text"><b>${ principal.user.point }</b> P</span></li>
 									<li><a class="dropdown-item" href="/user/updateUser">내 정보</a></li>
 									<li><a class="dropdown-item" href="/auth/logout">로그아웃</a></li>

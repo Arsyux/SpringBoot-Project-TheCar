@@ -1,6 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 
+<!-- 캐러셀 -->
+<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+	<!-- 캐러셀 이미지 -->
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<img src="/image/main/safetyLoader1.png" class="d-block w-100">
+		</div>
+		<div class="carousel-item">
+			<img src="/image/main/safetyLoader2.png" class="d-block w-100">
+		</div>
+	</div>
+</div>
+
 <!-- 회사 소개 -->
 <div class="container mt-4">
 	<div class="row mb-5">
