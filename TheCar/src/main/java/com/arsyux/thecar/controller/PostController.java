@@ -28,7 +28,11 @@ public class PostController {
 	@Value("${kakaomap_key}")
 	private String kakaoMapKey;
 	
+	// ========================================
 	// 기본 화면 설정
+	// ========================================
+	
+	// 메인 화면
 	@GetMapping({ "", "/" })
 	public String getPostList(Model model) {
 		// getPostList() 메소드에서 검색된 포스트 목록을 "postList"라는 이름으로 Model에 등록한다.
@@ -39,7 +43,7 @@ public class PostController {
 		model.addAttribute("kakaoMapKey", kakaoMapKey);
 		return "index";
 	}
-		
+	
 	// 기본 화면 설정 - 페이징 추가
 	/*
 	@GetMapping({ "", "/" })
@@ -50,6 +54,13 @@ public class PostController {
 		return "index";
 	}
 	*/
+	
+	
+	
+	
+	// ========================================
+	// 네비게이션바 메뉴
+	// ========================================
 	
 	// 인사말
 	@GetMapping("/info/greetings")
@@ -98,28 +109,31 @@ public class PostController {
 	public String largeCarConsignment() {
 		return "info/largeCarConsignment";
 	}
-	// 제주도 탁송
-	@GetMapping("info/jejuConsignment")
-	public String jejuConsignment() {
-		return "info/jejuConsignment";
-	}
 	
 	
 	
 	
+	// ========================================
+	// 메인 메뉴
+	// ========================================
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 글쓰기 페이지로 이동
 	@GetMapping("/post/insertPost")
 	public String insertPost() {
 		return "post/insertPost";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// 세션 갱신 - 연관 매핑 수정
 	// 회원 정보 수정과 관련하여 포스트 등록 기능과 댓글 등록 기능을 수정해야한다.

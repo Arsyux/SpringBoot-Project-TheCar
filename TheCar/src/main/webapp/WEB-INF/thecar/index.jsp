@@ -25,6 +25,10 @@
 		<!-- 메인 컨텐츠 -->
 		<div class="col-md-9 col-sm-12 p-3">
 			<div class="mainBorder p-3">
+				<div class="row">
+					<div class="col-11"></div>
+					<div class="col-1"><a class="btn btn-primary" href="post/insertPost">작성</a></div>
+				</div>
 				<h1>Main</h1>
 			</div>
 		</div>
