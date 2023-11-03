@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Post {
 
+	// 게시글 번호 (PK)
 	private int id;
 	
 	// 제목
@@ -18,11 +19,17 @@ public class Post {
 	
 	// 내용
 	private String content;
-	
-	// 작성 날짜
-	private Timestamp createDate;
-	
+
 	// 조회수
 	private int cnt;
 	
+	// 작성 날짜
+	private Timestamp regDate;
+
+	// 글쓴이 회원 번호 (FK)
+	private int uid;
+	
+	// 글쓴이 이름
+	private String name;
+
 }

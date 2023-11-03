@@ -29,7 +29,12 @@
 					<div class="col-11"></div>
 					<div class="col-1"><a class="btn btn-primary" href="post/insertPost">작성</a></div>
 				</div>
-				<h1>Main</h1>
+				<c:forEach var="post" items="${ postList }">
+					<h1>${ post.id }, ${ post.title }, ${ post.name }</h1>
+				</c:forEach>
+				
+				
+				
 			</div>
 		</div>
 		
