@@ -51,8 +51,8 @@
 			
 			<div class="collapse navbar-collapse justify-content-center row" id="collapsibleNavbar">
 				<ul class="navbar-nav">
-					<li class="col"></li>
-					<li class="col"></li>
+					<li class="col nav-item"></li>
+					<li class="col nav-item"></li>
 					<li class="col nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">회사소개</a>
 						<ul class="dropdown-menu">
@@ -82,26 +82,28 @@
 							<li><a class="dropdown-item" href="/info/largeCarConsignment">대형차탁송</a></li>
 						</ul>
 					</li>
-					<li class="col nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">제주도탁송</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/info/jejuConsignment">제주도탁송</a></li>
-						</ul>
-					</li>
+					
+					<c:choose>
+						<c:when test="${ principal == null }">
+							<li class="col nav-item"><a class="nav-link" href="/auth/loginUser" style="color: #CCCCCC;">로그인</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="col nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;">회원정보</a>
+								<ul class="dropdown-menu">
+									<li><span class="dropdown-item-text"><b>${ principal.user.name }</b> 님</span></li>
+									<li><span class="dropdown-item-text"><b>${ principal.user.point }</b> P</span></li>
+									<li><a class="dropdown-item" href="/user/updateUser">내 정보</a></li>
+									<li><a class="dropdown-item" href="/auth/logout">로그아웃</a></li>
+								</ul>
+							</li>
+						</c:otherwise>
+						
+						
+					</c:choose>
 				</ul>
 			</div>
 			
 		</div>
 	</nav>
-	<!-- 캐러셀 -->
-	<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
-		<!-- 캐러셀 이미지 -->
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="/image/main/safetyLoader1.png" class="d-block w-100">
-			</div>
-			<div class="carousel-item">
-				<img src="/image/main/safetyLoader2.png" class="d-block w-100">
-			</div>
-		</div>
-	</div>
+	
