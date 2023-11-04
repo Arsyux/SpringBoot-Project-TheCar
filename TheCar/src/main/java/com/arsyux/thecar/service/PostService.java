@@ -15,6 +15,7 @@ public class PostService {
 	@Autowired
 	private PostDAO postDAO;
 	
+	// 게시글 작성
 	@Transactional
 	public void insertPost(Post post) {
 		postDAO.insertPost(post);
