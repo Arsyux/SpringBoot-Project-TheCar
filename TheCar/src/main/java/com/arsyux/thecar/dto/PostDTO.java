@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostDTO {
 
-	// 회원 가입시 유효성 검사
+	// 게시글 작성시 유효성 검사
 	public interface PostValidationGroup { }
 	
 	// 제목
@@ -22,7 +22,6 @@ public class PostDTO {
 	@NotBlank(groups = PostValidationGroup.class, message = "제목은 필수 입력 항목입니다.")
 	@Size(groups = PostValidationGroup.class, message = "제목은 1자 이상 100자 미만으로 입력해주세요.", min = 1, max = 100)
 	private String title;
-	
 	
 	// 내용
 	@NotNull(groups = PostValidationGroup.class, message = "내용이 전달되지 않았습니다.")

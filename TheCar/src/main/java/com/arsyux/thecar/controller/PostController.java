@@ -49,6 +49,7 @@ public class PostController {
 		
 		// 카카오맵 API키 삽입
 		model.addAttribute("kakaoMapKey", kakaoMapKey);
+		
 		return "index";
 	}
 	

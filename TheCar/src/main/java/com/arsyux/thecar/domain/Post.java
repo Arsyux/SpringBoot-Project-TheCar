@@ -14,6 +14,9 @@ public class Post {
 	// 게시글 번호 (PK)
 	private int id;
 	
+	// 상태
+	private String state;
+	
 	// 제목
 	private String title;
 	
@@ -24,7 +27,7 @@ public class Post {
 	private int cnt;
 	
 	// 작성 날짜
-	private Timestamp regDate;
+	private Timestamp regdate;
 
 	// 글쓴이 회원 번호 (FK)
 	private int uid;

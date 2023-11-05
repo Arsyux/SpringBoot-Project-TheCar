@@ -19,7 +19,8 @@ public interface PostMapper {
 	public void insertPost(Post post);
 	
 	// 메인 화면 게시글 조회
-	@Select("SELECT p.id, p.title, u.name name FROM USER u, POST p WHERE u.id = p.uid ORDER BY p.id DESC")
+	// -> 일반 게시글 조회로 써도 될지 확인 후 getPostList()로 이름 변경
+	@Select("SELECT p.id, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid ORDER BY p.id DESC")
 	public List<Post> getMainList();
 	
 	// 게시글 전체 조회

@@ -26,12 +26,60 @@
 		<div class="col-md-9 col-sm-12 p-3">
 			<div class="mainBorder p-3">
 				<div class="row">
-					<div class="col-11"></div>
-					<div class="col-1"><a class="btn btn-primary" href="post/insertPost">작성</a></div>
+					<table class="table table-hover">
+						<thead class="table-dark">
+							<tr>
+					        	<th class="col-1" style="text-align: center;">번호</th>
+					        	<th class="col-6">제목</th>
+					        	<th class="col-2" style="text-align: center;">작성자</th>
+					        	<th class="col-3" style="text-align: center;">작성날짜</th>
+				        	</tr>
+					    </thead>
+					    <tbody>
+					    	<c:if test="${!empty postList }">
+					    		<!-- 게시글이 있을 경우 -->
+					    		<c:forEach var="post" items="${ postList }">
+									<tr>
+							        	<td style="text-align: center;">${ post.id }</td>
+							        	<td>
+								        	<!-- 게시글 제목 -->
+							        		<a href="#" style="text-decoration: none; color: black;">
+							        		<!-- 처리 상태에 따라서 다르게 표시 -->
+							        			<span style="background-color: green; border-color: green; border-style: solid; border-radius: 20%; color: white;">OK</span> ${ post.title }
+						        			</a>
+						        		</td>
+							        	<td style="text-align: center;">${ post.name }</td>
+							        	<!-- 날짜 데이터의 숫자가 소수점으로 표시되어서 Format변경 -->
+							        	<fmt:parseDate value="${ post.regdate }" var="dateFormat" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${ dateFormat }" var="regdate" pattern="yyyy-MM-dd HH:mm:ss"/>
+							        	<td style="text-align: center;">${ regdate }</td>
+						        	</tr>
+								</c:forEach>
+					    	</c:if>
+					    	<c:if test="${empty postList }">
+					    		<!-- 게시글이 없을 경우 -->
+						    	<tr>
+						        	<td>NoData</td>
+						        	<td>Doe</td>
+						        	<td>john@example.com</td>
+					        	</tr>
+					        	<tr>
+						      		<td>Mary</td>
+						      		<td>Moe</td>
+						      		<td>mary@example.com</td>
+					      		</tr>
+					    	</c:if>
+					    </tbody>
+					</table>
 				</div>
-				<c:forEach var="post" items="${ postList }">
-					<h1>${ post.id }, ${ post.title }, ${ post.name }</h1>
-				</c:forEach>
+				
+				<div class="row">
+					<div class="col-10"></div>
+					<c:if test="${!empty principal }">
+						<div class="col-2"><a class="btn btn-primary" href="post/insertPost">작성</a></div>
+					</c:if>
+				</div>
+				
 				
 				
 				
