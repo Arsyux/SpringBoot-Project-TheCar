@@ -20,7 +20,7 @@ public interface PostMapper {
 	
 	// 메인 화면 게시글 조회
 	// -> 일반 게시글 조회로 써도 될지 확인 후 getPostList()로 이름 변경
-	@Select("SELECT p.id, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid ORDER BY p.id DESC")
+	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid ORDER BY p.id DESC LIMIT 10")
 	public List<Post> getMainList();
 	
 	// 게시글 전체 조회

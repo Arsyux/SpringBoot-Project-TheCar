@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.arsyux.thecar.domain.Post;
@@ -23,5 +25,5 @@ public class PostDAO {
 	public List<Post> getMainList() {
 		return mybatis.selectList("getMainList");
 	}
-
+	
 }

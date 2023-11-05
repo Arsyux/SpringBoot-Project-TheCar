@@ -26,6 +26,8 @@
 		<div class="col-md-9 col-sm-12 p-3">
 			<div class="mainBorder p-3">
 				<div class="row">
+					<h2 style="font-weight: bold;">문의내역</h2>
+					<hr/>
 					<table class="table table-hover">
 						<thead class="table-dark">
 							<tr>
@@ -45,7 +47,16 @@
 								        	<!-- 게시글 제목 -->
 							        		<a href="#" style="text-decoration: none; color: black;">
 							        		<!-- 처리 상태에 따라서 다르게 표시 -->
-							        			<span style="background-color: green; border-color: green; border-style: solid; border-radius: 20%; color: white;">OK</span> ${ post.title }
+							        			<c:if test="${ post.state == 'R' }">
+							        				<span style="background-color: red; border-color: red; border-style: solid; border-radius: 20%; color: white;">대기</span>
+							        			</c:if>
+							        			<c:if test="${ post.state == 'P' }">
+							        				<span style="background-color: orange; border-color: orange; border-style: solid; border-radius: 20%; color: white;">처리</span>
+							        			</c:if>
+							        			<c:if test="${ post.state == 'C' }">
+							        				<span style="background-color: green; border-color: green; border-style: solid; border-radius: 20%; color: white;">완료</span>
+							        			</c:if>
+							        			&nbsp;&nbsp;${ post.title }
 						        			</a>
 						        		</td>
 							        	<td style="text-align: center;">${ post.name }</td>
@@ -55,19 +66,19 @@
 							        	<td style="text-align: center;">${ regdate }</td>
 						        	</tr>
 								</c:forEach>
+								
+								
 					    	</c:if>
 					    	<c:if test="${empty postList }">
 					    		<!-- 게시글이 없을 경우 -->
-						    	<tr>
-						        	<td>NoData</td>
-						        	<td>Doe</td>
-						        	<td>john@example.com</td>
-					        	</tr>
-					        	<tr>
-						      		<td>Mary</td>
-						      		<td>Moe</td>
-						      		<td>mary@example.com</td>
-					      		</tr>
+					    		<c:forEach var="post" begin="1" end="20">
+									<tr>
+							        	<td height="41.5px;"> </td>
+							        	<td></td>
+							        	<td></td>
+							        	<td></td>
+						        	</tr>
+								</c:forEach>
 					    	</c:if>
 					    </tbody>
 					</table>
@@ -99,7 +110,7 @@
 			</div>
 			
 			<!-- 지도 -->
-			<div class="col-12">
+			<div class="col-12 mb-2">
 				<div class="mainBorder p-3">
 					<div id="map" style="width:100%;height:200px;"></div>
 						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${ kakaoMapKey }"></script>
@@ -126,6 +137,13 @@
 						// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 						// marker.setMap(null);   
 						</script>
+				</div>
+			</div>
+			
+			<!-- 전화번호 -->
+			<div class="col-12 mb-2">
+				<div class="mainBorder p-3">
+					<h4 style="font-weight: bold; text-align: center;"><a href="https://github.com/Arsyux" style="text-decoration: none; color: black;" target="_blank"><i class="bi bi-github"></i> Arsyux Git Hub</a></h4>
 				</div>
 			</div>
 		</div>
