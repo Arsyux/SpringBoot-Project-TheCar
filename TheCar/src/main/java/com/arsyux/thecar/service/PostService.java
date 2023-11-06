@@ -3,12 +3,11 @@ package com.arsyux.thecar.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.arsyux.thecar.domain.Post;
+import com.arsyux.thecar.domain.SearchPage;
 import com.arsyux.thecar.persistence.PostDAO;
 
 @Service
@@ -22,12 +21,33 @@ public class PostService {
 	public void insertPost(Post post) {
 		postDAO.insertPost(post);
 	}
-	
+
+	// 게시글 총 갯수 조회
+	@Transactional(readOnly = true)
+	public int getPostMaxCount() {
+		return postDAO.getPostMaxCount();
+	}
+		
 	// 게시글 리스트
 	@Transactional(readOnly = true)
-	public List<Post> getMainList() {
-		return postDAO.getMainList();
+	public List<Post> getPostList() {
+		return postDAO.getPostList();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	// 테스트
+	@Transactional(readOnly = true)
+	public List<Post> getTestList(SearchPage searchPage) {
+		return postDAO.getTestList(searchPage);
+	}
+	
+	
 	
 	// getPostList()의 기능은 등록된 포스트의 목록을 조회하는 것 뿐이므로 @Transactional(readOnly = true)으로 설정한다.
 	/*

@@ -40,4 +40,5 @@ public class User {
 	
 	// 가입일
 	private Date regdate;
+	
 }

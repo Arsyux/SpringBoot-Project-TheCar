@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.Post;
+import com.arsyux.thecar.domain.SearchPage;
 import com.arsyux.thecar.dto.PostDTO;
 import com.arsyux.thecar.dto.PostDTO.PostValidationGroup;
 import com.arsyux.thecar.dto.ResponseDTO;
@@ -45,7 +47,7 @@ public class PostController {
 	public String getPostList(Model model) {
 		
 		// 메인 포스트 정보 삽입
-		model.addAttribute("postList", postService.getMainList());
+		model.addAttribute("postList", postService.getPostList());
 		
 		// 카카오맵 API키 삽입
 		model.addAttribute("kakaoMapKey", kakaoMapKey);
@@ -53,16 +55,51 @@ public class PostController {
 		return "index";
 	}
 	
-	// 기본 화면 설정 - 페이징 추가
-	//@GetMapping({ "", "/" })
-	//public String getPostList(Model model, @PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
-		// @PageableDefault로 설정한 Pageable 객체는 한 화면에 3개의 포스트 데이터를 출력한다.
-		// 가장 최근에 등록된 포스트부터 차례대로 출력하기 위해 id를 사용하여 내림차순 정렬을 설정한다.
+	// 테스트
+	@GetMapping("/test")
+	public String getTest(@RequestParam(required = false, value = "start", defaultValue = "0") int start, 
+						  @RequestParam(required = false, value = "size", defaultValue = "10") int size,
+						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
+						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
 		
-	//	model.addAttribute("postList", postService.getPostList(pageable));
+		SearchPage searchPage;
 		
-	//	return "index";
-	//}
+		if(principal == null) {
+			// 일반 게시글 조회 -> 시큐리티에서 test 예외처리 삭제후 이부분 삭제
+			System.out.println("일반. 검색기능 x");
+			searchPage = new SearchPage(start, size);
+			model.addAttribute("page", searchPage);
+			model.addAttribute("postList", postService.getTestList(searchPage));
+		} else {
+			
+			if(principal.getUser().getUsername().equals("a")) {
+				// 관리자용 게시글 제목내용 검색 조회
+				System.out.println("관리자용");
+				if(searchText.equals("")) {
+					System.out.println("검색x");
+					searchPage = new SearchPage(start, size);
+				} else {				
+					System.out.println("검색o");	
+					searchPage = new SearchPage(start, size, searchText);
+				}
+				model.addAttribute("page", searchPage);
+				model.addAttribute("postList", postService.getTestList(searchPage));
+			} else {
+				// 일반 게시글 조회
+				System.out.println("일반. 검색기능 x");
+				searchPage = new SearchPage(start, size);
+				model.addAttribute("page", searchPage);
+				model.addAttribute("postList", postService.getTestList(searchPage));
+			}
+		}
+		
+		
+		
+		
+		
+		return "test";
+	}
+		
 	
 	
 	

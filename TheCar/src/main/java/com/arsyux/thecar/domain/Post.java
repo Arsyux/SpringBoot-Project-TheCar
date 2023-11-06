@@ -34,5 +34,8 @@ public class Post {
 	
 	// 글쓴이 이름
 	private String name;
-
+	
+	// 총 게시글 갯수
+	private int last;
+	
 }

@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// 유저 유효성 검사
+// 게시글 유효성 검사
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
