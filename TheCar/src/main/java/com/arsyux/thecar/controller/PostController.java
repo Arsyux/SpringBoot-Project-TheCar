@@ -54,15 +54,15 @@ public class PostController {
 	}
 	
 	// 기본 화면 설정 - 페이징 추가
-	@GetMapping({ "", "/" })
-	public String getPostList(Model model, @PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
+	//@GetMapping({ "", "/" })
+	//public String getPostList(Model model, @PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
 		// @PageableDefault로 설정한 Pageable 객체는 한 화면에 3개의 포스트 데이터를 출력한다.
 		// 가장 최근에 등록된 포스트부터 차례대로 출력하기 위해 id를 사용하여 내림차순 정렬을 설정한다.
 		
-		model.addAttribute("postList", postService.getPostList(pageable));
+	//	model.addAttribute("postList", postService.getPostList(pageable));
 		
-		return "index";
-	}
+	//	return "index";
+	//}
 	
 	
 	
