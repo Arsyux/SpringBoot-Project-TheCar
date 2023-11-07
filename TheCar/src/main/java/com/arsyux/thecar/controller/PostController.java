@@ -113,16 +113,15 @@ public class PostController {
 		
 		// 유저 이름으로 조회되는 게시글 개수 조회
 		int postCount = postService.getPostCountByUsername(user);
-
+		
 		// Page 정보 생성 시작 페이지, 크기, 총 개수, 유저 이름
-		SearchPage searchPage = new SearchPage(start, size, postCount, user.getUsername());
-
+		SearchPage searchPage = new SearchPage(start, size, postCount, user.getName());
+		
 		// 게시글 조회
 		List<Post> postList = postService.getPostListByUsername(searchPage);
 		
 		// 조회된 데이터를 model에 추가
 		model.addAttribute("searchPage", searchPage);
-		
 		model.addAttribute("postList", postList);
 		
 		return "test";
