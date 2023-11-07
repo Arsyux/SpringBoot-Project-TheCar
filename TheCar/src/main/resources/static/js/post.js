@@ -20,8 +20,6 @@ let postObject = {
 	},
 	
 	insertPost: function(){
-		alert("포스트 등록 요청됨");
-
 		let post = {
 			title : $("#title").val(),
 			content : $("#content").val(),
@@ -38,12 +36,10 @@ let postObject = {
 			//location = "/";
 			let status = response["status"];
 			if(status == 200) {
-				alert('성공');
 				let message = response["data"];
 				alert(message);
 				location = "/";	
 			} else {
-				alert('실패');
 				let warn = "";
 				let errors = response["data"];
 				if(errors.title != null) { warn = warn + errors.title + "\n" }

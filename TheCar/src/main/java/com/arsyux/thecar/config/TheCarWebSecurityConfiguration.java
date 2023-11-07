@@ -43,7 +43,7 @@ public class TheCarWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/webjars/**", "/js/**", "/image/**", "/css/**", "/", "/auth/**", "/info/**", "/test/**").permitAll()
+			.antMatchers("/webjars/**", "/js/**", "/image/**", "/css/**", "/", "/auth/**", "/info/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()

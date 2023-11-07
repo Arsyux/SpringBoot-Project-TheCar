@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.arsyux.thecar.domain.Post;
 import com.arsyux.thecar.domain.SearchPage;
+import com.arsyux.thecar.domain.User;
 
 @Repository
 public class PostDAO {
@@ -16,25 +17,54 @@ public class PostDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	// 회원 가입
-	public void insertPost(Post post) {
-		mybatis.insert("insertPost", post);
-	}
+	// ========================================
+	// 1. 게시글 개수 조회
+	// ========================================
 	
-	// 게시글 총 갯수 조회
+	// 전체 게시글 개수 조회
 	@Transactional(readOnly = true)
-	public int getPostMaxCount() {
-		return mybatis.selectOne("getPostMaxCount");
-	}
+	public int getPostCount() { return mybatis.selectOne("getPostCount"); }
 	
-	// 메인화면 조회
-	public List<Post> getPostList() {
-		return mybatis.selectList("getPostList");
-	}
+	// 유저이름 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCountByUsername(User user) { return mybatis.selectOne("getPostCountByUsername", user); }
 	
-	// 메인화면 조회
-	public List<Post> getTestList(SearchPage searchPage) {
-		return mybatis.selectList("getTestList", searchPage);
-	}
+	// 제목 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCountByTitle(Post post) { return mybatis.selectOne("getPostCountByTitle", post); }
+	
+	// 내용 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCountByContent(Post post) { return mybatis.selectOne("getPostCountByContent", post); }
+	
+	// 제목내용 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCountByTitleContent(Post post) { return mybatis.selectOne("getPostCountByTitleContent", post); }
+	
+	// ========================================
+	// 2. 게시글 조회
+	// ========================================
+	
+	// 전체 게시글 전체 조회
+	public List<Post> getPostList(SearchPage searchPage) { return mybatis.selectList("getPostList", searchPage); }
+	
+	// 유저이름 게시글 조회
+	public List<Post> getPostListByUsername(SearchPage searchPage) { return mybatis.selectList("getPostListByUsername", searchPage); }
+	
+	// 제목 게시글 조회
+	public List<Post> getPostListByTitle(SearchPage searchPage) { return mybatis.selectList("getPostListByTitle", searchPage); }
+	
+	// 내용 게시글 조회
+	public List<Post> getPostListByContent(SearchPage searchPage) { return mybatis.selectList("getPostListByContent", searchPage); }
+	
+	// 제목내용 게시글 조회
+	public List<Post> getPostListByTitleContent(SearchPage searchPage) { return mybatis.selectList("getPostListByTitleContent", searchPage); }
+	
+	// ========================================
+	// 3. 게시글 작성
+	// ========================================
+	
+	// 게시글 작성
+	public void insertPost(Post post) { mybatis.insert("insertPost", post); }
 	
 }

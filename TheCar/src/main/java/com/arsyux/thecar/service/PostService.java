@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.arsyux.thecar.domain.Post;
 import com.arsyux.thecar.domain.SearchPage;
+import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.persistence.PostDAO;
 
 @Service
@@ -16,36 +17,73 @@ public class PostService {
 	@Autowired
 	private PostDAO postDAO;
 	
+	
+	// ========================================
+	// 1. 게시글 개수 조회
+	// ========================================
+	
+	// 전체 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCount() { return postDAO.getPostCount(); }
+	
+	// 유저이름 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCountByUsername(User user) { return postDAO.getPostCountByUsername(user); }
+	
+	// 제목 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCountByTitle(Post post) { return postDAO.getPostCountByTitle(post); }
+	
+	// 내용 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCountByContent(Post post) { return postDAO.getPostCountByContent(post); }
+	
+	// 제목내용 게시글 개수 조회
+	@Transactional(readOnly = true)
+	public int getPostCountByTitleContent(Post post) { return postDAO.getPostCountByTitleContent(post); }
+	
+	// ========================================
+	// 2. 게시글 조회
+	// ========================================
+	
+	
+	// 전체 게시글 전체 조회
+	@Transactional(readOnly = true)
+	public List<Post> getPostList(SearchPage searchPage) { return postDAO.getPostList(searchPage); }
+	
+	// 유저이름 게시글 조회
+	@Transactional(readOnly = true)
+	public List<Post> getPostListByUsername(SearchPage searchPage) { return postDAO.getPostListByUsername(searchPage); }
+	
+	// 제목 게시글 조회
+	@Transactional(readOnly = true)
+	public List<Post> getPostListByTitle(SearchPage searchPage) { return postDAO.getPostListByTitle(searchPage); }
+	
+	// 내용 게시글 조회
+	@Transactional(readOnly = true)
+	public List<Post> getPostListByContent(SearchPage searchPage) { return postDAO.getPostListByContent(searchPage); }
+	
+	// 제목내용 게시글 조회
+	@Transactional(readOnly = true)
+	public List<Post> getPostListByTitleContent(SearchPage searchPage) { return postDAO.getPostListByTitleContent(searchPage); }
+	
+	
+	
+	
+	// ========================================
+	// 3. 게시글 작성
+	// ========================================
+	
 	// 게시글 작성
 	@Transactional
-	public void insertPost(Post post) {
-		postDAO.insertPost(post);
-	}
+	public void insertPost(Post post) { postDAO.insertPost(post); }
 
-	// 게시글 총 갯수 조회
-	@Transactional(readOnly = true)
-	public int getPostMaxCount() {
-		return postDAO.getPostMaxCount();
-	}
-		
-	// 게시글 리스트
-	@Transactional(readOnly = true)
-	public List<Post> getPostList() {
-		return postDAO.getPostList();
-	}
 	
+
+	// ========================================
+	// 4. 기타
+	// ========================================
 	
-	
-	
-	
-	
-	
-	
-	// 테스트
-	@Transactional(readOnly = true)
-	public List<Post> getTestList(SearchPage searchPage) {
-		return postDAO.getTestList(searchPage);
-	}
 	
 	
 	

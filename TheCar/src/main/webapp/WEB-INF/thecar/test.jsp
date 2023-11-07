@@ -11,6 +11,7 @@
 	<hr/>
 	<h1>${ searchPage.start }</h1>
 	<h1>${ searchPage.size }</h1>
+	<h1>${ searchPage.postCount }</h1>
 	
 	
 	<a href="test?start=0&size=5">1페이지</a>
@@ -24,7 +25,15 @@
 		<div class="col-md-9 col-sm-12 p-3">
 			<div class="mainBorder p-3">
 				<div class="row">
-					<h2 style="font-weight: bold;">문의내역</h2>
+					<div class="col-8">
+						<h2 style="font-weight: bold;"><a href="#" style="text-decoration: none; color: #333333;">전체글</a></h2>
+					</div>
+					<c:if test="${!empty principal }">
+						<div class="col-4" style="text-align: right;">
+							<a class="btn btn-dark" href="test2">내가쓴글</a>&nbsp;&nbsp;
+							<a class="btn btn-dark" href="post/insertPost">글쓰기</a>
+						</div>
+					</c:if>
 					<hr/>
 					<table class="table table-hover">
 						<thead class="table-dark">
@@ -37,7 +46,6 @@
 					    </thead>
 					    <tbody>
 					    	<c:if test="${!empty postList }">
-					    		<h1>${ postList[0].last }</h1>
 					    		<!-- 게시글이 있을 경우 -->
 					    		<c:forEach var="post" items="${ postList }">
 									<tr>
@@ -84,12 +92,32 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-10"></div>
-					<c:if test="${!empty principal }">
-						<div class="col-2"><a class="btn btn-primary" href="post/insertPost">작성</a></div>
-					</c:if>
+					<div class="col-12">
+					</div>
 				</div>
 				
+				<c:if test="${ principal.user.role == 'Admin' }" >
+					<!-- 관리자 검색 기능 -->
+					<div class="row mb-3">
+						<div class="input-group">
+							<div class="col-2"></div>
+							<div class="col-2">
+								<select class="form-select col-2" style="border-radius: 0px;">
+									<option>제목</option>
+									<option>제목+내용</option>
+									<option>글쓴이</option>
+								</select>
+							</div>
+							<div class="col-4">
+							    <input type="text" class="form-control" style="border-radius: 0px;" placeholder="내용">
+							</div>
+							<div class="col-2">
+						  		<button class="btn btn-success" type="submit" style="border-radius: 0px;">검색</button>
+							</div>
+							<div class="col-2"></div>
+						</div>
+					</div>
+				</c:if>
 				
 				
 				

@@ -8,37 +8,65 @@ import org.apache.ibatis.annotations.Select;
 
 import com.arsyux.thecar.domain.Post;
 import com.arsyux.thecar.domain.SearchPage;
+import com.arsyux.thecar.domain.User;
 
 @Mapper
 public interface PostMapper {
-
+	
+	// ========================================
+	// 1. 게시글 개수 조회
+	// ========================================
+	
+	// 전체 게시글 개수 조회
+	@Select("SELECT count(*) FROM POST")
+	public int getPostCount();
+	
+	// 유저이름 게시글 개수 조회
+	@Select("SELECT count(*) FROM POST WHERE USERNAME = '#{username}'")
+	public int getPostCountByUsername(User user);
+		
+	// 제목 게시글 개수 조회
+	@Select("SELECT count(*) FROM POST WHERE TITLE LIKE '%#{title}%'")
+	public int getPostCountByTitle(Post post);
+	
+	// 내용 게시글 개수 조회
+	@Select("SELECT count(*) FROM POST WHERE TITLE LIKE '%#{content}%'")
+	public int getPostCountByContent(Post post);
+		
+	// 제목내용 게시글 개수 조회
+	@Select("SELECT count(*) FROM POST WHERE TITLE LIKE '%#{title}%' OR '%#{content}%'")
+	public int getPostCountByTitleContent(Post post);
+	
+	// ========================================
+	// 2. 게시글 조회
+	// ========================================
+	
+	// 전체 게시글 전체 조회
+	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	public List<Post> getPostList(SearchPage searchPage);
+	
+	// 유저이름 게시글 조회
+	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid AND p.name = #{searchUsername} ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	public List<Post> getPostListByUsername(SearchPage searchPage);
+	
+	// 제목 게시글 조회
+	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid AND p.title = #{searchTitle} ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	public List<Post> getPostListByTitle(SearchPage searchPage);
+	
+	// 내용 게시글 조회
+	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid AND p.content = #{searchContent} ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	public List<Post> getPostListByContent(SearchPage searchPage);
+	
+	// 제목내용 게시글 조회
+	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid AND p.title = #{searchTitle} OR p.content = #{searchContent} ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	public List<Post> getPostListByTitleContent(SearchPage searchPage);
+	
+	// ========================================
+	// 3. 게시글 작성
+	// ========================================
+	
 	// 게시글 작성
-	// pk는 AUTO_INCREMENT처리
-	// cnt는 DEFAULT 0처리
-	// regdate는 CURRENT_TIMESTAMP 처리
 	@Insert("INSERT INTO POST(TITLE, CONTENT, UID) VALUES(#{title}, #{content}, #{uid})")
 	public void insertPost(Post post);
-	
-	// 게시글 총 갯수 조회
-	@Select("SELECT count(*) FROM POST")
-	public List<Post> getPostListMaxCount();
-	
-	// 제목 검색 게시글 총 갯수 조회
-	@Select("SELECT count(*) FROM POST WHERE TITLE LIKE '%#{title}%'")
-	public List<Post> getSearchTitlePostListMaxCount(Post post);
-	
-	// 제목댓글 검색 게시글 총 갯수 조회
-	@Select("SELECT count(*) FROM POST WHERE TITLE LIKE '%#{title}%' OR '%#{content}%'")
-	public List<Post> getSearchAllPostListMaxCount(Post post);
-	
-	// 게시글 전체 조회
-	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid ORDER BY p.id DESC LIMIT 10")
-	public List<Post> getPostList();
-	
-	// 테스트
-	@Select("SELECT p.id, p.state, p.title, p.regdate, (select id from post order by id desc limit 1) last, u.name name FROM USER u, POST p WHERE u.id = p.uid ORDER BY p.id DESC LIMIT ${start}, #{size}")
-	public List<Post> getTestList(SearchPage page);
-	
-	
 	
 }

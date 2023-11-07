@@ -1,5 +1,7 @@
 package com.arsyux.thecar.controller;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.Post;
 import com.arsyux.thecar.domain.SearchPage;
+import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.PostDTO;
 import com.arsyux.thecar.dto.PostDTO.PostValidationGroup;
 import com.arsyux.thecar.dto.ResponseDTO;
@@ -47,7 +50,7 @@ public class PostController {
 	public String getPostList(Model model) {
 		
 		// 메인 포스트 정보 삽입
-		model.addAttribute("postList", postService.getPostList());
+		//model.addAttribute("postList", postService.getPostList());
 		
 		// 카카오맵 API키 삽입
 		model.addAttribute("kakaoMapKey", kakaoMapKey);
@@ -58,49 +61,75 @@ public class PostController {
 	// 테스트
 	@GetMapping("/test")
 	public String getTest(@RequestParam(required = false, value = "start", defaultValue = "0") int start, 
-						  @RequestParam(required = false, value = "size", defaultValue = "10") int size,
+						  @RequestParam(required = false, value = "size", defaultValue = "5") int size,
 						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
 						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
-		
-		SearchPage searchPage;
-		
-		if(principal == null) {
-			// 일반 게시글 조회 -> 시큐리티에서 test 예외처리 삭제후 이부분 삭제
-			System.out.println("일반. 검색기능 x");
-			searchPage = new SearchPage(start, size);
+
+		if(!principal.getUser().getRole().equals("Admin")) {
+			// 일반 회원 게시글 조회
+			// -> 일반 회원은 검색 기능이 없음.
+			
+			// 게시글의 총 개수 조회
+			int postCount = postService.getPostCount();
+			
+			// Page 정보 생성 시작 페이지, 크기, 총 개수
+			SearchPage searchPage = new SearchPage(start, size, postCount);
+
+			// 게시글 조회
+			List<Post> postList = postService.getPostList(searchPage);
+			
+			// 조회된 데이터를 model에 추가
+			model.addAttribute("searchPage", searchPage);
+			model.addAttribute("postList", postList);
+		} else {
+			/*
+			// 관리자용 게시글 제목내용 검색 조회
+			System.out.println("관리자용");
+			if(searchText.equals("")) {
+				System.out.println("검색x");
+				searchPage = new SearchPage(start, size);
+			} else {
+				System.out.println("검색o");	
+				searchPage = new SearchPage(start, size, searchText);
+			}
+			
 			model.addAttribute("page", searchPage);
 			model.addAttribute("postList", postService.getTestList(searchPage));
-		} else {
-			
-			if(principal.getUser().getUsername().equals("a")) {
-				// 관리자용 게시글 제목내용 검색 조회
-				System.out.println("관리자용");
-				if(searchText.equals("")) {
-					System.out.println("검색x");
-					searchPage = new SearchPage(start, size);
-				} else {				
-					System.out.println("검색o");	
-					searchPage = new SearchPage(start, size, searchText);
-				}
-				model.addAttribute("page", searchPage);
-				model.addAttribute("postList", postService.getTestList(searchPage));
-			} else {
-				// 일반 게시글 조회
-				System.out.println("일반. 검색기능 x");
-				searchPage = new SearchPage(start, size);
-				model.addAttribute("page", searchPage);
-				model.addAttribute("postList", postService.getTestList(searchPage));
-			}
+			*/
 		}
-		
-		
-		
-		
 		
 		return "test";
 	}
 		
-	
+	// 내가쓴글 조회 테스트
+	@GetMapping("/test2")
+	public String getTest2(@RequestParam(required = false, value = "start", defaultValue = "0") int start, 
+						  @RequestParam(required = false, value = "size", defaultValue = "5") int size,
+						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
+						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
+
+		// 검색할 유저 정보
+		User user = principal.getUser();
+		
+		// 유저 이름으로 조회되는 게시글 개수 조회
+		int postCount = postService.getPostCountByUsername(user);
+
+		// Page 정보 생성 시작 페이지, 크기, 총 개수, 유저 이름
+		SearchPage searchPage = new SearchPage(start, size, postCount, user.getUsername());
+
+		// 게시글 조회
+		List<Post> postList = postService.getPostListByUsername(searchPage);
+		
+		// 조회된 데이터를 model에 추가
+		model.addAttribute("searchPage", searchPage);
+		
+		model.addAttribute("postList", postList);
+		
+		return "test";
+	}
+		
+		
+		
 	
 	
 	

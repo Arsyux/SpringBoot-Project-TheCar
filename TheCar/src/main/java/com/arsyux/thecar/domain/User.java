@@ -38,6 +38,9 @@ public class User {
 	// 마일리지
 	private int point;
 	
+	// 유저 역할(일반, 관리자)
+	private String role;
+	
 	// 가입일
 	private Date regdate;
 	

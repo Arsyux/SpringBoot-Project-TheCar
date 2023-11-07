@@ -12,9 +12,9 @@ import com.arsyux.thecar.dto.ResponseDTO;
 @RestController
 public class TheCarExceptionHandler {
 
-	@ExceptionHandler(value = Exception.class)
+	//@ExceptionHandler(value = Exception.class)
 	public ResponseDTO<String> globalExceptionHandler(Exception e) {
 		return new ResponseDTO<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
 	}
-	
+		
 }
