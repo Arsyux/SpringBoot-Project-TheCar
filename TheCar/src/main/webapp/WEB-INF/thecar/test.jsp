@@ -125,36 +125,46 @@
 						<ul class="pagination justify-content-center">
 							<!-- 앞쪽 페이지 이동 -->
 							<c:if test="${ startPage > 10 }">
-								<!-- 처음으로 -->
+								<!-- 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
 									<a class="page-link" href="test?start=0"><i class="bi bi-chevron-double-left"></i></a>
 								</li>
-								<!-- 이전 startPage의 마지막 번호로 이동 -->
+								<!-- 이전 페이지 영역의 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ startPage * 9 * serchPage.size }"><i class="bi bi-chevron-left"></i></a>
+									<a class="page-link" href="test?start=${ ( startPage - 2 ) * searchPage.size }"><i class="bi bi-chevron-left"></i></a>
 								</li>
 							</c:if>
 						
 						
-						
-							<c:forEach var="page" begin="1" end="${ lastPage }">
-								<li class="page-item">
-									<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">${ page }</a>
-								</li>
-							</c:forEach>
+							<!-- 페이지 생성 -->
+							
+							<!-- 남은 페이지 계산 -->
+							<c:if test="${ lastPage - startPage >= 10 }">
+								<!-- 남은 페이지가 10개보다 많으면 10개를 출력 -->
+								<c:forEach var="page" begin="${ startPage }" end="${ startPage + 9 }">
+									<li class="page-item">
+										<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">${ page }</a>
+									</li>
+								</c:forEach>
+							</c:if>
+							<c:if test="${ lastPage - startPage < 10 }">
+								<!-- 남은 페이지가 10개 이하면 lastPage까지 출력 -->
+								<c:forEach var="page" begin="${ startPage }" end="${ lastPage }">
+									<li class="page-item">
+										<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">${ page }</a>
+									</li>
+								</c:forEach>
+							</c:if>
 							
 							
 							
 							<!-- 뒤쪽 페이지 이동 -->
 							<c:if test="${ lastPage - startPage >= 10 }">
-								<!-- 다음 페이지의 시작 페이지로 이동 -->	
-								<!-- 에러 -->
+								<!-- 다음 페이지 영역의 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ startPage + 10 * searchPage.size }"><i class="bi bi-chevron-right"></i></a>
+									<a class="page-link" href="test?start=${ (startPage + 9) * searchPage.size }"><i class="bi bi-chevron-right"></i></a>
 								</li>
-								
-								<!-- 이전 startPage의 마지막 번호로 이동 -->
-								<!-- OK -->
+								<!-- 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
 									<a class="page-link" href="test?start=${ (lastPage - 1) * searchPage.size }"><i class="bi bi-chevron-double-right"></i></a>
 								</li>
