@@ -9,13 +9,7 @@
 	<fmt:parseNumber integerOnly="true" var="startPage" value="${ (postList.number / 5) }"></fmt:parseNumber>
 	<fmt:parseNumber integerOnly="true" var="startPageNumber" value="${ startPage * 5 + 1 }"></fmt:parseNumber>
 	<ul class="pagination justify-content-center">
-		<!-- 이전 페이지로 이동 -->
-		<c:if test="${ postList.number > 4 }">
-			<!-- 처음으로 -->
-			<li class="page-item"><a class="page-link" href="?page=0"><i class="bi bi-chevron-double-left"></i></a></li>
-			<!-- 이전 startPageNumber의 마지막 번호로 이동 -->
-		  	<li class="page-item"><a class="page-link" href="?page=${ startPageNumber - 2 }"><i class="bi bi-chevron-left"></i></a></li>
-		</c:if>
+		
 		<!-- 페이지넘버 -->
 		<c:if test="${ postList.totalPages <= 5 }">
 			<!-- 5페이지 이하 -->
@@ -53,15 +47,7 @@
 				</c:forEach>
 			</c:if>
 		</c:if>
-		<!-- 다음 페이지로 이동 -->
-		<c:if test="${ postList.totalPages > 5 }">
-			<c:if test="${ postList.totalPages - startPageNumber > 4 }">
-				<!-- 다음 startPageNumber로 이동 -->
-				<li class="page-item"><a class="page-link" href="?page=${ startPageNumber + 4 }"><i class="bi bi-chevron-right"></i></a></li>
-				<!-- 마지막 페이지로 이동 -->
-		  		<li class="page-item"><a class="page-link" href="?page=${ postList.totalPages - 1 }"><i class="bi bi-chevron-double-right"></i></a></li>
-			</c:if>
-		</c:if>
+		
 	</ul>
 	
 </div>

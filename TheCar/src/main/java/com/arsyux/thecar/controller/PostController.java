@@ -60,8 +60,7 @@ public class PostController {
 	
 	// 테스트
 	@GetMapping("/test")
-	public String getTest(@RequestParam(required = false, value = "start", defaultValue = "0") int start, 
-						  @RequestParam(required = false, value = "size", defaultValue = "5") int size,
+	public String getTest(@RequestParam(required = false, value = "start", defaultValue = "0") int start,
 						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
 						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
 
@@ -72,8 +71,8 @@ public class PostController {
 			// 게시글의 총 개수 조회
 			int postCount = postService.getPostCount();
 			
-			// Page 정보 생성 시작 페이지, 크기, 총 개수
-			SearchPage searchPage = new SearchPage(start, size, postCount);
+			// Page 정보 생성 시작 페이지, 총 개수
+			SearchPage searchPage = new SearchPage(start, postCount);
 
 			// 게시글 조회
 			List<Post> postList = postService.getPostList(searchPage);
@@ -82,9 +81,18 @@ public class PostController {
 			model.addAttribute("searchPage", searchPage);
 			model.addAttribute("postList", postList);
 		} else {
-			/*
-			// 관리자용 게시글 제목내용 검색 조회
+			
+			// 관리자용 게시글 일반 및 제목내용 검색 조회
 			System.out.println("관리자용");
+			
+			// 게시글의 총 개수 조회
+			int postCount = postService.getPostCount();
+			
+			// Page 정보 생성 시작 페이지, 크기, 총 개수
+			SearchPage searchPage = new SearchPage(start, postCount);
+			
+			model.addAttribute("searchPage", searchPage);
+			/*
 			if(searchText.equals("")) {
 				System.out.println("검색x");
 				searchPage = new SearchPage(start, size);
@@ -93,7 +101,7 @@ public class PostController {
 				searchPage = new SearchPage(start, size, searchText);
 			}
 			
-			model.addAttribute("page", searchPage);
+			
 			model.addAttribute("postList", postService.getTestList(searchPage));
 			*/
 		}
@@ -103,8 +111,7 @@ public class PostController {
 		
 	// 내가쓴글 조회 테스트
 	@GetMapping("/test2")
-	public String getTest2(@RequestParam(required = false, value = "start", defaultValue = "0") int start, 
-						  @RequestParam(required = false, value = "size", defaultValue = "5") int size,
+	public String getTest2(@RequestParam(required = false, value = "start", defaultValue = "0") int start,
 						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
 						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
 
@@ -115,7 +122,7 @@ public class PostController {
 		int postCount = postService.getPostCountByUsername(user);
 		
 		// Page 정보 생성 시작 페이지, 크기, 총 개수, 유저 이름
-		SearchPage searchPage = new SearchPage(start, size, postCount, user.getName());
+		SearchPage searchPage = new SearchPage(start, postCount, user.getName());
 		
 		// 게시글 조회
 		List<Post> postList = postService.getPostListByUsername(searchPage);

@@ -7,26 +7,15 @@
 
 <div class="container mt-3" style="min-height: 500px;">
 
-	<h1>Test!</h1>
-	<hr/>
-	<h1>${ searchPage.start }</h1>
-	<h1>${ searchPage.size }</h1>
-	<h1>${ searchPage.postCount }</h1>
-	
-	
-	<a href="test?start=0&size=5">1페이지</a>
-	<a href="test?start=5&size=5">2페이지</a>
-	<a href="test?start=10&size=5">3페이지</a>
-	<a href="test?start=15&size=5">4페이지</a>
-	
-	<hr/>
 	<div class="row">
 		<!-- 메인 컨텐츠 -->
 		<div class="col-md-9 col-sm-12 p-3">
 			<div class="mainBorder p-3">
+			
+				<!-- 게시글 -->
 				<div class="row">
 					<div class="col-8">
-						<h2 style="font-weight: bold;"><a href="#" style="text-decoration: none; color: #333333;">전체글</a></h2>
+						<h2 style="font-weight: bold;"><a href="test" style="text-decoration: none; color: #333333;">전체글</a></h2>
 					</div>
 					<c:if test="${!empty principal }">
 						<div class="col-4" style="text-align: right;">
@@ -78,7 +67,7 @@
 					    	</c:if>
 					    	<c:if test="${empty postList }">
 					    		<!-- 게시글이 없을 경우 -->
-					    		<c:forEach var="post" begin="1" end="20">
+					    		<c:forEach var="post" begin="1" end="${ searchPage.size }">
 									<tr>
 							        	<td height="41.5px;"> </td>
 							        	<td></td>
@@ -91,10 +80,90 @@
 					</table>
 				</div>
 				
+				
+				<a style="color: black;"><b>1</b></a>
+				<a style="color: #666666;">2</a>
+				<a style="color: #666666;">3</a>
+				<a style="color: #666666;">4</a>
+				
+				<h1>현재 페이지 시작 : ${ searchPage.start }</h1>
+				<h1>한번에 보이는 영역 : ${ searchPage.size }</h1>
+				<h1>총 게시글 개수 : ${ searchPage.postCount }</h1>
+				
+				<!-- 총 페이지 계산 -->
+				<c:if test="${ searchPage.postCount % searchPage.size != 0 || searchPage.postCount == 0}">
+					<fmt:parseNumber integerOnly="true" var="lastPage" value="${ searchPage.postCount / searchPage.size + 1 }"></fmt:parseNumber>
+				</c:if>
+				<c:if test="${ searchPage.postCount % searchPage.size == 0 && searchPage.postCount != 0}">
+					<fmt:parseNumber integerOnly="true" var="lastPage" value="${ searchPage.postCount / searchPage.size }"></fmt:parseNumber>
+				</c:if>
+				
+				<!-- 현재 페이지 계산 -->
+				<fmt:parseNumber integerOnly="true" var="nowPage" value="${ searchPage.start / searchPage.size + 1 }"></fmt:parseNumber>
+				
+				<!-- 시작 페이지 계산 -->
+				<c:if test="${ nowPage % 10 != 0 }">
+					<fmt:parseNumber integerOnly="true" var="startVal" value="${ nowPage / 10 }"></fmt:parseNumber>
+					<fmt:parseNumber integerOnly="true" var="startPage" value="${ startVal * 10 + 1 }"></fmt:parseNumber>
+				</c:if>
+				<c:if test="${ nowPage % 10 == 0 }">
+					<fmt:parseNumber integerOnly="true" var="startVal" value="${ nowPage / 10 - 1 }"></fmt:parseNumber>
+					<fmt:parseNumber integerOnly="true" var="startPage" value="${ startVal * 10 + 1 }"></fmt:parseNumber>
+				</c:if>
+				
+				
+				
+				<h3>시작 페이지 : ${ startPage }</h3>
+				<h3>현재 페이지 : ${ nowPage } / ${ lastPage }</h3>
+				
+				
+				
+				
+				<!-- 페이지네이션 -->
 				<div class="row">
 					<div class="col-12">
+						<ul class="pagination justify-content-center">
+							<!-- 앞쪽 페이지 이동 -->
+							<c:if test="${ startPage > 10 }">
+								<!-- 처음으로 -->
+								<li class="page-item">
+									<a class="page-link" href="test?start=0"><i class="bi bi-chevron-double-left"></i></a>
+								</li>
+								<!-- 이전 startPage의 마지막 번호로 이동 -->
+								<li class="page-item">
+									<a class="page-link" href="test?start=${ startPage * 9 * serchPage.size }"><i class="bi bi-chevron-left"></i></a>
+								</li>
+							</c:if>
+						
+						
+						
+							<c:forEach var="page" begin="1" end="${ lastPage }">
+								<li class="page-item">
+									<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">${ page }</a>
+								</li>
+							</c:forEach>
+							
+							
+							
+							<!-- 뒤쪽 페이지 이동 -->
+							<c:if test="${ lastPage - startPage >= 10 }">
+								<!-- 다음 페이지의 시작 페이지로 이동 -->	
+								<!-- 에러 -->
+								<li class="page-item">
+									<a class="page-link" href="test?start=${ startPage + 10 * searchPage.size }"><i class="bi bi-chevron-right"></i></a>
+								</li>
+								
+								<!-- 이전 startPage의 마지막 번호로 이동 -->
+								<!-- OK -->
+								<li class="page-item">
+									<a class="page-link" href="test?start=${ (lastPage - 1) * searchPage.size }"><i class="bi bi-chevron-double-right"></i></a>
+								</li>
+							</c:if>
+							
+						</ul>
 					</div>
 				</div>
+				
 				
 				<c:if test="${ principal.user.role == 'Admin' }" >
 					<!-- 관리자 검색 기능 -->
@@ -125,7 +194,6 @@
 		</div>
 	</div>
 	
-	<!-- 페이지네이션 -->
 	
 </div>
 
