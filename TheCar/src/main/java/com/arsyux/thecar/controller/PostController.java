@@ -47,7 +47,9 @@ public class PostController {
 	
 	// 메인 화면
 	@GetMapping({ "", "/" })
-	public String getPostList(Model model) {
+	public String getPostList(@RequestParam(required = false, value = "start", defaultValue = "0") int start,
+			  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
+			  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
 		
 		// 메인 포스트 정보 삽입
 		//model.addAttribute("postList", postService.getPostList());

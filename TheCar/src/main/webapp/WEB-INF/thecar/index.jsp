@@ -27,8 +27,18 @@
 		<!-- 메인 컨텐츠 -->
 		<div class="col-md-9 col-sm-12 p-3">
 			<div class="mainBorder p-3">
+			
+				<!-- 게시글 -->
 				<div class="row">
-					<h2 style="font-weight: bold;">문의내역</h2>
+					<div class="col-8">
+						<h2 style="font-weight: bold;"><a href="test" style="text-decoration: none; color: #333333;">전체글</a></h2>
+					</div>
+					<c:if test="${!empty principal }">
+						<div class="col-4" style="text-align: right;">
+							<a class="btn btn-dark" href="test2">내가쓴글</a>&nbsp;&nbsp;
+							<a class="btn btn-dark" href="post/insertPost">글쓰기</a>
+						</div>
+					</c:if>
 					<hr/>
 					<table class="table table-hover">
 						<thead class="table-dark">
@@ -73,7 +83,7 @@
 					    	</c:if>
 					    	<c:if test="${empty postList }">
 					    		<!-- 게시글이 없을 경우 -->
-					    		<c:forEach var="post" begin="1" end="20">
+					    		<c:forEach var="post" begin="1" end="${ searchPage.size }">
 									<tr>
 							        	<td height="41.5px;"> </td>
 							        	<td></td>
@@ -86,13 +96,26 @@
 					</table>
 				</div>
 				
-				<div class="row">
-					<div class="col-10"></div>
-					<c:if test="${!empty principal }">
-						<div class="col-2"><a class="btn btn-primary" href="post/insertPost">작성</a></div>
-					</c:if>
-				</div>
+				<!-- 총 페이지 계산 -->
+				<c:if test="${ searchPage.postCount % searchPage.size != 0 || searchPage.postCount == 0}">
+					<fmt:parseNumber integerOnly="true" var="lastPage" value="${ searchPage.postCount / searchPage.size + 1 }"></fmt:parseNumber>
+				</c:if>
+				<c:if test="${ searchPage.postCount % searchPage.size == 0 && searchPage.postCount != 0}">
+					<fmt:parseNumber integerOnly="true" var="lastPage" value="${ searchPage.postCount / searchPage.size }"></fmt:parseNumber>
+				</c:if>
 				
+				<!-- 현재 페이지 계산 -->
+				<fmt:parseNumber integerOnly="true" var="nowPage" value="${ searchPage.start / searchPage.size + 1 }"></fmt:parseNumber>
+				
+				<!-- 시작 페이지 계산 -->
+				<c:if test="${ nowPage % 10 != 0 }">
+					<fmt:parseNumber integerOnly="true" var="startVal" value="${ nowPage / 10 }"></fmt:parseNumber>
+					<fmt:parseNumber integerOnly="true" var="startPage" value="${ startVal * 10 + 1 }"></fmt:parseNumber>
+				</c:if>
+				<c:if test="${ nowPage % 10 == 0 }">
+					<fmt:parseNumber integerOnly="true" var="startVal" value="${ nowPage / 10 - 1 }"></fmt:parseNumber>
+					<fmt:parseNumber integerOnly="true" var="startPage" value="${ startVal * 10 + 1 }"></fmt:parseNumber>
+				</c:if>
 				
 				<!-- 페이지네이션 -->
 				<div class="row">
@@ -102,11 +125,11 @@
 							<c:if test="${ startPage > 10 }">
 								<!-- 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=0"><i class="bi bi-chevron-double-left"></i></a>
+									<a class="page-link" href="test?start=0" style="color: #666666;"><i class="bi bi-chevron-double-left"></i></a>
 								</li>
 								<!-- 이전 페이지 영역의 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ ( startPage - 2 ) * searchPage.size }"><i class="bi bi-chevron-left"></i></a>
+									<a class="page-link" href="test?start=${ ( startPage - 2 ) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-left"></i></a>
 								</li>
 							</c:if>
 						
@@ -119,10 +142,10 @@
 								<c:forEach var="page" begin="${ startPage }" end="${ startPage + 9 }">
 										<li class="page-item">
 											<c:if test="${ nowPage == page }">
-												<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">asd</a>
+												<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
 											</c:if>
 											<c:if test="${ nowPage != page }">
-												<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">${ page }</a>
+												<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
 											</c:if>
 										</li>
 								</c:forEach>
@@ -132,10 +155,10 @@
 								<c:forEach var="page" begin="${ startPage }" end="${ lastPage }">
 									<li class="page-item">
 										<c:if test="${ nowPage == page }">
-											<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">asd</a>
+											<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
 										</c:if>
 										<c:if test="${ nowPage != page }">
-											<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">${ page }</a>
+											<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
 										</c:if>
 									</li>
 								</c:forEach>
@@ -147,17 +170,43 @@
 							<c:if test="${ lastPage - startPage >= 10 }">
 								<!-- 다음 페이지 영역의 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ (startPage + 9) * searchPage.size }"><i class="bi bi-chevron-right"></i></a>
+									<a class="page-link" href="test?start=${ (startPage + 9) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-right"></i></a>
 								</li>
 								<!-- 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ (lastPage - 1) * searchPage.size }"><i class="bi bi-chevron-double-right"></i></a>
+									<a class="page-link" href="test?start=${ (lastPage - 1) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-double-right"></i></a>
 								</li>
 							</c:if>
 							
 						</ul>
 					</div>
 				</div>
+				
+				
+				<c:if test="${ principal.user.role == 'Admin' }" >
+					<!-- 관리자 검색 기능 -->
+					<div class="row mb-3">
+						<div class="input-group">
+							<div class="col-2"></div>
+							<div class="col-2">
+								<select class="form-select col-2" style="border-radius: 0px;">
+									<option>제목</option>
+									<option>제목+내용</option>
+									<option>글쓴이</option>
+								</select>
+							</div>
+							<div class="col-4">
+							    <input type="text" class="form-control" style="border-radius: 0px;" placeholder="내용">
+							</div>
+							<div class="col-2">
+						  		<button class="btn btn-success" type="submit" style="border-radius: 0px;">검색</button>
+							</div>
+							<div class="col-2"></div>
+						</div>
+					</div>
+				</c:if>
+				
+				
 				
 			</div>
 		</div>
