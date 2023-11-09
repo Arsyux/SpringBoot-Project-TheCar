@@ -80,16 +80,6 @@
 					</table>
 				</div>
 				
-				
-				<a style="color: black;"><b>1</b></a>
-				<a style="color: #666666;">2</a>
-				<a style="color: #666666;">3</a>
-				<a style="color: #666666;">4</a>
-				
-				<h1>현재 페이지 시작 : ${ searchPage.start }</h1>
-				<h1>한번에 보이는 영역 : ${ searchPage.size }</h1>
-				<h1>총 게시글 개수 : ${ searchPage.postCount }</h1>
-				
 				<!-- 총 페이지 계산 -->
 				<c:if test="${ searchPage.postCount % searchPage.size != 0 || searchPage.postCount == 0}">
 					<fmt:parseNumber integerOnly="true" var="lastPage" value="${ searchPage.postCount / searchPage.size + 1 }"></fmt:parseNumber>
@@ -111,14 +101,6 @@
 					<fmt:parseNumber integerOnly="true" var="startPage" value="${ startVal * 10 + 1 }"></fmt:parseNumber>
 				</c:if>
 				
-				
-				
-				<h3>시작 페이지 : ${ startPage }</h3>
-				<h3>현재 페이지 : ${ nowPage } / ${ lastPage }</h3>
-				
-				
-				
-				
 				<!-- 페이지네이션 -->
 				<div class="row">
 					<div class="col-12">
@@ -127,11 +109,11 @@
 							<c:if test="${ startPage > 10 }">
 								<!-- 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=0"><i class="bi bi-chevron-double-left"></i></a>
+									<a class="page-link" href="test?start=0" style="color: #666666;"><i class="bi bi-chevron-double-left"></i></a>
 								</li>
 								<!-- 이전 페이지 영역의 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ ( startPage - 2 ) * searchPage.size }"><i class="bi bi-chevron-left"></i></a>
+									<a class="page-link" href="test?start=${ ( startPage - 2 ) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-left"></i></a>
 								</li>
 							</c:if>
 						
@@ -142,16 +124,26 @@
 							<c:if test="${ lastPage - startPage >= 10 }">
 								<!-- 남은 페이지가 10개보다 많으면 10개를 출력 -->
 								<c:forEach var="page" begin="${ startPage }" end="${ startPage + 9 }">
-									<li class="page-item">
-										<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">${ page }</a>
-									</li>
+										<li class="page-item">
+											<c:if test="${ nowPage == page }">
+												<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+											</c:if>
+											<c:if test="${ nowPage != page }">
+												<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+											</c:if>
+										</li>
 								</c:forEach>
 							</c:if>
 							<c:if test="${ lastPage - startPage < 10 }">
 								<!-- 남은 페이지가 10개 이하면 lastPage까지 출력 -->
 								<c:forEach var="page" begin="${ startPage }" end="${ lastPage }">
 									<li class="page-item">
-										<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }">${ page }</a>
+										<c:if test="${ nowPage == page }">
+											<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+										</c:if>
+										<c:if test="${ nowPage != page }">
+											<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+										</c:if>
 									</li>
 								</c:forEach>
 							</c:if>
@@ -162,11 +154,11 @@
 							<c:if test="${ lastPage - startPage >= 10 }">
 								<!-- 다음 페이지 영역의 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ (startPage + 9) * searchPage.size }"><i class="bi bi-chevron-right"></i></a>
+									<a class="page-link" href="test?start=${ (startPage + 9) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-right"></i></a>
 								</li>
 								<!-- 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ (lastPage - 1) * searchPage.size }"><i class="bi bi-chevron-double-right"></i></a>
+									<a class="page-link" href="test?start=${ (lastPage - 1) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-double-right"></i></a>
 								</li>
 							</c:if>
 							

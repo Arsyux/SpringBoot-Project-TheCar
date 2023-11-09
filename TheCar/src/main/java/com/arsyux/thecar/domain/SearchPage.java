@@ -27,7 +27,7 @@ public class SearchPage {
 	private int start;
 	
 	// 한번에 가져올 게시글 크기
-	private int size = 3;
+	private int size = 10;
 	
 	// 제목 검색
 	private String searchTitle;

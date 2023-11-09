@@ -97,7 +97,7 @@ public class PostController {
 				System.out.println("검색x");
 				searchPage = new SearchPage(start, size);
 			} else {
-				System.out.println("검색o");	
+				System.out.println("검색o");
 				searchPage = new SearchPage(start, size, searchText);
 			}
 			
