@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class User {
 	
 	// 회원 번호 (PK)
-	private int id;
+	private int userid;
 	
 	// 로그인 아이디
 	private String username;

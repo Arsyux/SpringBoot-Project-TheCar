@@ -21,8 +21,8 @@ public interface UserMapper {
 	public void insertUser(User user);
 	
 	// 회원 번호로 회원 1명 조회
-	@Select("SELECT * FROM USER WHERE ID = #{id}")
-	public User findById(int id);
+	@Select("SELECT * FROM USER WHERE ID = #{userid}")
+	public User findById(int userid);
 	
 	// 로그인 아이디로 회원 1명 조회
 	@Select("SELECT * FROM USER WHERE USERNAME = #{username}")

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Post {
 
 	// 게시글 번호 (PK)
-	private int id;
+	private int postid;
 	
 	// 상태
 	private String state;
@@ -30,7 +30,7 @@ public class Post {
 	private Timestamp regdate;
 
 	// 글쓴이 회원 번호 (FK)
-	private int uid;
+	private int userid;
 	
 	// 글쓴이 이름
 	private String name;

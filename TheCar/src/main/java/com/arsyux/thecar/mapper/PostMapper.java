@@ -22,7 +22,7 @@ public interface PostMapper {
 	public int getPostCount();
 	
 	// 유저이름 게시글 개수 조회
-	@Select("SELECT count(*) FROM POST WHERE uid = #{id}")
+	@Select("SELECT count(*) FROM POST WHERE userid = #{userid}")
 	public int getPostCountByUsername(User user);
 		
 	// 제목 게시글 개수 조회
@@ -42,23 +42,23 @@ public interface PostMapper {
 	// ========================================
 	
 	// 전체 게시글 전체 조회
-	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.userid = p.userid ORDER BY p.postid DESC LIMIT #{start}, #{size}")
 	public List<Post> getPostList(SearchPage searchPage);
 	
 	// 유저이름 게시글 조회
-	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid AND u.name = #{searchUsername} ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.userid = p.userid AND u.name = #{searchUsername} ORDER BY p.postid DESC LIMIT #{start}, #{size}")
 	public List<Post> getPostListByUsername(SearchPage searchPage);
 	
 	// 제목 게시글 조회
-	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid AND p.title = #{searchTitle} ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.userid = p.userid AND p.title = #{searchTitle} ORDER BY p.postid DESC LIMIT #{start}, #{size}")
 	public List<Post> getPostListByTitle(SearchPage searchPage);
 	
 	// 내용 게시글 조회
-	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid AND p.content = #{searchContent} ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.userid = p.userid AND p.content = #{searchContent} ORDER BY p.postid DESC LIMIT #{start}, #{size}")
 	public List<Post> getPostListByContent(SearchPage searchPage);
 	
 	// 제목내용 게시글 조회
-	@Select("SELECT p.id, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.id = p.uid AND p.title = #{searchTitle} OR p.content = #{searchContent} ORDER BY p.id DESC LIMIT #{start}, #{size}")
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.userid = p.userid AND p.title = #{searchTitle} OR p.content = #{searchContent} ORDER BY p.postid DESC LIMIT #{start}, #{size}")
 	public List<Post> getPostListByTitleContent(SearchPage searchPage);
 	
 	// ========================================
@@ -66,7 +66,7 @@ public interface PostMapper {
 	// ========================================
 	
 	// 게시글 작성
-	@Insert("INSERT INTO POST(TITLE, CONTENT, UID) VALUES(#{title}, #{content}, #{uid})")
+	@Insert("INSERT INTO POST(TITLE, CONTENT, USERID) VALUES(#{title}, #{content}, #{userid})")
 	public void insertPost(Post post);
 	
 }
