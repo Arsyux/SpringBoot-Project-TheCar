@@ -214,7 +214,7 @@ public class PostController {
 		Post post = modelMapper.map(postDTO, Post.class);
 		
 		// 글쓴이 설정
-		post.setUid(principal.getUser().getId());
+		post.setUserid(principal.getUser().getUserid());
 		post.setName(principal.getUser().getName());
 		
 		postService.insertPost(post);
@@ -267,7 +267,7 @@ public class PostController {
 	@PutMapping("/post")
 	public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
 		postService.updatePost(post);
-		return new ResponseDTO<>(HttpStatus.OK.value(), post.getId() + "번 포스트를 수정했습니다.");
+		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 수정했습니다.");
 	}
 	
 	// Rest컨트롤러에서 삭제 기능은 DELETE 방식으로 처리하기 때문에 deletePost() 메소드에 @DeleteMapping을 설정한다.

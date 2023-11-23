@@ -54,7 +54,7 @@
 					    		<!-- 게시글이 있을 경우 -->
 					    		<c:forEach var="post" items="${ postList }">
 									<tr>
-							        	<td style="text-align: center;">${ post.id }</td>
+							        	<td style="text-align: center;">${ post.postid }</td>
 							        	<td>
 								        	<!-- 게시글 제목 -->
 							        		<a href="#" style="text-decoration: none; color: black;">
@@ -205,8 +205,6 @@
 						</div>
 					</div>
 				</c:if>
-				
-				
 				
 			</div>
 		</div>

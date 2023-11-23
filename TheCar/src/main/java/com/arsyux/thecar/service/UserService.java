@@ -64,7 +64,7 @@ public class UserService {
 	@Transactional
 	public User updateUser(User user) {
 		
-		User findUser = userDAO.findById(user.getId());
+		User findUser = userDAO.findById(user.getUserid());
 		
 		findUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		
