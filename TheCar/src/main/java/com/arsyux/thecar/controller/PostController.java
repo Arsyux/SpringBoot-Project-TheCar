@@ -221,6 +221,12 @@ public class PostController {
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
 	}
 	
+	// 글조회 기능
+	@GetMapping("/post/{id}")
+	public String getPost(@PathVariable int id, Model model) {
+		model.addAttribute("post", postService.getPost(id));
+		return "post/getPost";
+	}
 	
 	
 	
@@ -248,13 +254,7 @@ public class PostController {
 
 	
 	
-	// getPost() 메소드는 @PathVariable을 이용하여 조회할 포스트의 id 정보를 획득한다.
-	// 그리고 PostService 클래스의 getPost()메소드를 호출하여 Post엔티티를 검색하고, 검색 결과를 Model에 등록한다.
-	@GetMapping("/post/{id}")
-	public String getPost(@PathVariable int id, Model model) {
-		model.addAttribute("post", postService.getPost(id));
-		return "post/getPost";
-	}
+	
 	
 	@GetMapping("/post/updatePost/{id}")
 	public String updatePost(@PathVariable int id, Model model) {

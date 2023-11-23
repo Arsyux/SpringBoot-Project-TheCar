@@ -17,7 +17,6 @@ public class PostService {
 	@Autowired
 	private PostDAO postDAO;
 	
-	
 	// ========================================
 	// 1. 게시글 개수 조회
 	// ========================================
@@ -46,7 +45,6 @@ public class PostService {
 	// 2. 게시글 조회
 	// ========================================
 	
-	
 	// 전체 게시글 전체 조회
 	@Transactional(readOnly = true)
 	public List<Post> getPostList(SearchPage searchPage) { return postDAO.getPostList(searchPage); }
@@ -67,8 +65,9 @@ public class PostService {
 	@Transactional(readOnly = true)
 	public List<Post> getPostListByTitleContent(SearchPage searchPage) { return postDAO.getPostListByTitleContent(searchPage); }
 	
-	
-	
+	// postid로 게시글 조회
+	@Transactional(readOnly = true)
+	public Post getPostByPostId(int postid) { return postDAO.getPostByPostId(postid); }
 	
 	// ========================================
 	// 3. 게시글 작성

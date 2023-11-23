@@ -60,6 +60,9 @@ public class PostDAO {
 	// 제목내용 게시글 조회
 	public List<Post> getPostListByTitleContent(SearchPage searchPage) { return mybatis.selectList("getPostListByTitleContent", searchPage); }
 	
+	// postid로 게시글 조회
+	public Post getPostByPostId(int postid) { return mybatis.selectOne("getPostByPostId", postid); }
+	
 	// ========================================
 	// 3. 게시글 작성
 	// ========================================

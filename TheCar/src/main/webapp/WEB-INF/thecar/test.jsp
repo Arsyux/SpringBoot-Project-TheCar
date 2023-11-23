@@ -38,10 +38,10 @@
 					    		<!-- 게시글이 있을 경우 -->
 					    		<c:forEach var="post" items="${ postList }">
 									<tr>
-							        	<td style="text-align: center;">${ post.id }</td>
+							        	<td style="text-align: center;">${ post.postid }</td>
 							        	<td>
 								        	<!-- 게시글 제목 -->
-							        		<a href="#" style="text-decoration: none; color: black;">
+							        		<a href="post/${ post.postid }" style="text-decoration: none; color: black;">
 							        		<!-- 처리 상태에 따라서 다르게 표시 -->
 							        			<c:if test="${ post.state == 'R' }">
 							        				<span style="background-color: red; border-color: red; border-style: solid; border-radius: 20%; color: white;">대기</span>
