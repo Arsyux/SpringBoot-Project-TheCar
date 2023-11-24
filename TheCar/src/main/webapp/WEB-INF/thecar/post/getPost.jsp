@@ -21,7 +21,6 @@
 	<hr>
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 	
-	
 </div>
 
 <script src="/js/post.js"></script>
