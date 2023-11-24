@@ -20,8 +20,6 @@
 
 <div class="container mt-3" style="min-height: 500px;">
 	
-	<a class="btn btn-primary" href="test">Test!</a>
-	
 	<div class="row">
 	
 		<!-- 메인 컨텐츠 -->
@@ -30,12 +28,32 @@
 			
 				<!-- 게시글 -->
 				<div class="row">
-					<div class="col-8">
-						<h2 style="font-weight: bold;"><a href="test" style="text-decoration: none; color: #333333;">전체글</a></h2>
+					<div class="col-2">
+						<h2 style="font-weight: bold;"><a href="/" style="text-decoration: none; color: #333333;">전체글</a></h2>
 					</div>
+					<c:if test="${ principal.user.role == 'Admin' }" >
+						<!-- 관리자 검색 기능 -->
+						<div class="col-7 mb-3">
+							<div class="input-group">
+								<div class="col-3">
+									<select class="form-select col-2" style="border-radius: 0px;">
+										<option>제목</option>
+										<option>제목+내용</option>
+										<option>글쓴이</option>
+									</select>
+								</div>
+								<div class="col-7">
+								    <input type="text" class="form-control" style="border-radius: 0px;" placeholder="내용">
+								</div>
+								<div class="col-2">
+							  		<button class="btn btn-success" type="submit" style="border-radius: 0px;">검색</button>
+								</div>
+							</div>
+						</div>
+					</c:if>
 					<c:if test="${!empty principal }">
-						<div class="col-4" style="text-align: right;">
-							<a class="btn btn-dark" href="test2">내가쓴글</a>&nbsp;&nbsp;
+						<div class="col-3" style="text-align: right;">
+							<a class="btn btn-dark" href="post/mypost">내가쓴글</a>&nbsp;&nbsp;
 							<a class="btn btn-dark" href="post/insertPost">글쓰기</a>
 						</div>
 					</c:if>
@@ -57,7 +75,7 @@
 							        	<td style="text-align: center;">${ post.postid }</td>
 							        	<td>
 								        	<!-- 게시글 제목 -->
-							        		<a href="#" style="text-decoration: none; color: black;">
+							        		<a href="post/${ post.postid }" style="text-decoration: none; color: black;">
 							        		<!-- 처리 상태에 따라서 다르게 표시 -->
 							        			<c:if test="${ post.state == 'R' }">
 							        				<span style="background-color: red; border-color: red; border-style: solid; border-radius: 20%; color: white;">대기</span>
@@ -96,6 +114,9 @@
 					</table>
 				</div>
 				
+				
+				
+				
 				<!-- 총 페이지 계산 -->
 				<c:if test="${ searchPage.postCount % searchPage.size != 0 || searchPage.postCount == 0}">
 					<fmt:parseNumber integerOnly="true" var="lastPage" value="${ searchPage.postCount / searchPage.size + 1 }"></fmt:parseNumber>
@@ -125,11 +146,11 @@
 							<c:if test="${ startPage > 10 }">
 								<!-- 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=0" style="color: #666666;"><i class="bi bi-chevron-double-left"></i></a>
+									<a class="page-link" href="?start=0" style="color: #666666;"><i class="bi bi-chevron-double-left"></i></a>
 								</li>
 								<!-- 이전 페이지 영역의 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ ( startPage - 2 ) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-left"></i></a>
+									<a class="page-link" href="?start=${ ( startPage - 2 ) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-left"></i></a>
 								</li>
 							</c:if>
 						
@@ -142,10 +163,10 @@
 								<c:forEach var="page" begin="${ startPage }" end="${ startPage + 9 }">
 										<li class="page-item">
 											<c:if test="${ nowPage == page }">
-												<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+												<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
 											</c:if>
 											<c:if test="${ nowPage != page }">
-												<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+												<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
 											</c:if>
 										</li>
 								</c:forEach>
@@ -155,10 +176,10 @@
 								<c:forEach var="page" begin="${ startPage }" end="${ lastPage }">
 									<li class="page-item">
 										<c:if test="${ nowPage == page }">
-											<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+											<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
 										</c:if>
 										<c:if test="${ nowPage != page }">
-											<a class="page-link" href="test?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+											<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
 										</c:if>
 									</li>
 								</c:forEach>
@@ -170,11 +191,11 @@
 							<c:if test="${ lastPage - startPage >= 10 }">
 								<!-- 다음 페이지 영역의 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ (startPage + 9) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-right"></i></a>
+									<a class="page-link" href="?start=${ (startPage + 9) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-right"></i></a>
 								</li>
 								<!-- 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="test?start=${ (lastPage - 1) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-double-right"></i></a>
+									<a class="page-link" href="?start=${ (lastPage - 1) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-double-right"></i></a>
 								</li>
 							</c:if>
 							
@@ -183,31 +204,15 @@
 				</div>
 				
 				
-				<c:if test="${ principal.user.role == 'Admin' }" >
-					<!-- 관리자 검색 기능 -->
-					<div class="row mb-3">
-						<div class="input-group">
-							<div class="col-2"></div>
-							<div class="col-2">
-								<select class="form-select col-2" style="border-radius: 0px;">
-									<option>제목</option>
-									<option>제목+내용</option>
-									<option>글쓴이</option>
-								</select>
-							</div>
-							<div class="col-4">
-							    <input type="text" class="form-control" style="border-radius: 0px;" placeholder="내용">
-							</div>
-							<div class="col-2">
-						  		<button class="btn btn-success" type="submit" style="border-radius: 0px;">검색</button>
-							</div>
-							<div class="col-2"></div>
-						</div>
-					</div>
-				</c:if>
+				
+				
+				
 				
 			</div>
+			
 		</div>
+		
+		<!-- 메인 컨텐츠 끝 -->
 		
 		<div class="col-md-3 col-sm-12 p-3">
 			

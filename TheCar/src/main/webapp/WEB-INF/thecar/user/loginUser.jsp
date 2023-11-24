@@ -50,9 +50,9 @@
 
 			<div class="row mb-3">
 				<div class="col-12" style="text-align: center;">
-					<a class="loginTag" href="/auth/findUsername" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">아이디 찾기</a> <a class="loginTag"
-						href="/auth/findPassword" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">비밀번호 찾기</a> <a class="loginTag" href="/auth/insertUser"
-						style="padding-right: 10px; padding-left: 10px;">회원가입</a>
+					<a class="loginTag" href="/auth/findUsername" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">아이디 찾기</a>
+					<a class="loginTag" href="/auth/findPassword" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">비밀번호 찾기</a>
+					<a class="loginTag" href="/auth/insertUser" style="padding-right: 10px; padding-left: 10px;">회원가입</a>
 				</div>
 			</div>
 
@@ -63,5 +63,7 @@
 	</div>
 
 </div>
+
+<script src="/js/findUser.js"></script>
 
 <%@ include file="../layout/footer.jsp" %>

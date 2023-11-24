@@ -10,12 +10,6 @@
 
 <!-- 로그인 인증에 성공한 브라우저만 접근할 수 있는 영역 -->
 <sec:authorize access="isAuthenticated()">
-	<!--
-		principal은 로그인을 성공한 사용자(User) 객체에 접근할 수 있는 변수이다.
-		스프링 시큐리티에서 제공하는 sec:authorize 태그를 사용하여 인증에 성공했을 때 principal이라는 변수에
-		사용자 정보가 저장된 principal 객체가 할당되도록 한다.
-		이를 통해 principal 변수에 할당된 사용자 정보를 화면에 출력할 수 있으며 principal 객체의 존재 여부를 기준으로 메뉴 구성을 다르게 나타낼 수도 있다.
-	-->
 	<sec:authentication var="principal" property="principal"/>
 </sec:authorize>
 

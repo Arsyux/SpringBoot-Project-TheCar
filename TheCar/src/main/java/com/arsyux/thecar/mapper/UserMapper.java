@@ -13,13 +13,18 @@ import com.arsyux.thecar.domain.User;
 @Mapper
 public interface UserMapper {
 
-	// 회원 가입
-	// pk는 AUTO_INCREMENT처리
-	// regdate는 CURRENT_TIMESTAMP 처리
+	// ========================================
+	// 1. 회원가입
+	// ========================================
+	
+	// 회원가입
 	@Insert("INSERT INTO USER(USERNAME, PASSWORD, NAME, BIRTH, GENDER, PHONE, EMAIL) "
 			+ "VALUES(#{username}, #{password}, #{name}, #{birth}, #{gender}, #{phone}, #{email})")
 	public void insertUser(User user);
 	
+	// ========================================
+	// 2. 회원 검색
+	// ========================================
 	// 회원 번호로 회원 1명 조회
 	@Select("SELECT * FROM USER WHERE ID = #{userid}")
 	public User findById(int userid);
@@ -36,9 +41,13 @@ public interface UserMapper {
 	@Select("SELECT * FROM USER WHERE EMAIL = #{email}")
 	public User findByEmail(String email);
 	
-		
+	// 아이디 찾기
+	@Select("SELECT * FROM USER WHERE NAME = #{name} AND PHONE = #{phone} AND EMAIL = #{email}")
+	public User findUsername(User user);
 	
-	
+	// 비밀번호 찾기
+	@Select("SELECT * FROM USER WHERE USERNAME = #{username} AND NAME = #{name} AND PHONE = #{phone} AND EMAIL = #{email}")
+	public User findPassword(User user);
 	
 	
 	

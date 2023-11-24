@@ -23,6 +23,10 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	// ========================================
+	// 1. 회원가입
+	// ========================================
+	
 	// 회원가입
 	@Transactional
 	public void insertUser(User user) {
@@ -31,6 +35,10 @@ public class UserService {
 		// 회원 정보 저장
 		userDAO.insertUser(user);
 	}
+	
+	// ========================================
+	// 2. 회원검색
+	// ========================================
 	
 	// 로그인 아이디로 회원 정보 조회
 	@Transactional(readOnly = true)
@@ -59,6 +67,30 @@ public class UserService {
 		if(findUser == null) { findUser = new User(); }
 		return findUser;
 	}
+	
+	// 아이디 찾기
+	@Transactional(readOnly = true)
+	public User findUsername(User user) {
+		// 유저정보로 검색
+		User findUser = userDAO.findUsername(user);
+		// 검색된 유저가 없을경우 처리
+		if(findUser == null) { findUser = new User(); }
+		return findUser;
+	}
+	// 비밀번호 찾기
+	@Transactional(readOnly = true)
+	public User findPassword(User user) {
+		// 유저정보로 검색
+		User findUser = userDAO.findPassword(user);
+		// 검색된 유저가 없을경우 처리
+		if(findUser == null) { findUser = new User(); }
+		return findUser;
+	}
+	
+	
+	
+	
+	
 	
 	// 회원 정보 수정
 	@Transactional

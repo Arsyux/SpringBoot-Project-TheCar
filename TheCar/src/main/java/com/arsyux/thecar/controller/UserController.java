@@ -19,6 +19,7 @@ import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.dto.UserDTO;
 import com.arsyux.thecar.dto.UserDTO.EmailCheckValidationGroup;
+import com.arsyux.thecar.dto.UserDTO.FindUserNameValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.InsertUserValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.PhoneCheckValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.UpdateUserValidationGroup;
@@ -35,6 +36,10 @@ public class UserController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	// ========================================
+	// 로그인
+	// ========================================
+	
 	// 로그인 이동
 	@GetMapping("/auth/loginUser")
 	public String login(@RequestParam(value = "error", required = false)String error,
@@ -44,6 +49,10 @@ public class UserController {
 		model.addAttribute("exception", exception);
 		return "user/loginUser";
 	}
+	
+	// ========================================
+	// 회원가입
+	// ========================================
 	
 	// 회원 가입 이동
 	@GetMapping("/auth/insertUser")
@@ -127,8 +136,57 @@ public class UserController {
 		
 	}
 	
+	// ========================================
+	// 로그인 아이디, 비밀번호 찾기
+	// ========================================
 	
+	// 로그인 아이디 찾기 이동
+	@GetMapping("/auth/findUsername")
+	public String findUsername() {
+		return "user/findUsername";
+	}
+	@PostMapping("/auth/findUsername")
+	public @ResponseBody ResponseDTO<?> findUsername(@Validated(FindUserNameValidationGroup.class) @RequestBody UserDTO userDTO) {
+
+		// UserDTO를 통해 유효성 검사
+		User user = modelMapper.map(userDTO, User.class);
+		
+		User findUser = userService.findUsername(user);
+		
+		if(findUser.getUsername() == null) {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "입력하신 정보에 해당하는 아이디를 찾을 수 없습니다.");
+		} else {
+			String hideUsername = "";
+			if(findUser.getUsername().length() < 4) {
+				for(int i=0; i<findUser.getUsername().length(); i++) {
+					if(i != findUser.getUsername().length() - 1) {						
+						hideUsername += findUser.getUsername().charAt(i);					
+					} else {
+						hideUsername += "*";	
+					}
+				}
+			} else {
+				for(int i=0; i<findUser.getUsername().length(); i++) {
+					if(i <= findUser.getUsername().length() - 3) {						
+						hideUsername += findUser.getUsername().charAt(i);					
+					} else {
+						hideUsername += "*";
+					}
+				}
+			}
+			return new ResponseDTO<>(HttpStatus.OK.value(), "회원님의 아이디는 " + hideUsername + "입니다.");			
+		}
+	}
 	
+	// 비밀번호 찾기 이동
+	@GetMapping("/auth/findPassword")
+	public String findPassword() {
+		return "user/findPassword";
+	}
+	
+	// ========================================
+	// 회원 정보 수정
+	// ========================================
 	
 	// 회원 정보 수정 이동
 	@GetMapping("/user/updateUser")
@@ -139,7 +197,7 @@ public class UserController {
 	@PutMapping("/user/updateUser")
 	public @ResponseBody ResponseDTO<?> updateUser(@Validated(UpdateUserValidationGroup.class) @RequestBody UserDTO userDTO, @AuthenticationPrincipal UserDetailsImpl principal) {
 
-		// UpdateUserDTO를 통해 유효성 검사
+		// UserDTO를 통해 유효성 검사
 		User user = modelMapper.map(userDTO, User.class);
 		
 		// 회원 정보 수정과 동시에 세션을 갱신해야하므로 updateUser()메소드에서 회원 정보를 수정하고 UserService.updateUser() 메소드가 반환한 User 객체로

@@ -51,24 +51,23 @@ public class PostController {
 			  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
 			  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
 		
-		// 메인 포스트 정보 삽입
-		//model.addAttribute("postList", postService.getPostList());
-		
-		// 카카오맵 API키 삽입
-		model.addAttribute("kakaoMapKey", kakaoMapKey);
-		
-		return "index";
-	}
-	
-	// 테스트
-	@GetMapping("/test")
-	public String getTest(@RequestParam(required = false, value = "start", defaultValue = "0") int start,
-						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
-						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
+		if(principal == null) {
+			// 비회원 게시글 조회
+			
+			// 게시글의 총 개수 조회
+			int postCount = postService.getPostCount();
+			
+			// Page 정보 생성 시작 페이지, 총 개수
+			SearchPage searchPage = new SearchPage(start, postCount);
 
-		if(!principal.getUser().getRole().equals("Admin")) {
+			// 게시글 조회
+			List<Post> postList = postService.getPostList(searchPage);
+			
+			// 조회된 데이터를 model에 추가
+			model.addAttribute("searchPage", searchPage);
+			model.addAttribute("postList", postList);
+		} else if(!principal.getUser().getRole().equals("Admin")) {
 			// 일반 회원 게시글 조회
-			// -> 일반 회원은 검색 기능이 없음.
 			
 			// 게시글의 총 개수 조회
 			int postCount = postService.getPostCount();
@@ -83,36 +82,30 @@ public class PostController {
 			model.addAttribute("searchPage", searchPage);
 			model.addAttribute("postList", postList);
 		} else {
-			
 			// 관리자용 게시글 일반 및 제목내용 검색 조회
-			System.out.println("관리자용");
 			
 			// 게시글의 총 개수 조회
 			int postCount = postService.getPostCount();
 			
-			// Page 정보 생성 시작 페이지, 크기, 총 개수
+			// Page 정보 생성 시작 페이지, 총 개수
 			SearchPage searchPage = new SearchPage(start, postCount);
+
+			// 게시글 조회
+			List<Post> postList = postService.getPostList(searchPage);
 			
+			// 조회된 데이터를 model에 추가
 			model.addAttribute("searchPage", searchPage);
-			/*
-			if(searchText.equals("")) {
-				System.out.println("검색x");
-				searchPage = new SearchPage(start, size);
-			} else {
-				System.out.println("검색o");
-				searchPage = new SearchPage(start, size, searchText);
-			}
-			
-			
-			model.addAttribute("postList", postService.getTestList(searchPage));
-			*/
+			model.addAttribute("postList", postList);
 		}
 		
-		return "test";
-	}
+		// 카카오맵 API키 삽입
+		model.addAttribute("kakaoMapKey", kakaoMapKey);
 		
-	// 내가쓴글 조회 테스트
-	@GetMapping("/test2")
+		return "index";
+	}
+	
+	// 내가쓴글 조회
+	@GetMapping("/post/mypost")
 	public String getTest2(@RequestParam(required = false, value = "start", defaultValue = "0") int start,
 						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
 						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
@@ -133,13 +126,8 @@ public class PostController {
 		model.addAttribute("searchPage", searchPage);
 		model.addAttribute("postList", postList);
 		
-		return "test";
+		return "/";
 	}
-		
-		
-		
-	
-	
 	
 	// ========================================
 	// 네비게이션바 메뉴
@@ -193,9 +181,6 @@ public class PostController {
 		return "info/largeCarConsignment";
 	}
 	
-	
-	
-	
 	// ========================================
 	// 메인 메뉴
 	// ========================================
@@ -220,8 +205,7 @@ public class PostController {
 		postService.insertPost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
 	}
-	
-	// 글조회 기능
+	// 글조회 이동
 	@GetMapping("/post/{id}")
 	public String getPost(@PathVariable int id, Model model) {
 		model.addAttribute("post", postService.getPost(id));

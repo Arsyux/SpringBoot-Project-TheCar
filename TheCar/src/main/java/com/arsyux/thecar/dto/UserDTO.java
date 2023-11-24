@@ -31,10 +31,16 @@ public class UserDTO {
 	// 이메일 중복 체크할 때 유효성 검사
 	public interface EmailCheckValidationGroup { }
 	
+	// 아이디 찾을 때 유효성 검사
+	public interface FindUserNameValidationGroup { }
+	
+	// 비밀번호 찾을 때 유효성 검사
+	public interface FindPasswordValidationGroup { }
+	
 	// 로그인 아이디
-	@NotNull(groups = { InsertUserValidationGroup.class, UsernameCheckValidationGroup.class }, message = "로그인 아이디가 전달되지 않았습니다.")
-	@NotBlank(groups = { InsertUserValidationGroup.class, UsernameCheckValidationGroup.class }, message = "로그인 아이디는 필수 입력 항목입니다.")
-	@Size(groups = { InsertUserValidationGroup.class, UsernameCheckValidationGroup.class }, 
+	@NotNull(groups = { InsertUserValidationGroup.class, UsernameCheckValidationGroup.class, FindPasswordValidationGroup.class }, message = "로그인 아이디가 전달되지 않았습니다.")
+	@NotBlank(groups = { InsertUserValidationGroup.class, UsernameCheckValidationGroup.class, FindPasswordValidationGroup.class }, message = "로그인 아이디는 필수 입력 항목입니다.")
+	@Size(groups = { InsertUserValidationGroup.class, UsernameCheckValidationGroup.class, FindPasswordValidationGroup.class }, 
 			message = "로그인 아이디는 1자 이상 20자 미만으로 입력해주세요.", min = 1, max = 20)
 	private String username;
 
@@ -45,9 +51,9 @@ public class UserDTO {
 	private String password;
 	
 	// 이름
-	@NotNull(groups = InsertUserValidationGroup.class, message = "이름이 전달되지 않았습니다.")
-	@NotBlank(groups = InsertUserValidationGroup.class, message = "이름은 필수 입력 항목입니다.")
-	@Size(groups = InsertUserValidationGroup.class, message = "이름은 1자 이상 20자 미만으로 입력해주세요.", min = 1, max = 20)
+	@NotNull(groups = { InsertUserValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "이름이 전달되지 않았습니다.")
+	@NotBlank(groups = { InsertUserValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "이름은 필수 입력 항목입니다.")
+	@Size(groups = { InsertUserValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "이름은 1자 이상 20자 미만으로 입력해주세요.", min = 1, max = 20)
 	private String name;
 	
 	// 생년월일 8자리
@@ -63,17 +69,17 @@ public class UserDTO {
 	private String gender;
 	
 	// 휴대폰
-	@NotNull(groups = { InsertUserValidationGroup.class, PhoneCheckValidationGroup.class }, message = "휴대폰 번호가 전달되지 않았습니다.")
-	@NotBlank(groups = { InsertUserValidationGroup.class, PhoneCheckValidationGroup.class }, message = "휴대폰 번호는 필수 입력 항목입니다.")
-	@Pattern(groups = { InsertUserValidationGroup.class, PhoneCheckValidationGroup.class },
+	@NotNull(groups = { InsertUserValidationGroup.class, PhoneCheckValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "휴대폰 번호가 전달되지 않았습니다.")
+	@NotBlank(groups = { InsertUserValidationGroup.class, PhoneCheckValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "휴대폰 번호는 필수 입력 항목입니다.")
+	@Pattern(groups = { InsertUserValidationGroup.class, PhoneCheckValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class },
 				regexp = "^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$", message = "휴대폰 번호를 정확히 입력해주세요.")
 	private String phone;
 	
 	// 이메일
-	@NotNull(groups = { InsertUserValidationGroup.class, EmailCheckValidationGroup.class }, message = "이메일이 전달되지 않았습니다.")
-	@NotBlank(groups = { InsertUserValidationGroup.class, EmailCheckValidationGroup.class }, message = "이메일은 필수 입력 항목입니다.")
-	@Size(groups = { InsertUserValidationGroup.class, EmailCheckValidationGroup.class }, message = "이메일은 1자 이상 100자 미만으로 입력해주세요.", min = 1, max = 100)
-	@Email(groups = { InsertUserValidationGroup.class, EmailCheckValidationGroup.class }, message = "이메일 형식이 아닙니다.")
+	@NotNull(groups = { InsertUserValidationGroup.class, EmailCheckValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "이메일이 전달되지 않았습니다.")
+	@NotBlank(groups = { InsertUserValidationGroup.class, EmailCheckValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "이메일은 필수 입력 항목입니다.")
+	@Size(groups = { InsertUserValidationGroup.class, EmailCheckValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "이메일은 1자 이상 100자 미만으로 입력해주세요.", min = 1, max = 100)
+	@Email(groups = { InsertUserValidationGroup.class, EmailCheckValidationGroup.class, FindUserNameValidationGroup.class, FindPasswordValidationGroup.class }, message = "이메일 형식이 아닙니다.")
 	private String email;
 	
 }

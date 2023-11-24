@@ -13,11 +13,20 @@ public class UserDAO {
 	
 	@Autowired
 	private SqlSessionTemplate mybatis;
+
+	// ========================================
+	// 회원가입
+	// ========================================
 	
 	// 회원 가입
 	public void insertUser(User user) {
 		mybatis.insert("insertUser", user);
 	}
+	
+	// ========================================
+	// 회원검색
+	// ========================================
+	
 	// 회원 번호로 1명 조회
 	public User findById(int id) {
 		return mybatis.selectOne("findById", id);
@@ -34,7 +43,14 @@ public class UserDAO {
 	public User findByEmail(String email) {
 		return mybatis.selectOne("findByEmail", email);
 	}
-	
+	// 아이디 찾기
+	public User findUsername(User user) {
+		return mybatis.selectOne("findUsername", user);
+	}
+	// 비밀번호 찾기
+	public User findPassword(User user) {
+		return mybatis.selectOne("findPassword", user);
+	}
 	
 	
 	
