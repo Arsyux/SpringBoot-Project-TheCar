@@ -33,16 +33,16 @@ let userObject = {
 			data: JSON.stringify(user),
 			contentType: "application/json; charset=utf-8"
 		}).done(function(response) {
-			alert(response["data"]);
-			/*
 			let status = response["status"];
 			if(status == 200) {
-				// 중복 체크 통과
-				let message = response["data"];
-				// 사용 여부 체크
-				if(confirm(message)) { document.getElementById('username').setAttribute('disabled', 'true'); }
+				// 아이디를 찾았을 경우
+				let	findUsername = response["data"];
+				
+				
+				
+				
 			} else {
-				// 중복 체크 실패
+				/*
 				let errors = response["data"];
 				
 				try{
@@ -62,8 +62,8 @@ let userObject = {
 				} catch (e) {
 					alert("에러");
 				}
+				*/
 			}
-			*/
 		}).fail(function(error) {
 			alert("에러 발생 : " + error);
 		});

@@ -2,7 +2,8 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container mt-5 mb-5">
-
+	
+	<h1>결과창</h1>
 	<!-- Logo -->
 	<div class="row">
 		<div class="col-sm-0 col-md-4"></div>

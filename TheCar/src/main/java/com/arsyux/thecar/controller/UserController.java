@@ -137,14 +137,15 @@ public class UserController {
 	}
 	
 	// ========================================
-	// 로그인 아이디, 비밀번호 찾기
+	// 아이디, 비밀번호 찾기
 	// ========================================
 	
-	// 로그인 아이디 찾기 이동
+	// 아이디 찾기 이동
 	@GetMapping("/auth/findUsername")
 	public String findUsername() {
 		return "user/findUsername";
 	}
+	// 아이디 찾기 기능
 	@PostMapping("/auth/findUsername")
 	public @ResponseBody ResponseDTO<?> findUsername(@Validated(FindUserNameValidationGroup.class) @RequestBody UserDTO userDTO) {
 
@@ -157,25 +158,22 @@ public class UserController {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "입력하신 정보에 해당하는 아이디를 찾을 수 없습니다.");
 		} else {
 			String hideUsername = "";
-			if(findUser.getUsername().length() < 4) {
-				for(int i=0; i<findUser.getUsername().length(); i++) {
-					if(i != findUser.getUsername().length() - 1) {						
-						hideUsername += findUser.getUsername().charAt(i);					
-					} else {
-						hideUsername += "*";	
-					}
-				}
-			} else {
-				for(int i=0; i<findUser.getUsername().length(); i++) {
-					if(i <= findUser.getUsername().length() - 3) {						
-						hideUsername += findUser.getUsername().charAt(i);					
-					} else {
-						hideUsername += "*";
-					}
+			for(int i=0; i<findUser.getUsername().length(); i++) {
+				if(i <= (int)(findUser.getUsername().length() / 2)) {						
+					hideUsername += findUser.getUsername().charAt(i);					
+				} else {
+					hideUsername += "*";
 				}
 			}
-			return new ResponseDTO<>(HttpStatus.OK.value(), "회원님의 아이디는 " + hideUsername + "입니다.");			
+			return new ResponseDTO<>(HttpStatus.OK.value(), hideUsername);
 		}
+	}
+	// 아이디 찾기 결과창 이동
+	@PostMapping("/auth/findUsernameResult")
+	public String findUsernameResult(@RequestBody User user, Model model) {
+		System.out.println("아이디찾기 체크 : " + user.getUsername());
+		model.addAttribute("username", user.getUsername());
+		return "user/findUsernameResult";
 	}
 	
 	// 비밀번호 찾기 이동
