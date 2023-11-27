@@ -21,7 +21,7 @@
 
 		<div class="col-sm-12 col-md-4">
 
-			<form>
+			<form action="/auth/findUsername" method="post">
 				<div class="row mb-3" style="border-style: solid; border-color: #DDDDDD; border-radius: 5px; border-width: 1px;">
 					
 					<!-- 이름 -->
@@ -51,13 +51,15 @@
 					</div>
 										
 				</div>
+				
+				<div class="row mb-3">
+					<div class="col-12">
+						<button type="submit" id="btn-findUsername" class="btn btn-dark btn-large w-100">아이디 찾기</button>
+					</div>
+				</div>
 			</form>
 
-			<div class="row mb-3">
-				<div class="col-12">
-					<button id="btn-findUsername" class="btn btn-dark btn-large w-100">아이디 찾기</button>
-				</div>
-			</div>
+			
 
 		</div>
 

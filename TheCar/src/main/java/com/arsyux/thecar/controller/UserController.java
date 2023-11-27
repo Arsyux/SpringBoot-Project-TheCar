@@ -1,5 +1,7 @@
 package com.arsyux.thecar.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -147,9 +149,13 @@ public class UserController {
 	}
 	// 아이디 찾기 기능
 	@PostMapping("/auth/findUsername")
-	public @ResponseBody ResponseDTO<?> findUsername(@Validated(FindUserNameValidationGroup.class) @RequestBody UserDTO userDTO) {
-
+	public String findUsername(HttpServletRequest httpServletRequest, Model model) {
+		String name = httpServletRequest.getParameter("name");
+        String phone = httpServletRequest.getParameter("phone");
+        String email = httpServletRequest.getParameter("email");
+        System.out.println(name + ", " + phone + ", " + email);
 		// UserDTO를 통해 유효성 검사
+		/*
 		User user = modelMapper.map(userDTO, User.class);
 		
 		User findUser = userService.findUsername(user);
@@ -167,12 +173,10 @@ public class UserController {
 			}
 			return new ResponseDTO<>(HttpStatus.OK.value(), hideUsername);
 		}
-	}
-	// 아이디 찾기 결과창 이동
-	@PostMapping("/auth/findUsernameResult")
-	public String findUsernameResult(@RequestBody User user, Model model) {
-		System.out.println("아이디찾기 체크 : " + user.getUsername());
-		model.addAttribute("username", user.getUsername());
+		*/
+		//System.out.println("아이디찾기 체크 : " + user.getUsername());
+		//model.addAttribute("username", user.getUsername());
+		
 		return "user/findUsernameResult";
 	}
 	

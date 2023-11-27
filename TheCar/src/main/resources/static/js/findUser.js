@@ -5,7 +5,7 @@ let userObject = {
 		
 		// 아이디 찾기
 		$("#btn-findUsername").on("click",  () => {
-			_this.findUsername();
+			//_this.findUsername();
 		});
 		
 		// 비밀번호 찾기
@@ -15,6 +15,7 @@ let userObject = {
 	},
 	
 	// 아이디 찾기
+	/*
 	findUsername: function(){
 		// null 또는 공백 체크
 		if($("#name").val() == "" || $("#name").val() == null) { alert('이름을 입력해주세요.'); return; }
@@ -62,12 +63,12 @@ let userObject = {
 				} catch (e) {
 					alert("에러");
 				}
-				*/
 			}
 		}).fail(function(error) {
 			alert("에러 발생 : " + error);
 		});
 	},
+	*/
 	
 	// 비밀번호 찾기
 	findPassword: function(){
