@@ -220,8 +220,8 @@ let userObject = {
 								if(document.getElementById(arrId[i]).classList.contains('is-valid')) {
 									document.getElementById(arrId[i]).classList.remove('is-valid');
 								}
-								document.getElementById(arrId[i]).classList.add('is-valid');
-								document.getElementById(arrId[i] + 'Invalid').innerText = '';
+								document.getElementById(arrId[i]).classList.add('is-invalid');
+								document.getElementById(arrId[i] + 'Invalid').innerText = jsonValue[arrId[i]];
 							} else {
 								if(document.getElementById(arrId[i]).classList.contains('is-invalid')){
 									document.getElementById(arrId[i]).classList.remove('is-invalid');
