@@ -69,6 +69,11 @@ public class UserDAO {
 		mybatis.update("updateUser", user);
 	}
 	
+	// 비밀번호 변경
+	public void changePassword(User user) {
+		mybatis.update("changePassword", user);
+	}
+	
 	public void deleteUser(User user) {
 		mybatis.delete("deleteUser", user);
 	}

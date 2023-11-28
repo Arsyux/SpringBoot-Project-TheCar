@@ -26,7 +26,7 @@ public interface UserMapper {
 	// 2. 회원 검색
 	// ========================================
 	// 회원 번호로 회원 1명 조회
-	@Select("SELECT * FROM USER WHERE ID = #{userid}")
+	@Select("SELECT * FROM USER WHERE USERID = #{userid}")
 	public User findById(int userid);
 	
 	// 로그인 아이디로 회원 1명 조회
@@ -62,10 +62,13 @@ public interface UserMapper {
 
 	
 
-	@Update("UPDATE USER SET PASSWORD = #{password} WHERE ID = #{id}")
+	@Update("UPDATE USER SET PASSWORD = #{password} WHERE USERID = #{userid}")
 	public void updateUser(User user);
+	
+	@Update("UPDATE USER SET PASSWORD = #{password} WHERE USERID = #{userid}")
+	public void changePassword(User user);
 
-	@Delete("DELETE USER WHERE ID = #{id}")
+	@Delete("DELETE USER WHERE USERID = #{userid}")
 	public void deleteUser(User user);
 
 }

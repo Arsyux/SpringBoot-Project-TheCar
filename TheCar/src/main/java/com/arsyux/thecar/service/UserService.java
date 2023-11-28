@@ -103,6 +103,15 @@ public class UserService {
 		return findUser;
 	}
 	
+	// 비밀번호 변경
+	@Transactional
+	public User changePassword(User user) {
+		User findUser = userDAO.findById(user.getUserid());
+		findUser.setPassword(passwordEncoder.encode(user.getPassword()));
+		userDAO.changePassword(findUser);
+		return findUser;
+	}
+	
 	/*
 	// 스프링 시큐리티의 인증 처리 과정 - 세션 갱신
 	// 회원 정보를 수정한 후에 수정된 회원 정보로 세션을 갱신하기 위해서는 스프링 시큐리리티의 인증 처리 과정을 이해해야한다.

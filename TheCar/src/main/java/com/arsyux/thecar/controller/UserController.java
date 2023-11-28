@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.dto.UserDTO;
+import com.arsyux.thecar.dto.UserDTO.ChangePasswordValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.EmailCheckValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.FindPasswordValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.FindUserNameValidationGroup;
@@ -38,7 +39,7 @@ public class UserController {
 	private ModelMapper modelMapper;
 	
 	// ========================================
-	// 로그인
+	// 1. 로그인
 	// ========================================
 	
 	// 로그인 이동
@@ -52,7 +53,7 @@ public class UserController {
 	}
 	
 	// ========================================
-	// 회원가입
+	// 2. 회원가입
 	// ========================================
 	
 	// 회원 가입 이동
@@ -138,7 +139,7 @@ public class UserController {
 	}
 	
 	// ========================================
-	// 아이디, 비밀번호 찾기
+	// 3. 아이디, 비밀번호 찾기
 	// ========================================
 	
 	// 아이디 찾기 이동
@@ -180,19 +181,19 @@ public class UserController {
 		
 		// UserDTO를 통해 유효성 검사
 		User user = modelMapper.map(userDTO, User.class);
-		
+
 		User findUser = userService.findPassword(user);
-		
+
 		if(findUser.getUsername() == null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "입력하신 정보에 해당하는 아이디를 찾을 수 없습니다.");
 		} else {
-			// 비밀번호를 찾았을경우 비밀번호 재설정
-			return new ResponseDTO<>(HttpStatus.OK.value(), "OK");
+			// 비밀번호를 찾았을경우 비밀번호를 재설정할 수 있게 200전송
+			return new ResponseDTO<>(HttpStatus.OK.value(), findUser.getUserid());
 		}
 	}
-		
+	
 	// ========================================
-	// 회원 정보 수정
+	// 4. 회원 정보 수정
 	// ========================================
 	
 	// 회원 정보 수정 이동
@@ -213,5 +214,20 @@ public class UserController {
 		
 		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 정보가 수정되었습니다.");
 	}
-	
+	// 비밀번호 변경 기능
+	@PostMapping("/auth/changePassword")
+	public @ResponseBody ResponseDTO<?> changePassword(@Validated(ChangePasswordValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+
+		// UserDTO를 통해 유효성 검사
+		User user = modelMapper.map(userDTO, User.class);
+		
+		User findUser = userService.changePassword(user);
+		
+		if(findUser.getUsername() == null) {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "입력하신 정보에 해당하는 아이디를 찾을 수 없습니다.");
+		} else {
+			// 비밀번호를 찾았을경우 비밀번호를 재설정할 수 있게 200전송
+			return new ResponseDTO<>(HttpStatus.OK.value(), "OK");
+		}
+	}
 }

@@ -37,6 +37,12 @@ public class UserDTO {
 	// 비밀번호 찾을 때 유효성 검사
 	public interface FindPasswordValidationGroup { }
 	
+	// 비밀번호 변경시 유효성 검사
+	public interface ChangePasswordValidationGroup { }
+	
+	// 회원 번호
+	private int userid;
+	
 	// 로그인 아이디
 	@NotNull(groups = { InsertUserValidationGroup.class, UsernameCheckValidationGroup.class, FindPasswordValidationGroup.class }, message = "로그인 아이디가 전달되지 않았습니다.")
 	@NotBlank(groups = { InsertUserValidationGroup.class, UsernameCheckValidationGroup.class, FindPasswordValidationGroup.class }, message = "로그인 아이디는 필수 입력 항목입니다.")
@@ -45,9 +51,9 @@ public class UserDTO {
 	private String username;
 
 	// 비밀번호
-	@NotNull(groups = { InsertUserValidationGroup.class, UpdateUserValidationGroup.class }, message = "비밀번호가 전달되지 않았습니다.")
-	@NotBlank(groups = { InsertUserValidationGroup.class, UpdateUserValidationGroup.class }, message = "비밀번호는 필수 입력 항목입니다.")
-	@Size(groups = { InsertUserValidationGroup.class, UpdateUserValidationGroup.class }, message = "비밀번호는 1자 이상 20자 미만으로 입력해주세요.", min = 1, max = 20)
+	@NotNull(groups = { InsertUserValidationGroup.class, UpdateUserValidationGroup.class, ChangePasswordValidationGroup.class }, message = "비밀번호가 전달되지 않았습니다.")
+	@NotBlank(groups = { InsertUserValidationGroup.class, UpdateUserValidationGroup.class, ChangePasswordValidationGroup.class }, message = "비밀번호는 필수 입력 항목입니다.")
+	@Size(groups = { InsertUserValidationGroup.class, UpdateUserValidationGroup.class, ChangePasswordValidationGroup.class }, message = "비밀번호는 1자 이상 20자 미만으로 입력해주세요.", min = 1, max = 20)
 	private String password;
 	
 	// 이름
@@ -63,6 +69,7 @@ public class UserDTO {
 				message = "생년월일을 정확히 입력해주세요.")
 	private String birth;
 	
+	// 성별
 	@NotNull(groups = InsertUserValidationGroup.class, message = "성별이 전달되지 않았습니다.")
 	@NotBlank(groups = InsertUserValidationGroup.class, message = "성별은 필수 입력 항목입니다.")
 	@Pattern(groups = InsertUserValidationGroup.class, regexp = "^[W|M]$")
