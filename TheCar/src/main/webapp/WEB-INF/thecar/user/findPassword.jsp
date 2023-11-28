@@ -96,9 +96,28 @@
 			</div>
 
 		</div>
-
 	</div>
-
+	
+	<!-- 결과창 -->
+	<div class="row mt-3" hidden="true" id="findPasswordResultArea">
+		<div class="col-12">
+			<!-- Password -->
+			<div class="col-12 mt-3">
+				<div class="input-group">
+					<span class="input-group-text"><i class="bi bi-lock"></i></span> <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"></input>
+					<div id="passwordInvalid" class="invalid-feedback"></div>
+				</div>
+			</div>
+			<!-- Password 확인-->
+			<div class="col-12 mt-3">
+				<div class="input-group">
+					<span class="input-group-text"><i class="bi bi-lock"></i></span> <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"></input>
+					<div id="passwordInvalid" class="invalid-feedback"></div>
+				</div>
+			</div>
+			<button id="btn-PasswordChange" class="btn btn-dark btn-large w-100">비밀번호 변경</button>
+		</div>
+	</div>
 
 	<div class="col-sm-0 col-md-4"></div>
 </div>

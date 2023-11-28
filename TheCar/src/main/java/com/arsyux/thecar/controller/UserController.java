@@ -19,6 +19,7 @@ import com.arsyux.thecar.domain.User;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.dto.UserDTO;
 import com.arsyux.thecar.dto.UserDTO.EmailCheckValidationGroup;
+import com.arsyux.thecar.dto.UserDTO.FindPasswordValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.FindUserNameValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.InsertUserValidationGroup;
 import com.arsyux.thecar.dto.UserDTO.PhoneCheckValidationGroup;
@@ -173,7 +174,23 @@ public class UserController {
 	public String findPassword() {
 		return "user/findPassword";
 	}
-	
+	// 비밀번호 찾기 기능
+	@PostMapping("/auth/findPassword")
+	public @ResponseBody ResponseDTO<?> findPassword(@Validated(FindPasswordValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+		
+		// UserDTO를 통해 유효성 검사
+		User user = modelMapper.map(userDTO, User.class);
+		
+		User findUser = userService.findPassword(user);
+		
+		if(findUser.getUsername() == null) {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "입력하신 정보에 해당하는 아이디를 찾을 수 없습니다.");
+		} else {
+			// 비밀번호를 찾았을경우 비밀번호 재설정
+			return new ResponseDTO<>(HttpStatus.OK.value(), "OK");
+		}
+	}
+		
 	// ========================================
 	// 회원 정보 수정
 	// ========================================
