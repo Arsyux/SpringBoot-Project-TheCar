@@ -199,7 +199,7 @@ public class PostController {
 		
 		// 글쓴이 설정
 		post.setUserid(principal.getUser().getUserid());
-		post.setName(principal.getUser().getName());
+		post.setUsername(principal.getUser().getUsername());
 		
 		postService.insertPost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");

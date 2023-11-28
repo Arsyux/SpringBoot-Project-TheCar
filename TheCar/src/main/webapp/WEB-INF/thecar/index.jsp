@@ -92,7 +92,7 @@
 							        			&nbsp;&nbsp;${ post.title }
 						        			</a>
 						        		</td>
-							        	<td style="text-align: center;">${ post.name }</td>
+							        	<td style="text-align: center;">${ post.username }</td>
 							        	<!-- 날짜 데이터의 숫자가 소수점으로 표시되어서 Format변경 -->
 							        	<fmt:parseDate value="${ post.regdate }" var="dateFormat" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<fmt:formatDate value="${ dateFormat }" var="regdate" pattern="yyyy-MM-dd HH:mm:ss"/>
