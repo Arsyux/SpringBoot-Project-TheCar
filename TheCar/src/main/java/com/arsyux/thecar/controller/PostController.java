@@ -106,18 +106,17 @@ public class PostController {
 	
 	// 내가쓴글 조회
 	@GetMapping("/post/mypost")
-	public String getTest2(@RequestParam(required = false, value = "start", defaultValue = "0") int start,
+	public String getMyPost(@RequestParam(required = false, value = "start", defaultValue = "0") int start,
 						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
 						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
-
 		// 검색할 유저 정보
 		User user = principal.getUser();
 		
-		// 유저 이름으로 조회되는 게시글 개수 조회
-		int postCount = postService.getPostCountByUsername(user);
+		// 유저번호로 조회되는 게시글 개수 조회
+		int postCount = postService.getPostCountByUserid(user);
 		
 		// Page 정보 생성 시작 페이지, 크기, 총 개수, 유저 이름
-		SearchPage searchPage = new SearchPage(start, postCount, user.getName());
+		SearchPage searchPage = new SearchPage(start, postCount, user.getUsername());
 		
 		// 게시글 조회
 		List<Post> postList = postService.getPostListByUsername(searchPage);
@@ -126,7 +125,7 @@ public class PostController {
 		model.addAttribute("searchPage", searchPage);
 		model.addAttribute("postList", postList);
 		
-		return "/";
+		return "index";
 	}
 	
 	// ========================================

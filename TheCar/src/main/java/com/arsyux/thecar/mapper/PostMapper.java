@@ -22,8 +22,8 @@ public interface PostMapper {
 	public int getPostCount();
 	
 	// 유저이름 게시글 개수 조회
-	@Select("SELECT count(*) FROM POST WHERE userid = #{userid}")
-	public int getPostCountByUsername(User user);
+	@Select("SELECT count(*) FROM POST WHERE USERID = #{userid}")
+	public int getPostCountByUserid(User user);
 		
 	// 제목 게시글 개수 조회
 	@Select("SELECT count(*) FROM POST WHERE TITLE LIKE '%#{title}%'")
@@ -46,7 +46,7 @@ public interface PostMapper {
 	public List<Post> getPostList(SearchPage searchPage);
 	
 	// 유저이름 게시글 조회
-	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.userid = p.userid AND u.name = #{searchUsername} ORDER BY p.postid DESC LIMIT #{start}, #{size}")
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name FROM USER u, POST p WHERE u.userid = p.userid AND u.username = #{searchUsername} ORDER BY p.postid DESC LIMIT #{start}, #{size}")
 	public List<Post> getPostListByUsername(SearchPage searchPage);
 	
 	// 제목 게시글 조회

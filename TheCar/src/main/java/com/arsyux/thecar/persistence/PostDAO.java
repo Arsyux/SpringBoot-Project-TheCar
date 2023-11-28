@@ -25,9 +25,9 @@ public class PostDAO {
 	@Transactional(readOnly = true)
 	public int getPostCount() { return mybatis.selectOne("getPostCount"); }
 	
-	// 유저이름 게시글 개수 조회
+	// 유저번호로 게시글 개수 조회
 	@Transactional(readOnly = true)
-	public int getPostCountByUsername(User user) { return mybatis.selectOne("getPostCountByUsername", user); }
+	public int getPostCountByUserid(User user) { return mybatis.selectOne("getPostCountByUserid", user); }
 	
 	// 제목 게시글 개수 조회
 	@Transactional(readOnly = true)

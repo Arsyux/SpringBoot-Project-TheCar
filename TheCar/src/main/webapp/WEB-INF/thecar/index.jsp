@@ -31,7 +31,7 @@
 					<div class="col-2">
 						<h2 style="font-weight: bold;"><a href="/" style="text-decoration: none; color: #333333;">전체글</a></h2>
 					</div>
-					<c:if test="${ principal.user.role == 'Admin' }" >
+					<c:if test="${ principal.user.role == 'Admin' }">
 						<!-- 관리자 검색 기능 -->
 						<div class="col-7 mb-3">
 							<div class="input-group">
@@ -51,10 +51,13 @@
 							</div>
 						</div>
 					</c:if>
+					<c:if test="${ principal.user.role != 'Admin' }">
+						<div class="col-7 mb-3"></div>
+					</c:if>
 					<c:if test="${!empty principal }">
 						<div class="col-3" style="text-align: right;">
-							<a class="btn btn-dark" href="post/mypost">내가쓴글</a>&nbsp;&nbsp;
-							<a class="btn btn-dark" href="post/insertPost">글쓰기</a>
+							<a class="btn btn-dark" href="/post/mypost">내가쓴글</a>&nbsp;&nbsp;
+							<a class="btn btn-dark" href="/post/insertPost">글쓰기</a>
 						</div>
 					</c:if>
 					<hr/>

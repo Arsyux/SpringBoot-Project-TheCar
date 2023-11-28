@@ -119,7 +119,7 @@ let userObject = {
 			let status = response["status"];
 			if(status == 200) {
 				// 비밀번호를 찾았을 경우
-				let arrId = [ 'name', 'phone', 'email'];
+				let arrId = [ 'username', 'name', 'phone', 'email' ];
 				for(let i=0; i<arrId.length; i++) {
 					if(document.getElementById(arrId[i]).classList.contains('is-valid')) {
 						document.getElementById(arrId[i]).classList.remove('is-valid');
@@ -183,7 +183,7 @@ let userObject = {
 									}
 								} else {
 									// 유효성 검사는 통과했으나 찾는 아이디가 없는 경우
-									let arrId = [ 'name', 'phone', 'email'];
+									let arrId = [ 'username', 'name', 'phone', 'email'];
 									for(let i=0; i<arrId.length; i++) {
 										if(document.getElementById(arrId[i]).classList.contains('is-valid')) {
 											document.getElementById(arrId[i]).classList.remove('is-valid');
@@ -218,7 +218,7 @@ let userObject = {
 					if (jsonCheck) {
 						// 값이 JSON 형태일 경우 (유효성 검사에서 에러가 발견된 경우)
 						// 유효성 검사 표시
-						let arrId = [ 'name', 'phone', 'email'];
+						let arrId = [ 'username', 'name', 'phone', 'email'];
 						for(let i=0; i<arrId.length; i++) {
 							if(jsonValue[arrId[i]] != null) {
 								if(document.getElementById(arrId[i]).classList.contains('is-valid')) {

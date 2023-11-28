@@ -27,7 +27,7 @@ public class PostService {
 	
 	// 유저이름 게시글 개수 조회
 	@Transactional(readOnly = true)
-	public int getPostCountByUsername(User user) { return postDAO.getPostCountByUsername(user); }
+	public int getPostCountByUserid(User user) { return postDAO.getPostCountByUserid(user); }
 	
 	// 제목 게시글 개수 조회
 	@Transactional(readOnly = true)
