@@ -33,7 +33,7 @@ public class Post {
 	private int userid;
 	
 	// 글쓴이 이름
-	private String username;
+	private String name;
 	
 	// 총 게시글 갯수
 	private int last;

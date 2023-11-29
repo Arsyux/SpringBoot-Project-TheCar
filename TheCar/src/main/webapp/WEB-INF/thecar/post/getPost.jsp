@@ -22,7 +22,7 @@
 	<br>
 	<div>
 		포스트 번호: <span id="postid"><i>${ post.postid }</i></span><br>
-		작성자: ${ post.username }
+		작성자: ${ post.name }
 	</div>
 	
 	<hr>

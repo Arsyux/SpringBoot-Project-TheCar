@@ -63,6 +63,19 @@ public class PostController {
 			// 게시글 조회
 			List<Post> postList = postService.getPostList(searchPage);
 			
+			// 작성자 이름 가리기
+			for(int i=0; i<postList.size(); i++) {
+				String name = "";
+				for(int j=0; j<postList.get(i).getName().length(); j++) {
+					if(j > (int)(postList.get(i).getName().length() / 2)) {
+						name += "*";
+					} else {
+						name += postList.get(i).getName().toCharArray()[j];						
+					}
+				}
+				postList.get(i).setName(name);
+			}
+			
 			// 조회된 데이터를 model에 추가
 			model.addAttribute("searchPage", searchPage);
 			model.addAttribute("postList", postList);
@@ -78,6 +91,19 @@ public class PostController {
 			// 게시글 조회
 			List<Post> postList = postService.getPostList(searchPage);
 			
+			// 작성자 이름 가리기
+			for(int i=0; i<postList.size(); i++) {
+				String name = "";
+				for(int j=0; j<postList.get(i).getName().length(); j++) {
+					if(j > (int)(postList.get(i).getName().length() / 2)) {
+						name += "*";
+					} else {
+						name += postList.get(i).getName().toCharArray()[j];						
+					}
+				}
+				postList.get(i).setName(name);
+			}
+						
 			// 조회된 데이터를 model에 추가
 			model.addAttribute("searchPage", searchPage);
 			model.addAttribute("postList", postList);
@@ -93,6 +119,19 @@ public class PostController {
 			// 게시글 조회
 			List<Post> postList = postService.getPostList(searchPage);
 			
+			// 작성자 이름 가리기
+			for(int i=0; i<postList.size(); i++) {
+				String name = "";
+				for(int j=0; j<postList.get(i).getName().length(); j++) {
+					if(j > (int)(postList.get(i).getName().length() / 2)) {
+						name += "*";
+					} else {
+						name += postList.get(i).getName().toCharArray()[j];						
+					}
+				}
+				postList.get(i).setName(name);
+			}
+						
 			// 조회된 데이터를 model에 추가
 			model.addAttribute("searchPage", searchPage);
 			model.addAttribute("postList", postList);
@@ -120,6 +159,19 @@ public class PostController {
 		
 		// 게시글 조회
 		List<Post> postList = postService.getPostListByUsername(searchPage);
+		
+		// 작성자 이름 가리기
+		for(int i=0; i<postList.size(); i++) {
+			String name = "";
+			for(int j=0; j<postList.get(i).getName().length(); j++) {
+				if(j > (int)(postList.get(i).getName().length() / 2)) {
+					name += "*";
+				} else {
+					name += postList.get(i).getName().toCharArray()[j];						
+				}
+			}
+			postList.get(i).setName(name);
+		}
 		
 		// 조회된 데이터를 model에 추가
 		model.addAttribute("searchPage", searchPage);
@@ -199,7 +251,7 @@ public class PostController {
 		
 		// 글쓴이 설정
 		post.setUserid(principal.getUser().getUserid());
-		post.setUsername(principal.getUser().getUsername());
+		post.setName(principal.getUser().getName());
 		
 		postService.insertPost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
@@ -215,8 +267,19 @@ public class PostController {
 		User user = principal.getUser();
 		
 		if(user.getRole().equals("Admin") || post.getUserid() == user.getUserid()) {
+			// 작성자 이름 가리기
+			String name = "";
+			for(int j=0; j<post.getName().length(); j++) {
+				if(j > (int)(post.getName().length() / 2)) {
+					name += "*";
+				} else {
+					name += post.getName().toCharArray()[j];						
+				}
+			}
+			post.setName(name);
+			
 			// 글의 작성자 혹은 관리자만 확인가능
-			model.addAttribute("post", postService.getPostByPostId(id));
+			model.addAttribute("post", post);
 		}
 		
 		return "post/getPost";
@@ -252,7 +315,7 @@ public class PostController {
 	
 	@GetMapping("/post/updatePost/{id}")
 	public String updatePost(@PathVariable int id, Model model) {
-		model.addAttribute("post", postService.getPost(id));
+		//model.addAttribute("post", postService.getPost(id));
 		return "post/updatePost";
 	}
 	
@@ -260,7 +323,7 @@ public class PostController {
 	// 그 후 PostService 클래스의 updatePost() 메소드를 호출하여 포스트 수정을 처리한다.
 	@PutMapping("/post")
 	public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
-		postService.updatePost(post);
+		//postService.updatePost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 수정했습니다.");
 	}
 	
@@ -268,7 +331,7 @@ public class PostController {
 	// 그 후 PostService 클래스의 deletePost() 메소드를 호출하여 포스트 삭제를 처리한다.
 	@DeleteMapping("/post/{id}")
 	public @ResponseBody ResponseDTO<?> deletePost(@PathVariable int id) {
-		postService.deletePost(id);
+		//postService.deletePost(id);
 		return new ResponseDTO<>(HttpStatus.OK.value(), id + "번 포스트를 삭제했습니다.");
 	}
 	
