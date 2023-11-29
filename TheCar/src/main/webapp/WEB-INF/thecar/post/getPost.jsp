@@ -3,6 +3,13 @@
 
 <br><br>
 <div class="container border">
+
+
+	<c:if test="${empty post}">
+		<h1>게시글 작성자와 관리자만 확인할 수 있습니다.</h1>
+	</c:if>
+	
+	<c:if test="${!empty post }">
 	<br>
 	<div>
 		<h3>${ post.title }</h3>
@@ -15,11 +22,12 @@
 	<br>
 	<div>
 		포스트 번호: <span id="postid"><i>${ post.postid }</i></span><br>
-		작성자: 
+		작성자: ${ post.username }
 	</div>
 	
 	<hr>
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+	</c:if>
 	
 </div>
 

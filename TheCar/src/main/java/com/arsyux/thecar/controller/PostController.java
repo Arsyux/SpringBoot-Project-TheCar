@@ -206,8 +206,19 @@ public class PostController {
 	}
 	// 글조회 이동
 	@GetMapping("/post/{id}")
-	public String getPost(@PathVariable int id, Model model) {
-		model.addAttribute("post", postService.getPost(id));
+	public String getPost(@PathVariable int id, Model model, @AuthenticationPrincipal UserDetailsImpl principal) {
+		
+		Post post = postService.getPostByPostId(id);
+		
+		if(post == null || principal == null) { return "/"; }
+		
+		User user = principal.getUser();
+		
+		if(user.getRole().equals("Admin") || post.getUserid() == user.getUserid()) {
+			// 글의 작성자 혹은 관리자만 확인가능
+			model.addAttribute("post", postService.getPostByPostId(id));
+		}
+		
 		return "post/getPost";
 	}
 	
