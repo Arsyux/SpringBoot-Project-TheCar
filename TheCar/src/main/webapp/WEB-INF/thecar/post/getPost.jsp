@@ -47,7 +47,9 @@
 	      			${ post.name }&nbsp;│&nbsp;${ regdate }
 				</div>
 				<hr>
-				<h1>${ post.postid }, ${ post.state }, ${ post.title }</h1>
+				<div>
+					${ post.content }
+				</div>
 				
 				
 				
