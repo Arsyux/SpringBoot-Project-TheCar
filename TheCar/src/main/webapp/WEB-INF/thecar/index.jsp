@@ -28,12 +28,12 @@
 			
 				<!-- 게시글 -->
 				<div class="row">
-					<div class="col-2">
+					<div class="col-lg-2 col-md-12">
 						<h2 style="font-weight: bold;"><a href="/" style="text-decoration: none; color: #333333;">전체글</a></h2>
 					</div>
 					<c:if test="${ principal.user.role == 'Admin' }">
 						<!-- 관리자 검색 기능 -->
-						<div class="col-7 mb-3">
+						<div class="col-lg-7 col-md-12 mb-3">
 							<div class="input-group">
 								<div class="col-3">
 									<select class="form-select col-2" style="border-radius: 0px;">
@@ -52,12 +52,12 @@
 						</div>
 					</c:if>
 					<c:if test="${ principal.user.role != 'Admin' }">
-						<div class="col-7 mb-3"></div>
+						<div class="col-lg-7 col-md-12 mb-3"></div>
 					</c:if>
 					<c:if test="${!empty principal }">
-						<div class="col-3" style="text-align: right;">
-							<a class="btn btn-dark" href="/post/mypost">내가쓴글</a>&nbsp;&nbsp;
-							<a class="btn btn-dark" href="/post/insertPost">글쓰기</a>
+						<div class="col-lg-3 col-md-12 mb-3" style="text-align: center;">
+							<a class="col btn btn-dark" href="/post/mypost">내가쓴글</a>&nbsp;&nbsp;
+							<a class="col btn btn-dark" href="/post/insertPost">글쓰기</a>
 						</div>
 					</c:if>
 					<hr/>
