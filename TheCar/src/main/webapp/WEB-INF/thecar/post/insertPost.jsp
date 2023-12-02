@@ -7,41 +7,96 @@
 <div class="container mt-3" style="min-height: 500px;">
 	<div class="row">
 		<!-- 글 작성하기 -->
-		<div class="col-sm-12 p-3">
+		<div class="col-sm-0 col-md-2"></div>
+		<div class="col-sm-12 col-md-8 p-3">
 			<div class="mainBorder p-3">
-				<h2>문의하기</h2>
+				<h2><b>문의하기</b></h2>
 				<hr>
 				<form>
-					<div class="mb-3">
-						<input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요.">
+					<!-- 제목 -->
+					<div class="row">
+						<div class="col-12 mb-3"><h5><b>제목</b></h5></div>
 					</div>
-					<div class="mb-3">
-						<input type="text" class="form-control" id="departures" placeholder="출발지">
-						<br>
-						<input type="text" id="departures_postcode" placeholder="우편번호">
-						<input type="button" onclick="departuresSetting()" value="우편번호 찾기"><br>
-						<input type="text" id="departures_address" placeholder="주소"><br>
-						<input type="text" id="departures_detailAddress" placeholder="상세주소">
-						<input type="text" id="departures_extraAddress" placeholder="참고항목">
+					<div class="row">
+						<div class="col-12 mb-3">
+							<input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요.">
+						</div>
 					</div>
-					<div class="mb-3">
-						<input type="text" class="form-control" id="arrivals" placeholder="도착지">
-						<br>
-						<input type="text" id="arrivals_postcode" placeholder="우편번호">
-						<input type="button" onclick="arrivalsSetting()" value="우편번호 찾기"><br>
-						<input type="text" id="arrivals_address" placeholder="주소"><br>
-						<input type="text" id="arrivals_detailAddress" placeholder="상세주소">
-						<input type="text" id="arrivals_extraAddress" placeholder="참고항목">
+					
+					<!-- 출발지 설정 -->
+					<div class="row">
+						<div class="col-12 mb-3"><h5><b>출발지 주소</b></h5></div>
 					</div>
-					<div class="mb-3">
-						<h1>사진영역(20장)</h1>
+					<div class="row">
+						<div class="col-sm-6 col-md-3 mb-3">
+							<input type="text" class="form-control" id="departures_postcode" placeholder="출발지 우편번호">
+						</div>
+						<div class="col-sm-6 col-md-3 mb-3">
+							<input type="button" class="form-control btn btn-secondary" onclick="departuresSetting()" value="우편번호 찾기">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-10 mb-3">
+							<input type="text" class="form-control" id="departures_address" placeholder="출발지 주소">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-sm-12 col-md-6 mb-3">
+							<input type="text" class="form-control" id="departures_detailAddress" placeholder="출발지 상세주소">
+						</div>
+						<div class="col-sm-12 col-md-4 mb-3">
+							<input type="text" class="form-control" id="departures_extraAddress" placeholder="출발지 참고항목">
+						</div>
+					</div>
+					
+					<!-- 도착지 설정 -->
+					<div class="row mb-3">
+						<div class="col-12"><h5><b>도착지 주소</b></h5></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 col-md-3 mb-3">
+							<input type="text" class="form-control" id="arrivals_postcode" placeholder="도착지 우편번호">
+						</div>
+						<div class="col-sm-6 col-md-3 mb-3">
+							<input type="button" class="form-control btn btn-secondary" onclick="arrivalsSetting()" value="우편번호 찾기">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-10 mb-3">
+							<input type="text" class="form-control" id="arrivals_address" placeholder="도착지 주소">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-sm-12 col-md-6 mb-3">
+							<input type="text" class="form-control" id="arrivals_detailAddress" placeholder="도착지 상세주소">
+						</div>
+						<div class="col-sm-12 col-md-4 mb-3">
+							<input type="text" class="form-control" id="arrivals_extraAddress" placeholder="도착지 참고항목">
+						</div>
+					</div>
+					
+					<!-- 차 사진 등록 -->
+					<div class="row mb-3">
+						<div class="col-12"><h5><b>사진(최대 20장)</b></h5></div>
+					</div>
+					<div class="row">
+						<div class="col-12 mb-3">
+						</div>
+					</div>
+					
+					<!-- 내용 -->
+					<div class="row mb-3">
+						<div class="col-12"><h5><b>내용</b></h5></div>
 					</div>
 					<div class="mb-3">
 						<textarea class="form-control" rows="5" id="content" placeholder="내용을 입력해주세요."></textarea>
 					</div>
 				</form>
-				
-				<button id="btn-insert" class="btn btn-secondary">포스트 등록</button>
+				<div class="row">
+					<div class="col-12" align="center">
+						<button id="btn-insert" class="btn btn-secondary">포스트 등록</button>
+					</div>
+				</div>
 					
 					
 					
