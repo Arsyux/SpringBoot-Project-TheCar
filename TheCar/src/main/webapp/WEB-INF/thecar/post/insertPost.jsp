@@ -18,20 +18,20 @@
 					<div class="mb-3">
 						<input type="text" class="form-control" id="departures" placeholder="출발지">
 						<br>
-						<input type="text" id="sample6_postcode" placeholder="우편번호">
+						<input type="text" id="departures_postcode" placeholder="우편번호">
 						<input type="button" onclick="departuresSetting()" value="우편번호 찾기"><br>
-						<input type="text" id="sample6_address" placeholder="주소"><br>
-						<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+						<input type="text" id="departures_address" placeholder="주소"><br>
+						<input type="text" id="departures_detailAddress" placeholder="상세주소">
+						<input type="text" id="departures_extraAddress" placeholder="참고항목">
 					</div>
 					<div class="mb-3">
 						<input type="text" class="form-control" id="arrivals" placeholder="도착지">
 						<br>
-						<input type="text" id="sample7_postcode" placeholder="우편번호">
+						<input type="text" id="arrivals_postcode" placeholder="우편번호">
 						<input type="button" onclick="arrivalsSetting()" value="우편번호 찾기"><br>
-						<input type="text" id="sample7_address" placeholder="주소"><br>
-						<input type="text" id="sample7_detailAddress" placeholder="상세주소">
-						<input type="text" id="sample7_extraAddress" placeholder="참고항목">
+						<input type="text" id="arrivals_address" placeholder="주소"><br>
+						<input type="text" id="arrivals_detailAddress" placeholder="상세주소">
+						<input type="text" id="arrivals_extraAddress" placeholder="참고항목">
 					</div>
 					<div class="mb-3">
 						<h1>사진영역(20장)</h1>
@@ -95,17 +95,17 @@ function departuresSetting() {
                     extraAddr = ' (' + extraAddr + ')';
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("sample6_extraAddress").value = extraAddr;
+                document.getElementById("departures_extraAddress").value = extraAddr;
             
             } else {
-                document.getElementById("sample6_extraAddress").value = '';
+                document.getElementById("departures_extraAddress").value = '';
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample6_postcode').value = data.zonecode;
-            document.getElementById("sample6_address").value = addr;
+            document.getElementById('departures_postcode').value = data.zonecode;
+            document.getElementById("departures_address").value = addr;
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("sample6_detailAddress").focus();
+            document.getElementById("departures_detailAddress").focus();
         }
     }).open();
 }
@@ -131,15 +131,15 @@ function arrivalsSetting() {
                     extraAddr = ' (' + extraAddr + ')';
                 }
 
-                document.getElementById("sample7_extraAddress").value = extraAddr;
+                document.getElementById("arrivals_extraAddress").value = extraAddr;
             
             } else {
-                document.getElementById("sample7_extraAddress").value = '';
+                document.getElementById("arrivals_extraAddress").value = '';
             }
 
-            document.getElementById('sample7_postcode').value = data.zonecode;
-            document.getElementById("sample7_address").value = addr;
-            document.getElementById("sample7_detailAddress").focus();
+            document.getElementById('arrivals_postcode').value = data.zonecode;
+            document.getElementById("arrivals_address").value = addr;
+            document.getElementById("arrivals_detailAddress").focus();
         }
     }).open();
 }
