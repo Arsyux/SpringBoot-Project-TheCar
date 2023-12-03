@@ -22,6 +22,15 @@
 							<input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요.">
 						</div>
 					</div>
+					<!-- 제목 -->
+					<div class="row">
+						<div class="col-12 mb-3"><h5><b>차종 영역</b></h5></div>
+					</div>
+					<div class="row">
+						<div class="col-12 mb-3">
+							<input type="text" class="form-control" id="title" placeholder="차종을 입력해주세요.">
+						</div>
+					</div>
 					
 					<!-- 출발지 설정 -->
 					<div class="row">

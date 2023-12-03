@@ -22,6 +22,14 @@ let postObject = {
 	insertPost: function(){
 		let post = {
 			title : $("#title").val(),
+			departures_postcode: $("#departures_postcode").val(),
+			departures_address: $("#departures_address").val(),
+			departures_detailAddress: $("#departures_detailAddress").val(),
+			departures_extraAddress: $("#departures_extraAddress").val(),
+			arrivals_postcode: $("#arrivals_postcode").val(),
+			arrivals_address: $("#arrivals_address").val(),
+			arrivals_detailAddress: $("#arrivals_detailAddress").val(),
+			arrivals_extraAddress: $("#arrivals_extraAddress").val(),
 			content : $("#content").val(),
 		}
 		

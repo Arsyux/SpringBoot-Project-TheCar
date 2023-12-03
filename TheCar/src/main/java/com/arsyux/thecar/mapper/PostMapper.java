@@ -70,7 +70,10 @@ public interface PostMapper {
 	// ========================================
 	
 	// 게시글 작성
-	@Insert("INSERT INTO POST(TITLE, CONTENT, USERID) VALUES(#{title}, #{content}, #{userid})")
+	@Insert("INSERT INTO POST(title, content, departures_postcode, departures_address, departures_detailAddress, departures_extraAddress, "
+			+ "arrivals_postcode, arrivals_address, arrivals_detailAddress, arrivals_extraAddress, userid) "
+			+ "VALUES(#{title}, #{content}, #{departures_postcode}, #{departures_address}, #{departures_detailAddress}, #{departures_extraAddress}, "
+			+ "#{arrivals_postcode}, #{arrivals_address}, #{arrivals_detailAddress}, #{arrivals_extraAddress}, #{userid})")
 	public void insertPost(Post post);
 	
 }

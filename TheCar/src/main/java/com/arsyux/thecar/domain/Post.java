@@ -23,6 +23,30 @@ public class Post {
 	// 내용
 	private String content;
 
+	// 출발지 우편번호
+	private String departures_postcode;
+	
+	// 출발지 주소
+	private String departures_address;
+	
+	// 출발지 상세 주소
+	private String departures_detailAddress;
+	
+	// 출발지 참조 주소
+	private String departures_extraAddress;
+	
+	// 도착지 우편 번호
+	private String arrivals_postcode;
+	
+	// 도착지 주소
+	private String arrivals_address;
+	
+	// 도착지 상세 주소
+	private String arrivals_detailAddress;
+	
+	// 도착지 참조 주소
+	private String arrivals_extraAddress;
+	
 	// 조회수
 	private int cnt;
 	
