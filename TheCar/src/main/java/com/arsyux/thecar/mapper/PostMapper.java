@@ -62,7 +62,7 @@ public interface PostMapper {
 	public List<Post> getPostListByTitleContent(SearchPage searchPage);
 	
 	// postid로 게시글 조회
-	@Select("SELECT p.postid, p.state, p.title, p.content, p.regdate, u.name FROM POST p, USER u WHERE p.userid = u.userid AND p.postid = #{postid}")
+	@Select("SELECT p.postid, p.state, p.title, p.content, p.regdate, u.name name, p.userid FROM POST p, USER u WHERE p.userid = u.userid AND p.postid = #{postid}")
 	public Post getPostByPostId(int postid);
 	
 	// ========================================

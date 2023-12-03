@@ -92,15 +92,14 @@
 						<textarea class="form-control" rows="5" id="content" placeholder="내용을 입력해주세요."></textarea>
 					</div>
 				</form>
+				
+				
 				<div class="row">
 					<div class="col-12" align="center">
 						<button id="btn-insert" class="btn btn-secondary">포스트 등록</button>
 					</div>
 				</div>
-					
-					
-					
-					
+				
 			</div>
 		</div>
 	
