@@ -18,35 +18,48 @@ public interface UserMapper {
 	// ========================================
 	
 	// 회원가입
-	@Insert("INSERT INTO USER(USERNAME, PASSWORD, NAME, BIRTH, GENDER, PHONE, EMAIL) "
-			+ "VALUES(#{username}, #{password}, #{name}, #{birth}, #{gender}, #{phone}, #{email})")
+	@Insert("INSERT INTO tb_user(username, password, name, birth, gender, phone, email) "
+		  + "VALUES(#{username}, #{password}, #{name}, #{birth}, #{gender}, #{phone}, #{email})")
 	public void insertUser(User user);
 	
 	// ========================================
 	// 2. 회원 검색
 	// ========================================
+	
 	// 회원 번호로 회원 1명 조회
-	@Select("SELECT * FROM USER WHERE USERID = #{userid}")
+	@Select("SELECT * "
+		  + "FROM tb_user "
+		  + "WHERE userid = #{userid}")
 	public User findById(int userid);
 	
 	// 로그인 아이디로 회원 1명 조회
-	@Select("SELECT * FROM USER WHERE USERNAME = #{username}")
+	@Select("SELECT * "
+		  + "FROM tb_user "
+		  + "WHERE username = #{username}")
 	public User findByUsername(String username);
 	
 	// 휴대폰으로 회원 1명 조회
-	@Select("SELECT * FROM USER WHERE PHONE = #{phone}")
+	@Select("SELECT * "
+		  + "FROM tb_user "
+		  + "WHERE phone = #{phone}")
 	public User findByPhone(String phone);
 	
 	// 휴대폰으로 회원 1명 조회
-	@Select("SELECT * FROM USER WHERE EMAIL = #{email}")
+	@Select("SELECT * "
+		  + "FROM tb_user "
+		  + "WHERE email = #{email}")
 	public User findByEmail(String email);
 	
 	// 아이디 찾기
-	@Select("SELECT * FROM USER WHERE NAME = #{name} AND PHONE = #{phone} AND EMAIL = #{email}")
+	@Select("SELECT * "
+		  + "FROM tb_user "
+		  + "WHERE name = #{name} AND phone = #{phone} AND email = #{email}")
 	public User findUsername(User user);
 	
 	// 비밀번호 찾기
-	@Select("SELECT * FROM USER WHERE USERNAME = #{username} AND NAME = #{name} AND PHONE = #{phone} AND EMAIL = #{email}")
+	@Select("SELECT * "
+		  + "FROM tb_user "
+		  + "WHERE username = #{username} AND name = #{name} AND phone = #{phone} AND email = #{email}")
 	public User findPassword(User user);
 	
 	
@@ -56,19 +69,26 @@ public interface UserMapper {
 	
 	
 	
-	
-	@Select("SELECT * FROM USER ORDER BY USERNAME DESC")
+	// 유저 리스트 가져오기
+	@Select("SELECT * "
+		  + "FROM tb_user "
+		  + "ORDER BY username DESC")
 	public List<User> getUserList();
 
 	
 
-	@Update("UPDATE USER SET PASSWORD = #{password} WHERE USERID = #{userid}")
+	@Update("UPDATE tb_user "
+		  + "SET PASSWORD = #{password} "
+		  + "WHERE userid = #{userid}")
 	public void updateUser(User user);
 	
-	@Update("UPDATE USER SET PASSWORD = #{password} WHERE USERID = #{userid}")
+	@Update("UPDATE tb_user "
+		  + "SET PASSWORD = #{password} "
+		  + "WHERE userid = #{userid}")
 	public void changePassword(User user);
 
-	@Delete("DELETE USER WHERE USERID = #{userid}")
+	@Delete("DELETE tb_user "
+		  + "WHERE userid = #{userid}")
 	public void deleteUser(User user);
 
 }
