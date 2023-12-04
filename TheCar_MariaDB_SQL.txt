@@ -31,5 +31,5 @@ arrivals_extraAddress VARCHAR(200) NOT NULL,
 cnt INT default 0,
 regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
 userid INT NOT NULL,
-FOREIGN KEY(userid) REFERENCES user(userid) ON DELETE CASCADE
+FOREIGN KEY(userid) REFERENCES tb_user(userid) ON DELETE CASCADE
 );
