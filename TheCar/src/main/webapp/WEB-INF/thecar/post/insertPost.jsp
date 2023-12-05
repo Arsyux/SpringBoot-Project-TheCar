@@ -22,13 +22,14 @@
 							<input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요.">
 						</div>
 					</div>
-					<!-- 제목 -->
+					
+					<!-- 차종 -->
 					<div class="row">
 						<div class="col-12 mb-3"><h5><b>차종 영역</b></h5></div>
 					</div>
 					<div class="row">
 						<div class="col-12 mb-3">
-							<input type="text" class="form-control" id="title" placeholder="차종을 입력해주세요.">
+							<input type="text" class="form-control" id="cartype" placeholder="차종을 입력해주세요.">
 						</div>
 					</div>
 					
@@ -86,10 +87,25 @@
 					
 					<!-- 차 사진 등록 -->
 					<div class="row mb-3">
-						<div class="col-12"><h5><b>사진(최대 20장)</b></h5></div>
+						<div class="col-12"><h5><b>첨부파일</b></h5></div>
 					</div>
 					<div class="row">
 						<div class="col-12 mb-3">
+		                    <button class="btn btn-success mb-3" type="button" onclick="addFile();"><span>파일 추가</span></button>
+							<div class="file_list">
+				                <div>
+				                    <div class="row mb-3">
+				                    	<div class="col-5">
+					                        <label>
+					                            <input class="form-control" type="file" name="files" onchange="selectFile(this);" />
+					                        </label>
+				                    	</div>
+				                    	<div class="col-2" align="left">
+				                    		<button type="button" onclick="removeFile(this);" class="btn btn-danger"><span>삭제</span></button>
+				                    	</div>
+				                    </div>
+				                </div>
+				            </div>
 						</div>
 					</div>
 					
@@ -205,6 +221,60 @@ function arrivalsSetting() {
             document.getElementById("arrivals_detailAddress").focus();
         }
     }).open();
+}
+function selectFile(element) {
+
+    const file = element.files[0];
+    const filename = element.closest('.file_input').firstElementChild;
+
+    // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+    if ( !file ) {
+        filename.value = '';
+        return false;
+    }
+
+    // 2. 파일 크기가 10MB를 초과하는 경우
+    const fileSize = Math.floor(file.size / 1024 / 1024);
+    if (fileSize > 10) {
+        alert('10MB 이하의 파일로 업로드해 주세요.');
+        filename.value = '';
+        element.value = '';
+        return false;
+    }
+
+    // 3. 파일명 지정
+    filename.value = file.name;
+}
+
+
+// 파일 추가
+function addFile() {
+    const fileDiv = document.createElement('div');
+    fileDiv.innerHTML =`
+    	<div class="row mb-3">
+	    	<div class="col-5">
+	            <label>
+	                <input class="form-control" type="file" name="files" onchange="selectFile(this);" />
+	            </label>
+	    	</div>
+	    	<div class="col-2" align="left">
+	    		<button type="button" onclick="removeFile(this);" class="btn btn-danger"><span>삭제</span></button>
+	    	</div>
+	    </div>
+    `;
+    document.querySelector('.file_list').appendChild(fileDiv);
+}
+
+
+// 파일 삭제
+function removeFile(element) {
+    const fileAddBtn = element.nextElementSibling;
+    if (fileAddBtn) {
+        const inputs = element.previousElementSibling.querySelectorAll('input');
+        inputs.forEach(input => input.value = '')
+        return false;
+    }
+    element.parentElement.remove();
 }
 </script>
 

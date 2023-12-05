@@ -22,12 +22,23 @@ cartype VARCHAR(100) NOT NULL,
 departures_postcode VARCHAR(200) NOT NULL,
 departures_address VARCHAR(200) NOT NULL,
 departures_detailAddress VARCHAR(200) NOT NULL,
-departures_extraAddress VARCHAR(200) NOT NULL,
+departures_extraAddress VARCHAR(200),
 arrivals_postcode VARCHAR(200) NOT NULL,
 arrivals_address VARCHAR(200) NOT NULL,
 arrivals_detailAddress VARCHAR(200) NOT NULL,
-arrivals_extraAddress VARCHAR(200) NOT NULL,
-cnt INT default 0,
+arrivals_extraAddress VARCHAR(200),
 regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
 userid INT NOT NULL,
 FOREIGN KEY(userid) REFERENCES tb_user(userid) ON DELETE CASCADE);
+
+# 파일 테이블 생성
+CREATE TABLE tb_file(
+fileid INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '파일 번호 (PK)',
+postid INT NOT NULL COMMENT '게시글 번호 (FK)',
+original_name varchar(255) NOT NULL COMMENT '원본 파일명',
+save_name varchar(40) NOT NULL COMMENT '저장 파일명',
+size int(11) NOT NULL COMMENT '파일 크기',
+delete_yn tinyint(1) NOT NULL COMMENT '삭제 여부',
+created_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시',
+deleted_date datetime DEFAULT NULL COMMENT '삭제일시',
+FOREIGN KEY(postid) REFERENCES tb_post (postid));

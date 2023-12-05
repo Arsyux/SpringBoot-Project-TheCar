@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.domain.UserVO;
 
 @Repository
 public class UserDAO {
@@ -19,7 +19,7 @@ public class UserDAO {
 	// ========================================
 	
 	// 회원 가입
-	public void insertUser(User user) {
+	public void insertUser(UserVO user) {
 		mybatis.insert("insertUser", user);
 	}
 	
@@ -28,27 +28,27 @@ public class UserDAO {
 	// ========================================
 	
 	// 회원 번호로 1명 조회
-	public User findById(int id) {
+	public UserVO findById(int id) {
 		return mybatis.selectOne("findById", id);
 	}
 	// 로그인 아이디로 회원 1명 조회
-	public User findByUsername(String username) {
+	public UserVO findByUsername(String username) {
 		return mybatis.selectOne("findByUsername", username);
 	}
 	// 휴대폰으로 회원 1명 조회
-	public User findByPhone(String phone) {
+	public UserVO findByPhone(String phone) {
 		return mybatis.selectOne("findByPhone", phone);
 	}
 	// 휴대폰으로 회원 1명 조회
-	public User findByEmail(String email) {
+	public UserVO findByEmail(String email) {
 		return mybatis.selectOne("findByEmail", email);
 	}
 	// 아이디 찾기
-	public User findUsername(User user) {
+	public UserVO findUsername(UserVO user) {
 		return mybatis.selectOne("findUsername", user);
 	}
 	// 비밀번호 찾기
-	public User findPassword(User user) {
+	public UserVO findPassword(UserVO user) {
 		return mybatis.selectOne("findPassword", user);
 	}
 	
@@ -59,22 +59,22 @@ public class UserDAO {
 	
 	
 	
-	public List<User> getUserList(){
+	public List<UserVO> getUserList(){
 		return mybatis.selectList("getUserList");
 	}
 	
 	
 	
-	public void updateUser(User user) {
+	public void updateUser(UserVO user) {
 		mybatis.update("updateUser", user);
 	}
 	
 	// 비밀번호 변경
-	public void changePassword(User user) {
+	public void changePassword(UserVO user) {
 		mybatis.update("changePassword", user);
 	}
 	
-	public void deleteUser(User user) {
+	public void deleteUser(UserVO user) {
 		mybatis.delete("deleteUser", user);
 	}
 	

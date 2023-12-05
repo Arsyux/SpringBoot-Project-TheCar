@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.arsyux.thecar.domain.Post;
-import com.arsyux.thecar.domain.SearchPage;
-import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.domain.PostVO;
+import com.arsyux.thecar.domain.PageUtils;
+import com.arsyux.thecar.domain.UserVO;
 
 @Mapper
 public interface PostMapper {
@@ -26,25 +26,25 @@ public interface PostMapper {
 	@Select("SELECT count(*) "
 		  + "FROM tb_post "
 		  + "WHERE userid = #{userid}")
-	public int getPostCountByUserid(User user);
+	public int getPostCountByUserid(UserVO user);
 		
 	// 제목 게시글 개수 조회
 	@Select("SELECT count(*) "
 		  + "FROM tb_post "
 		  + "WHERE title LIKE '%#{title}%'")
-	public int getPostCountByTitle(Post post);
+	public int getPostCountByTitle(PostVO post);
 	
 	// 내용 게시글 개수 조회
 	@Select("SELECT count(*) "
 		  + "FROM tb_post "
 		  + "WHERE title LIKE '%#{content}%'")
-	public int getPostCountByContent(Post post);
+	public int getPostCountByContent(PostVO post);
 		
 	// 제목내용 게시글 개수 조회
 	@Select("SELECT count(*) "
 		  + "FROM tb_post "
 		  + "WHERE title LIKE '%#{title}%' OR content LIKE '%#{content}%'")
-	public int getPostCountByTitleContent(Post post);
+	public int getPostCountByTitleContent(PostVO post);
 	
 	// ========================================
 	// 2. 게시글 조회
@@ -56,7 +56,7 @@ public interface PostMapper {
 		  + "WHERE u.userid = p.userid "
 		  + "ORDER BY p.postid DESC "
 		  + "LIMIT #{start}, #{size}")
-	public List<Post> getPostList(SearchPage searchPage);
+	public List<PostVO> getPostList(PageUtils searchPage);
 	
 	// 유저이름 게시글 조회
 	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
@@ -64,7 +64,7 @@ public interface PostMapper {
 		  + "WHERE u.userid = p.userid AND u.username = #{searchUsername} "
 		  + "ORDER BY p.postid DESC "
 		  + "LIMIT #{start}, #{size}")
-	public List<Post> getPostListByUsername(SearchPage searchPage);
+	public List<PostVO> getPostListByUsername(PageUtils searchPage);
 	
 	// 제목 게시글 조회
 	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
@@ -72,7 +72,7 @@ public interface PostMapper {
 		  + "WHERE u.userid = p.userid AND p.title = #{searchTitle} "
 		  + "ORDER BY p.postid DESC "
 		  + "LIMIT #{start}, #{size}")
-	public List<Post> getPostListByTitle(SearchPage searchPage);
+	public List<PostVO> getPostListByTitle(PageUtils searchPage);
 	
 	// 내용 게시글 조회
 	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
@@ -80,7 +80,7 @@ public interface PostMapper {
 		  + "WHERE u.userid = p.userid AND p.content = #{searchContent} "
 		  + "ORDER BY p.postid DESC "
 		  + "LIMIT #{start}, #{size}")
-	public List<Post> getPostListByContent(SearchPage searchPage);
+	public List<PostVO> getPostListByContent(PageUtils searchPage);
 	
 	// 제목내용 게시글 조회
 	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
@@ -88,13 +88,13 @@ public interface PostMapper {
 		  + "WHERE u.userid = p.userid AND p.title = #{searchTitle} OR p.content = #{searchContent} "
 		  + "ORDER BY p.postid DESC "
 		  + "LIMIT #{start}, #{size}")
-	public List<Post> getPostListByTitleContent(SearchPage searchPage);
+	public List<PostVO> getPostListByTitleContent(PageUtils searchPage);
 	
 	// postid로 게시글 조회
 	@Select("SELECT p.postid, p.state, p.title, p.content, p.regdate, u.name name, p.userid "
 		  + "FROM tb_user u, tb_post p "
 		  + "WHERE p.userid = u.userid AND p.postid = #{postid}")
-	public Post getPostByPostId(int postid);
+	public PostVO getPostByPostId(int postid);
 	
 	// ========================================
 	// 3. 게시글 작성
@@ -105,6 +105,6 @@ public interface PostMapper {
 		  + "arrivals_postcode, arrivals_address, arrivals_detailAddress, arrivals_extraAddress, userid) "
 		  + "VALUES(#{title}, #{content}, #{departures_postcode}, #{departures_address}, #{departures_detailAddress}, #{departures_extraAddress}, "
 		  + "#{arrivals_postcode}, #{arrivals_address}, #{arrivals_detailAddress}, #{arrivals_extraAddress}, #{userid})")
-	public void insertPost(Post post);
+	public void insertPost(PostVO post);
 	
 }

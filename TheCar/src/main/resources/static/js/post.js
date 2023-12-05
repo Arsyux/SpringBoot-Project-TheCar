@@ -21,7 +21,8 @@ let postObject = {
 	
 	insertPost: function(){
 		let post = {
-			title : $("#title").val(),
+			title: $("#title").val(),
+			cartype: $("#cartype").val(),
 			departures_postcode: $("#departures_postcode").val(),
 			departures_address: $("#departures_address").val(),
 			departures_detailAddress: $("#departures_detailAddress").val(),
@@ -52,6 +53,7 @@ let postObject = {
 				let errors = response["data"];
 				if(errors.title != null) { warn = warn + errors.title + "\n" }
 				if(errors.content != null) { warn = warn + errors.content }
+				
 				alert(warn);
 			}
 		}).fail(function(error) {

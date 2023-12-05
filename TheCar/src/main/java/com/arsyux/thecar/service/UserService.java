@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.domain.UserVO;
 //import com.arsyux.thecar.persistence.UserRepository;
 import com.arsyux.thecar.persistence.UserDAO;
 
@@ -29,7 +29,7 @@ public class UserService {
 	
 	// 회원가입
 	@Transactional
-	public void insertUser(User user) {
+	public void insertUser(UserVO user) {
 		// 비밀번호 암호화
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		// 회원 정보 저장
@@ -42,48 +42,48 @@ public class UserService {
 	
 	// 로그인 아이디로 회원 정보 조회
 	@Transactional(readOnly = true)
-	public User findByUsername(String username) {
+	public UserVO findByUsername(String username) {
 		// 로그인 아이디로 회원정보 검색
-		User findUser = userDAO.findByUsername(username);
+		UserVO findUser = userDAO.findByUsername(username);
 		// 검색된 유저가 없을경우 처리
-		if(findUser == null) { findUser = new User(); }
+		if(findUser == null) { findUser = new UserVO(); }
 		return findUser;
 	}
 	// 휴대폰으로 회원 정보 조회
 	@Transactional(readOnly = true)
-	public User findByPhone(String phone) {
+	public UserVO findByPhone(String phone) {
 		// 휴대폰으로 회원정보 검색
-		User findUser = userDAO.findByPhone(phone);
+		UserVO findUser = userDAO.findByPhone(phone);
 		// 검색된 유저가 없을경우 처리
-		if(findUser == null) { findUser = new User(); }
+		if(findUser == null) { findUser = new UserVO(); }
 		return findUser;
 	}
 	// 휴대폰으로 회원 정보 조회
 	@Transactional(readOnly = true)
-	public User findByEmail(String email) {
+	public UserVO findByEmail(String email) {
 		// 휴대폰으로 회원정보 검색
-		User findUser = userDAO.findByEmail(email);
+		UserVO findUser = userDAO.findByEmail(email);
 		// 검색된 유저가 없을경우 처리
-		if(findUser == null) { findUser = new User(); }
+		if(findUser == null) { findUser = new UserVO(); }
 		return findUser;
 	}
 	
 	// 아이디 찾기
 	@Transactional(readOnly = true)
-	public User findUsername(User user) {
+	public UserVO findUsername(UserVO user) {
 		// 유저정보로 검색
-		User findUser = userDAO.findUsername(user);
+		UserVO findUser = userDAO.findUsername(user);
 		// 검색된 유저가 없을경우 처리
-		if(findUser == null) { findUser = new User(); }
+		if(findUser == null) { findUser = new UserVO(); }
 		return findUser;
 	}
 	// 비밀번호 찾기
 	@Transactional(readOnly = true)
-	public User findPassword(User user) {
+	public UserVO findPassword(UserVO user) {
 		// 유저정보로 검색
-		User findUser = userDAO.findPassword(user);
+		UserVO findUser = userDAO.findPassword(user);
 		// 검색된 유저가 없을경우 처리
-		if(findUser == null) { findUser = new User(); }
+		if(findUser == null) { findUser = new UserVO(); }
 		return findUser;
 	}
 	
@@ -94,9 +94,9 @@ public class UserService {
 	
 	// 회원 정보 수정
 	@Transactional
-	public User updateUser(User user) {
+	public UserVO updateUser(UserVO user) {
 		
-		User findUser = userDAO.findById(user.getUserid());
+		UserVO findUser = userDAO.findById(user.getUserid());
 		
 		findUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		
@@ -105,8 +105,8 @@ public class UserService {
 	
 	// 비밀번호 변경
 	@Transactional
-	public User changePassword(User user) {
-		User findUser = userDAO.findById(user.getUserid());
+	public UserVO changePassword(UserVO user) {
+		UserVO findUser = userDAO.findById(user.getUserid());
 		findUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		userDAO.changePassword(findUser);
 		return findUser;

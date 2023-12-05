@@ -20,13 +20,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.arsyux.thecar.domain.Post;
-import com.arsyux.thecar.domain.SearchPage;
-import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.domain.FileUtils;
+import com.arsyux.thecar.domain.FileVO;
+import com.arsyux.thecar.domain.PostVO;
+import com.arsyux.thecar.domain.PageUtils;
+import com.arsyux.thecar.domain.UserVO;
 import com.arsyux.thecar.dto.PostDTO;
 import com.arsyux.thecar.dto.PostDTO.PostValidationGroup;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.security.UserDetailsImpl;
+import com.arsyux.thecar.service.FileService;
 import com.arsyux.thecar.service.PostService;
 
 @Controller
@@ -35,6 +38,11 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
+	@Autowired
+	private FileService fileService;
+	
+	private FileUtils fileUtils;
+	
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -58,10 +66,10 @@ public class PostController {
 			int postCount = postService.getPostCount();
 			
 			// Page 정보 생성 시작 페이지, 총 개수
-			SearchPage searchPage = new SearchPage(start, postCount);
+			PageUtils searchPage = new PageUtils(start, postCount);
 
 			// 게시글 조회
-			List<Post> postList = postService.getPostList(searchPage);
+			List<PostVO> postList = postService.getPostList(searchPage);
 			
 			// 작성자 이름 가리기
 			for(int i=0; i<postList.size(); i++) {
@@ -86,10 +94,10 @@ public class PostController {
 			int postCount = postService.getPostCount();
 			
 			// Page 정보 생성 시작 페이지, 총 개수
-			SearchPage searchPage = new SearchPage(start, postCount);
+			PageUtils searchPage = new PageUtils(start, postCount);
 
 			// 게시글 조회
-			List<Post> postList = postService.getPostList(searchPage);
+			List<PostVO> postList = postService.getPostList(searchPage);
 			
 			// 작성자 이름 가리기
 			for(int i=0; i<postList.size(); i++) {
@@ -114,10 +122,10 @@ public class PostController {
 			int postCount = postService.getPostCount();
 			
 			// Page 정보 생성 시작 페이지, 총 개수
-			SearchPage searchPage = new SearchPage(start, postCount);
+			PageUtils searchPage = new PageUtils(start, postCount);
 
 			// 게시글 조회
-			List<Post> postList = postService.getPostList(searchPage);
+			List<PostVO> postList = postService.getPostList(searchPage);
 			
 			// 작성자 이름 가리기
 			for(int i=0; i<postList.size(); i++) {
@@ -149,16 +157,16 @@ public class PostController {
 						  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
 						  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
 		// 검색할 유저 정보
-		User user = principal.getUser();
+		UserVO user = principal.getUser();
 		
 		// 유저번호로 조회되는 게시글 개수 조회
 		int postCount = postService.getPostCountByUserid(user);
 		
 		// Page 정보 생성 시작 페이지, 크기, 총 개수, 유저 이름
-		SearchPage searchPage = new SearchPage(start, postCount, user.getUsername());
+		PageUtils searchPage = new PageUtils(start, postCount, user.getUsername());
 		
 		// 게시글 조회
-		List<Post> postList = postService.getPostListByUsername(searchPage);
+		List<PostVO> postList = postService.getPostListByUsername(searchPage);
 		
 		// 작성자 이름 가리기
 		for(int i=0; i<postList.size(); i++) {
@@ -247,24 +255,26 @@ public class PostController {
 			@AuthenticationPrincipal UserDetailsImpl principal) {
 		
 		// PostDTO -> Post로 변환
-		Post post = modelMapper.map(postDTO, Post.class);
+		PostVO post = modelMapper.map(postDTO, PostVO.class);
 		
 		// 글쓴이 설정
 		post.setUserid(principal.getUser().getUserid());
 		post.setName(principal.getUser().getName());
 		
+		// 게시글 inert
 		postService.insertPost(post);
+		
 		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
 	}
 	// 글조회 이동
 	@GetMapping("/post/{id}")
 	public String getPost(@PathVariable int id, Model model, @AuthenticationPrincipal UserDetailsImpl principal) {
 		
-		Post post = postService.getPostByPostId(id);
+		PostVO post = postService.getPostByPostId(id);
 		
 		if(post == null || principal == null) { return "/"; }
 		
-		User user = principal.getUser();
+		UserVO user = principal.getUser();
 		
 		if(user.getRole().equals("Admin") || post.getUserid() == user.getUserid()) {
 			// 작성자 이름 가리기
@@ -322,7 +332,7 @@ public class PostController {
 	// Rest컨트롤러에서 수정 기능은 PUT방식으로 처리하기 때문에 @PutMapping 어노테이션을 사용한다.
 	// 그 후 PostService 클래스의 updatePost() 메소드를 호출하여 포스트 수정을 처리한다.
 	@PutMapping("/post")
-	public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
+	public @ResponseBody ResponseDTO<?> updatePost(@RequestBody PostVO post) {
 		//postService.updatePost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 수정했습니다.");
 	}

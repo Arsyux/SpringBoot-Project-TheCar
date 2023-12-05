@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.domain.UserVO;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.dto.UserDTO;
 import com.arsyux.thecar.dto.UserDTO.ChangePasswordValidationGroup;
@@ -66,24 +66,24 @@ public class UserController {
 	public @ResponseBody ResponseDTO<?> insertUser(@Validated(InsertUserValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 		
 		// UserDTO를 통해 유효성 검사
-		User user = modelMapper.map(userDTO, User.class);
+		UserVO user = modelMapper.map(userDTO, UserVO.class);
 		
 		// 중복되는 아이디 검색
-		User findUsername = userService.findByUsername(user.getUsername());
+		UserVO findUsername = userService.findByUsername(user.getUsername());
 		// 중복되는 아이디가 있을 경우 알림 표시
 		if(findUsername.getUsername() != null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미 회원가입 되어있는 아이디입니다.");	
 		}
 		
 		// 중복되는 휴대폰 검색
-		User findUserPhone = userService.findByPhone(user.getPhone());
+		UserVO findUserPhone = userService.findByPhone(user.getPhone());
 		// 중복되는 휴대폰이 있을 경우 알림 표시
 		if(findUserPhone.getPhone() != null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미 사용중인 휴대폰 번호입니다.");	
 		}
 
 		// 중복되는 이메일 검색
-		User findUserEmail = userService.findByEmail(user.getEmail());
+		UserVO findUserEmail = userService.findByEmail(user.getEmail());
 		// 중복되는 이메일이 있을 경우 알림 표시
 		if(findUserEmail.getEmail() != null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미 사용중인 이메일입니다.");	
@@ -98,10 +98,10 @@ public class UserController {
 	public @ResponseBody ResponseDTO<?> usernameCheck(@Validated(UsernameCheckValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 
 		// UserDTO를 통해 유효성 검사
-		User user = modelMapper.map(userDTO, User.class);
+		UserVO user = modelMapper.map(userDTO, UserVO.class);
 		
 		// 중복되는 아이디 검색
-		User findUsername = userService.findByUsername(user.getUsername());
+		UserVO findUsername = userService.findByUsername(user.getUsername());
 		
 		// 중복되는 아이디가 있을 경우 알림 표시
 		if(findUsername.getUsername() != null) {
@@ -115,7 +115,7 @@ public class UserController {
 	public @ResponseBody ResponseDTO<?> phoneCheck(@Validated(PhoneCheckValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 		
 		// 중복되는 휴대폰 검색
-		User findUserPhone = userService.findByPhone(userDTO.getPhone());
+		UserVO findUserPhone = userService.findByPhone(userDTO.getPhone());
 		// 중복되는 휴대폰이 있을 경우 알림 표시
 		if(findUserPhone.getPhone() != null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미 사용중인 휴대폰 번호입니다.");	
@@ -128,7 +128,7 @@ public class UserController {
 	public @ResponseBody ResponseDTO<?> emailCheck(@Validated(EmailCheckValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 
 		// 중복되는 이메일 검색
-		User findUserEmail = userService.findByEmail(userDTO.getEmail());
+		UserVO findUserEmail = userService.findByEmail(userDTO.getEmail());
 		// 중복되는 이메일이 있을 경우 알림 표시
 		if(findUserEmail.getEmail() != null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미 사용중인 이메일입니다.");	
@@ -151,9 +151,9 @@ public class UserController {
 	@PostMapping("/auth/findUsername")
 	public @ResponseBody ResponseDTO<?> findUsername(@Validated(FindUserNameValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 		// UserDTO를 통해 유효성 검사
-		User user = modelMapper.map(userDTO, User.class);
+		UserVO user = modelMapper.map(userDTO, UserVO.class);
 		
-		User findUser = userService.findUsername(user);
+		UserVO findUser = userService.findUsername(user);
 		
 		if(findUser.getUsername() == null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "입력하신 정보에 해당하는 아이디를 찾을 수 없습니다.");
@@ -180,9 +180,9 @@ public class UserController {
 	public @ResponseBody ResponseDTO<?> findPassword(@Validated(FindPasswordValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 		
 		// UserDTO를 통해 유효성 검사
-		User user = modelMapper.map(userDTO, User.class);
+		UserVO user = modelMapper.map(userDTO, UserVO.class);
 
-		User findUser = userService.findPassword(user);
+		UserVO findUser = userService.findPassword(user);
 
 		if(findUser.getUsername() == null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "입력하신 정보에 해당하는 아이디를 찾을 수 없습니다.");
@@ -206,7 +206,7 @@ public class UserController {
 	public @ResponseBody ResponseDTO<?> updateUser(@Validated(UpdateUserValidationGroup.class) @RequestBody UserDTO userDTO, @AuthenticationPrincipal UserDetailsImpl principal) {
 
 		// UserDTO를 통해 유효성 검사
-		User user = modelMapper.map(userDTO, User.class);
+		UserVO user = modelMapper.map(userDTO, UserVO.class);
 		
 		// 회원 정보 수정과 동시에 세션을 갱신해야하므로 updateUser()메소드에서 회원 정보를 수정하고 UserService.updateUser() 메소드가 반환한 User 객체로
 		// SecurityContext에 등록된 AUthentication 객체의 User를 변경하도록 한다.
@@ -219,9 +219,9 @@ public class UserController {
 	public @ResponseBody ResponseDTO<?> changePassword(@Validated(ChangePasswordValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 
 		// UserDTO를 통해 유효성 검사
-		User user = modelMapper.map(userDTO, User.class);
+		UserVO user = modelMapper.map(userDTO, UserVO.class);
 		
-		User findUser = userService.changePassword(user);
+		UserVO findUser = userService.changePassword(user);
 		
 		if(findUser.getUsername() == null) {
 			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "입력하신 정보에 해당하는 아이디를 찾을 수 없습니다.");

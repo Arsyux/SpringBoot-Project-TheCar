@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.arsyux.thecar.domain.User;
+import com.arsyux.thecar.domain.UserVO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +19,9 @@ public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	// USER 테이블과 매핑된 엔티티
-	private User user;
+	private UserVO user;
 	
-	public UserDetailsImpl(User user) {
+	public UserDetailsImpl(UserVO user) {
 		this.user = user;
 	}
 	
