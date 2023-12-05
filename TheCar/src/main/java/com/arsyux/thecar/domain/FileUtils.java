@@ -9,16 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+@Component
 public class FileUtils {
 	
 	// 업로드 경로
-	private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
-		
+	private final String uploadPath = Paths.get("C:", "DEV", "develop", "upload-files").toString();
+	
 	// 다중파일 업로드
-	public List<FileVO> uploadFiles(final List<MultipartFile> multipartFiles) {
+	public List<FileVO> uploadFiles(List<MultipartFile> multipartFiles) {
+		
 		List<FileVO> files = new ArrayList<>();
 		for (MultipartFile multipartFile : multipartFiles) {
 			if(multipartFile.isEmpty()) { continue; }
@@ -29,24 +32,23 @@ public class FileUtils {
 	}
 	
 	// 단일파일 업로드
-	public FileVO uploadFile(final MultipartFile multipartFile) {
+	public FileVO uploadFile(MultipartFile multipartFile) {
 		if (multipartFile.isEmpty()) { return null; }
 		
         String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
         String uploadPath = getUploadPath(today) + File.separator + saveName;
         File uploadFile = new File(uploadPath);
-
+        
         try {
             multipartFile.transferTo(uploadFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        
         return FileVO.builder()
                 .original_name(multipartFile.getOriginalFilename())
                 .save_name(saveName)
-                .size(multipartFile.getSize())
                 .build();
 	}
 	
@@ -70,4 +72,5 @@ public class FileUtils {
         String extension = StringUtils.getFilenameExtension(filename);
         return uuid + "." + extension;
     }
+	
 }

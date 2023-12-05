@@ -69,6 +69,10 @@ public class PostService {
 	@Transactional(readOnly = true)
 	public PostVO getPostByPostId(int postid) { return postDAO.getPostByPostId(postid); }
 	
+	// 작성자의 가장 최신 게시글 조회
+	@Transactional(readOnly = true)
+	public PostVO getLastPostByUserid(UserVO user) { return postDAO.getLastPostByUserid(user); }
+
 	// ========================================
 	// 3. 게시글 작성, 수정, 삭제
 	// ========================================

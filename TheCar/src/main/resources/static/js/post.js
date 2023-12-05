@@ -14,12 +14,22 @@ let postObject = {
 		});
 		
 		// 포스트 삭제
-		$("#btn-delete").on("click", () =>{
+		$("#btn-delete").on("click", () => {
 			_this.deletePost();
+		});
+		
+		// 테스트
+		$("#testButton").on("click", () => {
+			_this.test();
 		});
 	},
 	
-	insertPost: function(){
+	test: function() {
+		
+	},
+	
+	insertPost: function() {
+		
 		let post = {
 			title: $("#title").val(),
 			cartype: $("#cartype").val(),
@@ -45,15 +55,54 @@ let postObject = {
 			//location = "/";
 			let status = response["status"];
 			if(status == 200) {
-				let message = response["data"];
-				alert(message);
-				location = "/";	
+				let postid = response["data"];
+				
+				let form = document.createElement("form");
+		
+				let data = document.getElementsByClassName('files');
+				
+				let dataLength = data.length;
+				
+				let postidField = document.createElement("input");
+				postidField.setAttribute("type", "hidden");
+				postidField.setAttribute("name", "postid");
+				postidField.setAttribute("value", postid);
+				
+				form.appendChild(postidField);
+				
+				// form에 데이터를 담고 청소
+				for(i=0; i< dataLength; i++){ form.appendChild(data[0]); }		
+				document.getElementById('file_list').innerHTML = '';
+				
+				// body에 부착
+				document.body.appendChild(form);
+				var formData = new FormData(form);
+				$.ajax({
+			        url : '/file/insertFiles',
+			        type : 'POST',
+			        data : formData,
+			        contentType : false,
+			        processData : false        
+			    }).done(function(response){
+					alert(response["data"]);
+					location = "/";
+			    }).faiil(function(error){
+					let message = error["data"];
+					alert("에러 발생 : " + message);
+				});
 			} else {
 				let warn = "";
 				let errors = response["data"];
 				if(errors.title != null) { warn = warn + errors.title + "\n" }
-				if(errors.content != null) { warn = warn + errors.content }
-				
+				if(errors.content != null) { warn = warn + errors.content + "\n" }
+				if(errors.departures_postcode != null) { warn = warn + errors.departures_postcode + "\n" }
+				if(errors.departures_address != null) { warn = warn + errors.departures_address + "\n" }
+				if(errors.departures_detailAddress != null) { warn = warn + errors.departures_detailAddress + "\n" }
+				if(errors.departures_extraAddress != null) { warn = warn + errors.departures_extraAddress + "\n" }
+				if(errors.arrivals_postcode != null) { warn = warn + errors.arrivals_postcode + "\n" }
+				if(errors.arrivals_address != null) { warn = warn + errors.arrivals_address + "\n" }
+				if(errors.arrivals_detailAddress != null) { warn = warn + errors.arrivals_detailAddress + "\n" }
+				if(errors.arrivals_extraAddress != null) { warn = warn + errors.arrivals_extraAddress }
 				alert(warn);
 			}
 		}).fail(function(error) {

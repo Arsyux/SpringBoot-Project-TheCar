@@ -18,6 +18,7 @@ public class PostVO {
 	private int postid; // 게시글 번호 (PK)
 	private String state; // 상태
 	private String title; // 제목
+	private String cartype; // 차종류
 	private String content; // 내용
 	private String departures_postcode; // 출발지 우편번호
 	private String departures_address; // 출발지 주소

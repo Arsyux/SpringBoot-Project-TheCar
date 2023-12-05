@@ -63,6 +63,9 @@ public class PostDAO {
 	// postid로 게시글 조회
 	public PostVO getPostByPostId(int postid) { return mybatis.selectOne("getPostByPostId", postid); }
 	
+	// 작성자의 가장 최신 게시글 조회
+	public PostVO getLastPostByUserid(UserVO user) { return mybatis.selectOne("getLastPostByUserid", user); }
+	
 	// ========================================
 	// 3. 게시글 작성
 	// ========================================

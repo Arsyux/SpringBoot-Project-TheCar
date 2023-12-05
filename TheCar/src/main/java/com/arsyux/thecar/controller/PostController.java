@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.arsyux.thecar.domain.FileUtils;
-import com.arsyux.thecar.domain.FileVO;
 import com.arsyux.thecar.domain.PostVO;
 import com.arsyux.thecar.domain.PageUtils;
 import com.arsyux.thecar.domain.UserVO;
@@ -29,7 +27,6 @@ import com.arsyux.thecar.dto.PostDTO;
 import com.arsyux.thecar.dto.PostDTO.PostValidationGroup;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.security.UserDetailsImpl;
-import com.arsyux.thecar.service.FileService;
 import com.arsyux.thecar.service.PostService;
 
 @Controller
@@ -38,11 +35,6 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
-	@Autowired
-	private FileService fileService;
-	
-	private FileUtils fileUtils;
-	
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -254,17 +246,24 @@ public class PostController {
 	public @ResponseBody ResponseDTO<?> insertPost(@Validated(PostValidationGroup.class) @RequestBody PostDTO postDTO, BindingResult bindingResult, 
 			@AuthenticationPrincipal UserDetailsImpl principal) {
 		
+		if(principal.getUser() == null) { return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "회원 정보가 없습니다."); }
+		
 		// PostDTO -> Post로 변환
 		PostVO post = modelMapper.map(postDTO, PostVO.class);
 		
+		UserVO user = principal.getUser();
+		
 		// 글쓴이 설정
 		post.setUserid(principal.getUser().getUserid());
-		post.setName(principal.getUser().getName());
 		
 		// 게시글 inert
 		postService.insertPost(post);
 		
-		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
+		// postid 가져오기
+		// 해당 유저가 작성한 게시글중 가장 최신 게시글정보를 가져옴
+		PostVO findPost = postService.getLastPostByUserid(user);
+		
+		return new ResponseDTO<>(HttpStatus.OK.value(), findPost.getPostid());
 	}
 	// 글조회 이동
 	@GetMapping("/post/{id}")

@@ -96,14 +96,21 @@ public interface PostMapper {
 		  + "WHERE p.userid = u.userid AND p.postid = #{postid}")
 	public PostVO getPostByPostId(int postid);
 	
+	// 작성자의 가장 최신 게시글 조회
+	@Select("SELECT p.* "
+		  + "FROM tb_post p, tb_user u "
+		  + "WHERE p.userid = #{userid} "
+		  + "ORDER BY p.postid desc "
+		  + "LIMIT 1")
+	public PostVO getLastPostByUserid(UserVO user);
 	// ========================================
 	// 3. 게시글 작성
 	// ========================================
 	
 	// 게시글 작성
-	@Insert("INSERT INTO tb_post(title, content, departures_postcode, departures_address, departures_detailAddress, departures_extraAddress, "
+	@Insert("INSERT INTO tb_post(title, cartype, content, departures_postcode, departures_address, departures_detailAddress, departures_extraAddress, "
 		  + "arrivals_postcode, arrivals_address, arrivals_detailAddress, arrivals_extraAddress, userid) "
-		  + "VALUES(#{title}, #{content}, #{departures_postcode}, #{departures_address}, #{departures_detailAddress}, #{departures_extraAddress}, "
+		  + "VALUES(#{title}, #{cartype}, #{content}, #{departures_postcode}, #{departures_address}, #{departures_detailAddress}, #{departures_extraAddress}, "
 		  + "#{arrivals_postcode}, #{arrivals_address}, #{arrivals_detailAddress}, #{arrivals_extraAddress}, #{userid})")
 	public void insertPost(PostVO post);
 	
