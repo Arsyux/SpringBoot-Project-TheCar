@@ -28,18 +28,9 @@ public class FileController {
 	@PostMapping("/file/insertFiles")
 	public @ResponseBody ResponseDTO<?> insertFiles(@Param("postid") int postid, @Param("files") List<MultipartFile> files) {
 		
-		System.out.println(postid);
-		
-		for (MultipartFile file : files) {
-			System.out.println(file.getOriginalFilename());
-		}
-		
 		List<FileVO> filesList = fileUtils.uploadFiles(files);
 		
-		if(filesList == null ) {
-			System.out.println("filesList가 null임");
-			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "업로드 오류");
-		}
+		if(filesList == null ) { return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "업로드 오류"); }
 		
 		fileService.insertFiles(postid, filesList);
 		
