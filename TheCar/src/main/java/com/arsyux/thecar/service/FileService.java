@@ -28,4 +28,14 @@ public class FileService {
 		fileDAO.insertFiles(files);
 	}
 	
+	@Transactional
+	public List<FileVO> getFileListByPostId(int postid) {
+		return fileDAO.getFileListByPostId(postid);
+	}
+	
+	@Transactional
+	public void deleteFilesByPostId(int postid) {
+		fileDAO.deleteFilesByPostId(postid);
+	}
+	
 }

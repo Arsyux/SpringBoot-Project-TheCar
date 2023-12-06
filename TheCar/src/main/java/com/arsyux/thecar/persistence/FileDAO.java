@@ -21,4 +21,11 @@ public class FileDAO {
 		}
 	}
 	
+	public List<FileVO> getFileListByPostId(int postid) {
+		return mybatis.selectList("getFileListByPostId", postid);
+	}
+
+	public void deleteFilesByPostId(int postid) {
+		mybatis.delete("deleteFilesByPostId", postid);
+	}
 }

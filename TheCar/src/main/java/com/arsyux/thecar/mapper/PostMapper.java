@@ -2,6 +2,7 @@ package com.arsyux.thecar.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -104,7 +105,7 @@ public interface PostMapper {
 		  + "LIMIT 1")
 	public PostVO getLastPostByUserid(UserVO user);
 	// ========================================
-	// 3. 게시글 작성
+	// 3. 게시글 작성, 삭제
 	// ========================================
 	
 	// 게시글 작성
@@ -113,5 +114,10 @@ public interface PostMapper {
 		  + "VALUES(#{title}, #{cartype}, #{content}, #{departures_postcode}, #{departures_address}, #{departures_detailAddress}, #{departures_extraAddress}, "
 		  + "#{arrivals_postcode}, #{arrivals_address}, #{arrivals_detailAddress}, #{arrivals_extraAddress}, #{userid})")
 	public void insertPost(PostVO post);
+	
+	// 게시글 삭제
+	@Delete("DELETE FROM tb_post "
+		  + "WHERE postid = #{postid} AND userid = #{userid}")
+	public void deletePost(PostVO post);
 	
 }

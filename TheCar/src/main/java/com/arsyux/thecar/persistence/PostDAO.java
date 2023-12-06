@@ -67,10 +67,13 @@ public class PostDAO {
 	public PostVO getLastPostByUserid(UserVO user) { return mybatis.selectOne("getLastPostByUserid", user); }
 	
 	// ========================================
-	// 3. 게시글 작성
+	// 3. 게시글 작성, 삭제
 	// ========================================
 	
 	// 게시글 작성
 	public void insertPost(PostVO post) { mybatis.insert("insertPost", post); }
+	
+	// 게시글 삭제
+	public void deletePost(PostVO post) { mybatis.delete("deletePost", post); }
 	
 }

@@ -294,9 +294,21 @@ public class PostController {
 		return "post/getPost";
 	}
 	
-	
-	
-	
+	// 글 삭제 기능
+	@DeleteMapping("/post/{postid}")
+	public @ResponseBody ResponseDTO<?> deletePost(@RequestBody PostVO post, @AuthenticationPrincipal UserDetailsImpl principal) {
+		
+		if(principal == null) { new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "잘못된 요청입니다."); }
+		
+		UserVO user = principal.getUser();
+		
+		post.setUserid(user.getUserid());
+		
+		postService.deletePost(post);
+		
+		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 삭제했습니다.");
+	}
+
 	
 	
 	
@@ -336,12 +348,6 @@ public class PostController {
 		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 수정했습니다.");
 	}
 	
-	// Rest컨트롤러에서 삭제 기능은 DELETE 방식으로 처리하기 때문에 deletePost() 메소드에 @DeleteMapping을 설정한다.
-	// 그 후 PostService 클래스의 deletePost() 메소드를 호출하여 포스트 삭제를 처리한다.
-	@DeleteMapping("/post/{id}")
-	public @ResponseBody ResponseDTO<?> deletePost(@PathVariable int id) {
-		//postService.deletePost(id);
-		return new ResponseDTO<>(HttpStatus.OK.value(), id + "번 포스트를 삭제했습니다.");
-	}
+	
 	
 }

@@ -52,6 +52,29 @@ public class FileUtils {
                 .build();
 	}
 	
+	// 다중파일 삭제
+	public void deleteFiles(List<FileVO> files) {
+		
+		for (FileVO file : files) {
+					
+			deleteFile(file);
+		}
+		
+	}
+		
+	// 단일파일 삭제
+	public void deleteFile(FileVO file) {
+		if (file == null) { return; }
+		
+		String date = file.getRegdate().toLocalDateTime().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
+        String uploadPath = getUploadPath(date) + File.separator + file.getSave_name();
+        File deleteFile = new File(uploadPath);
+        
+        try { if(deleteFile.exists()) { deleteFile.delete(); } } 
+		catch (Exception e) { throw new RuntimeException(e); }
+	}
+	
+	
 	// 업로드 경로 반환
 	private String getUploadPath(final String addPath) {
         return makeDirectories(uploadPath + File.separator + addPath);

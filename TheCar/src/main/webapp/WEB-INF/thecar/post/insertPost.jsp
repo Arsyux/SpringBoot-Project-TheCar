@@ -90,7 +90,6 @@
 						<div class="col-2"><h5><b>첨부파일</b></h5></div>
 						<div class="col-6" align="left">
 							<button class="btn btn-success" type="button" onclick="addFile();"><span>파일 추가</span></button>
-							<button class="btn btn-success" type="button" id="testButton"><span>테스트버튼</span></button>
 						</div>
 					</div>
 					<div class="row">

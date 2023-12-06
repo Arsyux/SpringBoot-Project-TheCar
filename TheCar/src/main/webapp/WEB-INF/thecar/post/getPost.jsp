@@ -28,6 +28,7 @@
 		<!-- 메인 컨텐츠 -->
 		<div class="col-md-12 p-3">
 			<div class="mainBorder p-3">
+				<input type="hidden" id="postid" value="${ post.postid }">
 				<div class="mb-1">
 					<c:if test="${ post.state == 'R' }">
 	      				<span style="background-color: red; border-color: red; border-style: solid; border-radius: 20%; color: white;">대기</span>
@@ -50,7 +51,7 @@
 				<div>
 					${ post.content }
 				</div>
-				
+				<button class="btn btn-danger" id="btn-delete">삭제</button>
 				
 				
 				
@@ -63,6 +64,5 @@
 </div>
 
 <script src="/js/post.js"></script>
-<script src="/js/reply.js"></script>
 
 <%@ include file="../layout/footer.jsp" %>

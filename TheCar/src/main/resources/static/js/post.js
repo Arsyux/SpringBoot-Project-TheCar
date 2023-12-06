@@ -18,14 +18,6 @@ let postObject = {
 			_this.deletePost();
 		});
 		
-		// 테스트
-		$("#testButton").on("click", () => {
-			_this.test();
-		});
-	},
-	
-	test: function() {
-		
 	},
 	
 	insertPost: function() {
@@ -50,9 +42,6 @@ let postObject = {
 			data: JSON.stringify(post),
 			contentType: "application/json; charset=utf-8"
 		}).done(function(response) {
-			//let message = response["data"];
-			//alert(message)
-			//location = "/";
 			let status = response["status"];
 			if(status == 200) {
 				let postid = response["data"];
@@ -88,7 +77,16 @@ let postObject = {
 					location = "/";
 			    }).faiil(function(error){
 					let message = error["data"];
-					alert("에러 발생 : " + message);
+					alert("첨부파일 업로드 에러 발생 : " + message);
+					let deletePost = {
+						postid: postid
+					}
+					$.ajax({
+						type: "DELETE",
+						url: "/post/" + postid,
+						data: JSON.stringify(deletePost),
+						contentType: "application/json; charset=utf-8"
+					});
 				});
 			} else {
 				let warn = "";
@@ -109,6 +107,45 @@ let postObject = {
 			let message = error["data"];
 			alert("에러 발생 : " + message);
 		});
+	},
+	
+	deletePost: function() {
+		let postid = $("#postid").val();
+		let deletePost = {
+			postid: postid
+		}
+		$.ajax({
+			type: "DELETE",
+			url: "/file/deleteFiles",
+			data: JSON.stringify(deletePost),
+			contentType: "application/json; charset=utf-8"    
+	    }).done(function(response){
+			if(response["status"] == 200) {
+				// 파일 삭제에 성공했을 경우 게시글 삭제
+				$.ajax({
+					type: "DELETE",
+					url: "/post/" + postid,
+					data: JSON.stringify(deletePost),
+					contentType: "application/json; charset=utf-8"    
+			    }).done(function(response){
+					alert(response["data"]);
+					if(response["status"] == 200) {
+						location = "/";
+					}			
+			    }).faiil(function(error){
+					let message = error["data"];
+					alert("에러 발생 : " + message);
+				});
+			} else {
+				// 파일 삭제에 실패했을 경우
+				alert(response["data"]);
+			}		
+	    }).faiil(function(error){
+			let message = error["data"];
+			alert("에러 발생 : " + message);
+		});
+		
+		
 	},
 	
 	updatePost: function(){
@@ -135,25 +172,6 @@ let postObject = {
 		});
 	},
 	
-	deletePost: function(){
-		alert("포스트 삭제 요청됨");
-		
-		let id = $("#id").text();
-		
-		
-		$.ajax({
-			type: "DELETE",
-			url: "/post/" + id,
-			contentType: "application/json; charset=utf-8"
-		}).done(function(response) {
-			let message = response["data"];
-			alert(message)
-			location = "/";
-		}).fail(function(error) {
-			let message = error["data"];
-			alert("에러 발생 : " + message);
-		});
-	},
 	
 }
 

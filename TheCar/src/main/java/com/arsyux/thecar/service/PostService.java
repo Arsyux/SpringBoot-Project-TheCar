@@ -81,7 +81,9 @@ public class PostService {
 	@Transactional
 	public void insertPost(PostVO post) { postDAO.insertPost(post); }
 
-	
+	// 게시글 삭제
+	@Transactional
+	public void deletePost(PostVO post) { postDAO.deletePost(post); }
 
 	// ========================================
 	// 4. 기타
