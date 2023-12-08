@@ -35,6 +35,6 @@ FOREIGN KEY(userid) REFERENCES tb_user(userid) ON DELETE CASCADE);
 CREATE TABLE tb_file(
 fileid INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '파일 번호 (PK)',
 original_name varchar(255) NOT NULL COMMENT '원본 파일명',
-save_name varchar(40) NOT NULL COMMENT '저장 파일명',
+save_name varchar(100) NOT NULL COMMENT '저장 파일명',
 postid INT NOT NULL COMMENT '게시글 번호 (FK)',
 FOREIGN KEY(postid) REFERENCES tb_post (postid)  ON DELETE CASCADE);

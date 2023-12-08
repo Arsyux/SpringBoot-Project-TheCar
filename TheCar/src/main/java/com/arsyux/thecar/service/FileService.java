@@ -23,7 +23,7 @@ public class FileService {
 		
 		if(files == null) { return; }
 		
-		for (FileVO file : files) { file.setPostId(postid); }
+		for (FileVO file : files) { file.setPostid(postid); }
 		
 		fileDAO.insertFiles(files);
 	}

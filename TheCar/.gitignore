@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### postImage ###
+**/src/main/resources/static/image/postImage/
+
 ### STS ###
 .apt_generated
 .classpath

@@ -84,7 +84,12 @@
 							        			<c:if test="${ post.state == 'C' }">
 							        				<span style="background-color: green; border-color: green; border-style: solid; border-radius: 20%; color: white;">완료</span>
 							        			</c:if>
-							        			&nbsp;&nbsp;${ post.title }
+							        			&nbsp;
+			      								<!-- 지역 간략하게 표시 -->
+							        			<span style="color: #BF9000">[${ fn:substring(post.departures_address,0, 2) }
+							        			->
+							        			${ fn:substring(post.arrivals_address,0, 2) }]</span>
+							        			&nbsp;${ post.title }
 						        			</a>
 						        		</td>
 							        	<td style="text-align: center;">${ post.name }</td>

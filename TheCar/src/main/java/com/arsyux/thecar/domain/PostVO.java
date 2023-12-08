@@ -1,10 +1,7 @@
 package com.arsyux.thecar.domain;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +30,6 @@ public class PostVO {
 	private String name; // 글쓴이 이름
 	private int last; // 총 게시글 갯수
 	
-	private List<MultipartFile> files = new ArrayList<>(); // 첨부 파일 List
+	private List<FileVO> files; // 첨부 파일 List
 	
 }

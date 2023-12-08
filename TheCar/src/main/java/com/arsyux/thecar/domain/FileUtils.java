@@ -17,7 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUtils {
 	
 	// 업로드 경로
-	private final String uploadPath = Paths.get("C:", "DEV", "develop", "upload-files").toString();
+	private final String uploadPath = Paths.get("C:", "DEV", "eclipse-workspace", "thecar-springboot-project", 
+			"TheCar", "src", "main", "resources", "static", "image", "postImage").toString();
 	
 	// 다중파일 업로드
 	public List<FileVO> uploadFiles(List<MultipartFile> multipartFiles) {
@@ -46,10 +47,11 @@ public class FileUtils {
             throw new RuntimeException(e);
         }
         
-        return FileVO.builder()
-                .original_name(multipartFile.getOriginalFilename())
-                .save_name(saveName)
-                .build();
+        FileVO file = new FileVO();
+        file.setOriginal_name(multipartFile.getOriginalFilename());
+        file.setSave_name(saveName);
+        
+        return file;
 	}
 	
 	// 다중파일 삭제
@@ -74,6 +76,9 @@ public class FileUtils {
 		catch (Exception e) { throw new RuntimeException(e); }
 	}
 	
+	public String getUploadPath() {
+		return uploadPath;
+	}
 	
 	// 업로드 경로 반환
 	private String getUploadPath(final String addPath) {

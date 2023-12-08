@@ -25,7 +25,7 @@
 					
 					<!-- 차종 -->
 					<div class="row">
-						<div class="col-12 mb-3"><h5><b>차종 영역</b></h5></div>
+						<div class="col-12 mb-3"><h5><b>차종</b></h5></div>
 					</div>
 					<div class="row">
 						<div class="col-12 mb-3">

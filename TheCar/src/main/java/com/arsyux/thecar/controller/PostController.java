@@ -1,5 +1,6 @@
 package com.arsyux.thecar.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -21,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.PostVO;
+import com.arsyux.thecar.domain.FileUtils;
+import com.arsyux.thecar.domain.FileVO;
 import com.arsyux.thecar.domain.PageUtils;
 import com.arsyux.thecar.domain.UserVO;
 import com.arsyux.thecar.dto.PostDTO;
 import com.arsyux.thecar.dto.PostDTO.PostValidationGroup;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.security.UserDetailsImpl;
+import com.arsyux.thecar.service.FileService;
 import com.arsyux.thecar.service.PostService;
 
 @Controller
@@ -34,7 +38,13 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
-
+	
+	@Autowired
+	private FileService fileService;
+	
+	@Autowired
+	private FileUtils fileUtils;
+	
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -286,6 +296,13 @@ public class PostController {
 				}
 			}
 			post.setName(name);
+			
+			List<FileVO> files = fileService.getFileListByPostId(id);
+			//for(FileVO file : files) {
+			//	file.setSave_name(fileUtils.getUploadPath() + File.separator + file.getSave_name());
+			//}
+			post.setFiles(files);
+			
 			
 			// 글의 작성자 혹은 관리자만 확인가능
 			model.addAttribute("post", post);

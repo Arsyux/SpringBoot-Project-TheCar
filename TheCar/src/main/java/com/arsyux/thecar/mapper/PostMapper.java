@@ -52,7 +52,7 @@ public interface PostMapper {
 	// ========================================
 	
 	// 전체 게시글 전체 조회
-	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, p.departures_address, p.arrivals_address, u.name name "
 		  + "FROM tb_user u, tb_post p "
 		  + "WHERE u.userid = p.userid "
 		  + "ORDER BY p.postid DESC "
@@ -60,7 +60,7 @@ public interface PostMapper {
 	public List<PostVO> getPostList(PageUtils searchPage);
 	
 	// 유저이름 게시글 조회
-	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, p.departures_address, p.arrivals_address, u.name name "
 		  + "FROM tb_user u, tb_post p "
 		  + "WHERE u.userid = p.userid AND u.username = #{searchUsername} "
 		  + "ORDER BY p.postid DESC "
@@ -68,7 +68,7 @@ public interface PostMapper {
 	public List<PostVO> getPostListByUsername(PageUtils searchPage);
 	
 	// 제목 게시글 조회
-	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, p.departures_address, p.arrivals_address, u.name name "
 		  + "FROM tb_user u, tb_post p "
 		  + "WHERE u.userid = p.userid AND p.title = #{searchTitle} "
 		  + "ORDER BY p.postid DESC "
@@ -76,7 +76,7 @@ public interface PostMapper {
 	public List<PostVO> getPostListByTitle(PageUtils searchPage);
 	
 	// 내용 게시글 조회
-	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, p.departures_address, p.arrivals_address, u.name name, "
 		  + "FROM tb_user u, tb_post p "
 		  + "WHERE u.userid = p.userid AND p.content = #{searchContent} "
 		  + "ORDER BY p.postid DESC "
@@ -84,7 +84,7 @@ public interface PostMapper {
 	public List<PostVO> getPostListByContent(PageUtils searchPage);
 	
 	// 제목내용 게시글 조회
-	@Select("SELECT p.postid, p.state, p.title, p.regdate, u.name name "
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, p.departures_address, p.arrivals_address, u.name name "
 		  + "FROM tb_user u, tb_post p "
 		  + "WHERE u.userid = p.userid AND p.title = #{searchTitle} OR p.content = #{searchContent} "
 		  + "ORDER BY p.postid DESC "
@@ -92,7 +92,7 @@ public interface PostMapper {
 	public List<PostVO> getPostListByTitleContent(PageUtils searchPage);
 	
 	// postid로 게시글 조회
-	@Select("SELECT p.postid, p.state, p.title, p.content, p.regdate, u.name name, p.userid "
+	@Select("SELECT p.*, u.name name "
 		  + "FROM tb_user u, tb_post p "
 		  + "WHERE p.userid = u.userid AND p.postid = #{postid}")
 	public PostVO getPostByPostId(int postid);

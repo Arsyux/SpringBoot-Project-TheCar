@@ -20,7 +20,7 @@ public interface FileMapper {
 	
 	
 	@Select("SELECT f.*, p.regdate regdate "
-		  + "FOM tb_post p, tb_file f "
+		  + "FROM tb_file f, tb_post p "
 		  + "WHERE p.postid = f.postid AND f.postid = #{postid}")
 	public List<FileVO> getFileListByPostId(int postid);
 	
