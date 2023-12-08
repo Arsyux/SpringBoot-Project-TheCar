@@ -110,6 +110,9 @@ let postObject = {
 	},
 	
 	deletePost: function() {
+		
+		if(!confirm("삭제하시겠습니까?")) { return; }
+		
 		let postid = $("#postid").val();
 		let deletePost = {
 			postid: postid
@@ -139,12 +142,11 @@ let postObject = {
 			} else {
 				// 파일 삭제에 실패했을 경우
 				alert(response["data"]);
-			}		
+			}
 	    }).faiil(function(error){
 			let message = error["data"];
 			alert("에러 발생 : " + message);
 		});
-		
 		
 	},
 	

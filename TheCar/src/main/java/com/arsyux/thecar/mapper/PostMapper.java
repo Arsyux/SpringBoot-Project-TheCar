@@ -92,7 +92,7 @@ public interface PostMapper {
 	public List<PostVO> getPostListByTitleContent(PageUtils searchPage);
 	
 	// postid로 게시글 조회
-	@Select("SELECT p.*, u.name name "
+	@Select("SELECT p.*, u.name name, u.phone phone "
 		  + "FROM tb_user u, tb_post p "
 		  + "WHERE p.userid = u.userid AND p.postid = #{postid}")
 	public PostVO getPostByPostId(int postid);

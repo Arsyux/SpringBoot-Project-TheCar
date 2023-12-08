@@ -1,6 +1,5 @@
 package com.arsyux.thecar.controller;
 
-import java.io.File;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.thecar.domain.PostVO;
-import com.arsyux.thecar.domain.FileUtils;
 import com.arsyux.thecar.domain.FileVO;
 import com.arsyux.thecar.domain.PageUtils;
 import com.arsyux.thecar.domain.UserVO;
@@ -41,9 +39,6 @@ public class PostController {
 	
 	@Autowired
 	private FileService fileService;
-	
-	@Autowired
-	private FileUtils fileUtils;
 	
 	@Autowired
 	private ModelMapper modelMapper;

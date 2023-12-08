@@ -28,6 +28,7 @@ public class PostVO {
 	private Timestamp regdate; // 작성 날짜
 	private int userid; // 글쓴이 회원 번호 (FK)
 	private String name; // 글쓴이 이름
+	private String phone; // 휴대폰 번호
 	private int last; // 총 게시글 갯수
 	
 	private List<FileVO> files; // 첨부 파일 List

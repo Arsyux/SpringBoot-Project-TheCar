@@ -67,6 +67,10 @@
 										<td align="center">${ post.name }</td>
 									</tr>
 									<tr>
+										<td align="center" width="20%">휴대폰</td>
+										<td align="center">${ post.phone }</td>
+									</tr>
+									<tr>
 										<td align="center" width="20%">작성 날짜</td>
 										<!-- 날짜 데이터의 숫자가 소수점으로 표시되어서 Format변경 -->
 							        	<fmt:parseDate value="${ post.regdate }" var="dateFormat" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -105,7 +109,7 @@
 											<c:forEach var="file" items="${ post.files }">
 												<fmt:parseDate value="${ post.regdate }" var="dateFormat" pattern="yyyy-MM-dd HH:mm:ss"/>
 												<fmt:formatDate value="${ dateFormat }" var="fileRegdate" pattern="yyMMdd"/>
-												<img class="w-100" src="/image/postImage/${ fileRegdate }/${ file.save_name }" style="max-width: 240px;">
+												<img class="w-100 mb-1" src="/image/postImage/${ fileRegdate }/${ file.save_name }" style="max-width: 240px;">
 											</c:forEach>
 										</td>
 									</tr>
@@ -114,8 +118,11 @@
 						</div>
 					</div>
 					
-					
-					<button class="btn btn-danger" id="btn-delete">삭제</button>
+					<div class="row">
+						<div class="col-12" align="right">
+							<button class="btn btn-danger" id="btn-delete">삭제</button>
+						</div>
+					</div>
 					
 					
 					

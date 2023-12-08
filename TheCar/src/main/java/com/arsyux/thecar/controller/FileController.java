@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,7 +41,7 @@ public class FileController {
 	}
 	
 	// 파일 삭제 기능
-	@PostMapping("/file/deleteFiles")
+	@DeleteMapping("/file/deleteFiles")
 	public @ResponseBody ResponseDTO<?> deleteFiles(@RequestBody PostVO post) {
 		
 		// 삭제할 tb_file의 pk를 가져옴

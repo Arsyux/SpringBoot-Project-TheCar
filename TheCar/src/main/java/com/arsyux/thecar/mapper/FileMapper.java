@@ -25,7 +25,7 @@ public interface FileMapper {
 	public List<FileVO> getFileListByPostId(int postid);
 	
 	@Delete("DELETE FROM tb_file "
-		  + "WHERE f.postid = #{postid}")
+		  + "WHERE postid = #{postid}")
 	public void deleteFilesByPostId(int postid);
 	
 }
