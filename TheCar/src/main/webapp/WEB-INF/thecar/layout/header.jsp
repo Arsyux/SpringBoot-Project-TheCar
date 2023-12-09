@@ -87,7 +87,7 @@
 								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #CCCCCC;"><b>${ principal.user.name }</b> 님</a>
 								<ul class="dropdown-menu">
 									<li><span class="dropdown-item-text"><b>${ principal.user.point }</b> P</span></li>
-									<li><a class="dropdown-item" href="/user/updateUser">내 정보</a></li>
+									<li><a class="dropdown-item" href="/user/updateUser">비밀번호 변경</a></li>
 									<li><a class="dropdown-item" href="/auth/logout">로그아웃</a></li>
 								</ul>
 							</li>
