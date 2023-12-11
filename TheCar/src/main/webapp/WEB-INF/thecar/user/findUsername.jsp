@@ -73,6 +73,6 @@
 	<div class="col-sm-0 col-md-4"></div>
 </div>
 
-<script src="/js/findUser.js"></script>
+<script src="/js/user.js"></script>
 
 <%@ include file="../layout/footer.jsp" %>

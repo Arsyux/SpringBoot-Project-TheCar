@@ -52,19 +52,7 @@ public class UserDAO {
 		return mybatis.selectOne("findPassword", user);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	public List<UserVO> getUserList(){
-		return mybatis.selectList("getUserList");
-	}
-	
-	
-	
+	// 회원 정보 변경
 	public void updateUser(UserVO user) {
 		mybatis.update("updateUser", user);
 	}
@@ -74,8 +62,14 @@ public class UserDAO {
 		mybatis.update("changePassword", user);
 	}
 	
+	// 회원 탈퇴
 	public void deleteUser(UserVO user) {
 		mybatis.delete("deleteUser", user);
+	}
+	
+	// 회원 리스트 가져오기
+	public List<UserVO> getUserList(){
+		return mybatis.selectList("getUserList");
 	}
 	
 }

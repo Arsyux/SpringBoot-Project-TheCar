@@ -62,32 +62,26 @@ public interface UserMapper {
 		  + "WHERE username = #{username} AND name = #{name} AND phone = #{phone} AND email = #{email}")
 	public UserVO findPassword(UserVO user);
 	
-	
-	
-	
-	
-	
-	
-	
 	// 유저 리스트 가져오기
 	@Select("SELECT * "
 		  + "FROM tb_user "
 		  + "ORDER BY username DESC")
 	public List<UserVO> getUserList();
-
 	
-
+	// 회원 정보 변경
 	@Update("UPDATE tb_user "
 		  + "SET PASSWORD = #{password} "
 		  + "WHERE userid = #{userid}")
 	public void updateUser(UserVO user);
 	
+	// 비밀번호 변경
 	@Update("UPDATE tb_user "
 		  + "SET PASSWORD = #{password} "
 		  + "WHERE userid = #{userid}")
 	public void changePassword(UserVO user);
 
-	@Delete("DELETE tb_user "
+	// 회원 탈퇴
+	@Delete("DELETE FROM tb_user "
 		  + "WHERE userid = #{userid}")
 	public void deleteUser(UserVO user);
 

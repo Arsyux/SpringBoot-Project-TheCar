@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -204,18 +205,19 @@ public class UserController {
 	// 회원 정보 수정
 	@PutMapping("/user/updateUser")
 	public @ResponseBody ResponseDTO<?> updateUser(@Validated(UpdateUserValidationGroup.class) @RequestBody UserDTO userDTO, @AuthenticationPrincipal UserDetailsImpl principal) {
-
+		
 		// UserDTO를 통해 유효성 검사
 		UserVO user = modelMapper.map(userDTO, UserVO.class);
 		
-		// 회원 정보 수정과 동시에 세션을 갱신해야하므로 updateUser()메소드에서 회원 정보를 수정하고 UserService.updateUser() 메소드가 반환한 User 객체로
-		// SecurityContext에 등록된 AUthentication 객체의 User를 변경하도록 한다.
-		principal.setUser(userService.updateUser(user));
+		user.setUserid(principal.getUser().getUserid());
+		user.setUsername(principal.getUser().getUsername());
 		
-		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 정보가 수정되었습니다.");
+		userService.updateUser(user);
+		
+		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 정보가 수정되었습니다. 다시 로그인 하여 주세요.");
 	}
 	// 비밀번호 변경 기능
-	@PostMapping("/auth/changePassword")
+	@PutMapping("/auth/changePassword")
 	public @ResponseBody ResponseDTO<?> changePassword(@Validated(ChangePasswordValidationGroup.class) @RequestBody UserDTO userDTO, BindingResult bindingResult) {
 
 		// UserDTO를 통해 유효성 검사
@@ -230,4 +232,25 @@ public class UserController {
 			return new ResponseDTO<>(HttpStatus.OK.value(), "OK");
 		}
 	}
+	
+	// ========================================
+	// 5. 회원 탈퇴
+	// ========================================
+	
+	// 회원 탈퇴 이동
+	@GetMapping("/user/deleteUser")
+	public String deleteUser() {
+		return "user/deleteUser";
+	}
+	// 회원 탈퇴
+	@DeleteMapping("/user/deleteUser")
+	public @ResponseBody ResponseDTO<?> deleteUser(@AuthenticationPrincipal UserDetailsImpl principal) {
+		
+		UserVO user = principal.getUser();
+		
+		userService.deleteUser(user);
+		
+		return new ResponseDTO<>(HttpStatus.OK.value(), "회원 탈퇴되었습니다.");
+	}
+	
 }
