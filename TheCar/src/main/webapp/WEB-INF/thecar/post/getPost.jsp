@@ -24,7 +24,16 @@
 		<div class="col-md-12 p-3">
 			<c:if test="${empty post}">
 				<div class="mainBorder p-3">
-					<h1>게시글 작성자와 관리자만 확인할 수 있습니다.</h1>
+					<div class="row">
+						<div class="col-12 mb-3">
+							<h1>게시글 작성자와 관리자만 확인할 수 있습니다.</h1>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-2">
+							<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+						</div>
+					</div>
 				</div>
 			</c:if>
 			<c:if test="${!empty post }">
@@ -114,9 +123,11 @@
 							</table>
 						</div>
 					</div>
-					
 					<div class="row">
-						<div class="col-12" align="right">
+						<div class="col-2">
+							<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+						</div>
+						<div class="col-10" align="right">
 							<c:if test="${ principal.user.role == 'Admin' || principal.user.userid == post.userid  }">
 								<a class="btn btn-primary" href="/post/updatePost/${ post.postid }">수정</a>
 								<button class="btn btn-danger" id="btn-delete">삭제</button>
@@ -124,15 +135,11 @@
 						</div>
 					</div>
 					
-					
-					
-					
 				</div>
 			</c:if>
 		</div>
 	</div>
 	
-	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 </div>
 
 <script src="/js/post.js"></script>
