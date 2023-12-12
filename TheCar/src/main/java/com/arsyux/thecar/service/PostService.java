@@ -84,10 +84,10 @@ public class PostService {
 	// 게시글 삭제
 	@Transactional
 	public void deletePost(PostVO post) { postDAO.deletePost(post); }
-
-	// ========================================
-	// 4. 기타
-	// ========================================
+	
+	// 게시글 수정
+	@Transactional
+	public void updatePost(PostVO post) { postDAO.updatePost(post); }
 	
 	
 }

@@ -19,9 +19,6 @@
 
 <div class="container">
 
-
-	
-	
 	<!-- 메인 컨텐츠 -->
 	<div class="row">
 		<div class="col-md-12 p-3">
@@ -121,7 +118,7 @@
 					<div class="row">
 						<div class="col-12" align="right">
 							<c:if test="${ principal.user.role == 'Admin' || principal.user.userid == post.userid  }">
-								<button class="btn btn-primary" id="btn-update">수정</button>
+								<a class="btn btn-primary" href="/post/updatePost/${ post.postid }">수정</a>
 								<button class="btn btn-danger" id="btn-delete">삭제</button>
 							</c:if>
 						</div>

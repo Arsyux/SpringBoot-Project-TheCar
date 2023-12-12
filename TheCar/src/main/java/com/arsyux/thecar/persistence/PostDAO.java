@@ -76,4 +76,7 @@ public class PostDAO {
 	// 게시글 삭제
 	public void deletePost(PostVO post) { mybatis.delete("deletePost", post); }
 	
+	// 게시글 수정
+	public void updatePost(PostVO post) { mybatis.update("updatePost", post); }
+	
 }

@@ -37,7 +37,7 @@ public class FileController {
 		
 		fileService.insertFiles(postid, filesList);
 		
-		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
+		return new ResponseDTO<>(HttpStatus.OK.value(), "게시글을 등록했습니다.");
 	}
 	
 	// 파일 삭제 기능
@@ -47,12 +47,14 @@ public class FileController {
 		// 삭제할 tb_file의 pk를 가져옴
 		List<FileVO> fileList = fileService.getFileListByPostId(post.getPostid());
 		
-		try { fileUtils.deleteFiles(fileList); }
-		catch (Exception e) { return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "삭제 오류"); }
+		if(fileList != null) {
+			try { fileUtils.deleteFiles(fileList); }
+			catch (Exception e) { return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "삭제 오류"); }
+			
+			fileService.deleteFilesByPostId(post.getPostid());
+		}
 		
-		fileService.deleteFilesByPostId(post.getPostid());
-		
-		return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
+		return new ResponseDTO<>(HttpStatus.OK.value(), "게시글을 등록했습니다.");
 	}
 	
 }

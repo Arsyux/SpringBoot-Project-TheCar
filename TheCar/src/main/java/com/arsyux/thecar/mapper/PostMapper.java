@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.arsyux.thecar.domain.PostVO;
 import com.arsyux.thecar.domain.PageUtils;
@@ -105,7 +106,7 @@ public interface PostMapper {
 		  + "LIMIT 1")
 	public PostVO getLastPostByUserid(UserVO user);
 	// ========================================
-	// 3. 게시글 작성, 삭제
+	// 3. 게시글 작성, 삭제, 수정
 	// ========================================
 	
 	// 게시글 작성
@@ -120,4 +121,19 @@ public interface PostMapper {
 		  + "WHERE postid = #{postid} AND userid = #{userid}")
 	public void deletePost(PostVO post);
 	
+	// 게시글 수정
+	@Update("UPDATE tb_post "
+		  + "SET title = #{title},"
+		  + "cartype = #{cartype},"
+		  + "content = #{content},"
+		  + "departures_postcode = #{departures_postcode},"
+		  + "departures_address = #{departures_address},"
+		  + "departures_detailAddress = #{departures_detailAddress},"
+		  + "departures_extraAddress = #{departures_extraAddress},"
+		  + "arrivals_postcode = #{arrivals_postcode},"
+		  + "arrivals_address = #{arrivals_address},"
+		  + "arrivals_detailAddress = #{arrivals_detailAddress},"
+		  + "arrivals_extraAddress = #{arrivals_extraAddress} "
+		  + "WHERE postid = #{postid}")
+	public void updatePost(PostVO post);
 }

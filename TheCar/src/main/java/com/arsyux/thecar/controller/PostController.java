@@ -320,46 +320,31 @@ public class PostController {
 		
 		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 삭제했습니다.");
 	}
-
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	@GetMapping("/post/updatePost/{id}")
-	public String updatePost(@PathVariable int id, Model model) {
-		//model.addAttribute("post", postService.getPost(id));
+	// 게시글 수정 이동
+	@GetMapping("/post/updatePost/{postid}")
+	public String updatePost(@PathVariable int postid, Model model) {
+		
+		PostVO post = postService.getPostByPostId(postid);
+		
+		List<FileVO> files = fileService.getFileListByPostId(postid);
+		
+		post.setFiles(files);
+		
+		model.addAttribute("post", post);
+		
 		return "post/updatePost";
 	}
 	
-	// Rest컨트롤러에서 수정 기능은 PUT방식으로 처리하기 때문에 @PutMapping 어노테이션을 사용한다.
-	// 그 후 PostService 클래스의 updatePost() 메소드를 호출하여 포스트 수정을 처리한다.
-	@PutMapping("/post")
-	public @ResponseBody ResponseDTO<?> updatePost(@RequestBody PostVO post) {
-		//postService.updatePost(post);
+	// 게시글 수정
+	@PutMapping("/post/updatePost")
+	public @ResponseBody ResponseDTO<?> updatePost(@Validated(PostValidationGroup.class) @RequestBody PostDTO postDTO, BindingResult bindingResult) {
+		
+		// PostDTO -> Post로 변환
+		PostVO post = modelMapper.map(postDTO, PostVO.class);
+		
+		postService.updatePost(post);
 		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 수정했습니다.");
 	}
-	
-	
-	
+		
 }
