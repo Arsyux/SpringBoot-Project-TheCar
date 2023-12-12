@@ -120,7 +120,10 @@
 					
 					<div class="row">
 						<div class="col-12" align="right">
-							<button class="btn btn-danger" id="btn-delete">삭제</button>
+							<c:if test="${ principal.user.role == 'Admin' || principal.user.userid == post.userid  }">
+								<button class="btn btn-primary" id="btn-update">수정</button>
+								<button class="btn btn-danger" id="btn-delete">삭제</button>
+							</c:if>
 						</div>
 					</div>
 					
