@@ -48,7 +48,7 @@
 			      				<span style="background-color: red; border-color: red; border-style: solid; border-radius: 20%; color: white;">대기</span>
 			      			</c:if>
 			      			<c:if test="${ post.state == 'P' }">
-			      				<span style="background-color: orange; border-color: orange; border-style: solid; border-radius: 20%; color: white;">처리</span>
+			      				<span style="background-color: orange; border-color: orange; border-style: solid; border-radius: 20%; color: white;">진행</span>
 			      			</c:if>
 			      			<c:if test="${ post.state == 'C' }">
 			      				<span style="background-color: green; border-color: green; border-style: solid; border-radius: 20%; color: white;">완료</span>
@@ -131,21 +131,38 @@
 							<div class="row">
 								<div class="col-5"></div>
 								<div class="col-4">
-									<c:if test="${ principal.user.role == 'Admin' }">
+									<c:if test="${ principal.user.role == 'Admin' && post.state == 'R' }">
 										<div class="input-group">
-											<input type="text" class="form-control" placeholder="가격">
-											<button class="btn btn-warning" type="button" id="btn-progress">진행</button>
+											<input id="price" type="number" class="form-control" style="text-align: center;" placeholder="가격">
+											<button class="btn btn-warning" type="button" id="btn-progress">진행처리</button>
+										</div>
+									</c:if>
+									<c:if test="${ principal.user.role != 'Admin' && post.state == 'P' }">
+										<div class="input-group">
+											<input id="price" type="number" class="form-control" value="${ post.price }" style="text-align: center;" readonly="readonly">
+											<button class="btn btn-warning" type="button" disabled="disabled">진행중</button>
+										</div>
+									</c:if>
+									<c:if test="${ principal.user.role == 'Admin' && post.state == 'P' }">
+										<div class="input-group">
+											<input id="price" type="number" class="form-control" value="${ post.price }" style="text-align: center;" readonly="readonly">
+											<button class="btn btn-success" id="btn-complete">완료처리</button>
+										</div>
+									</c:if>
+									<c:if test="${ post.state == 'C' }">
+										<div class="input-group">
+											<input id="price" type="number" class="form-control" value="${ post.price }" style="text-align: center;" readonly="readonly">
 										</div>
 									</c:if>
 								</div>
-								<div class="col-3">
-									<c:if test="${ principal.user.role == 'Admin' }">
-										<button class="btn btn-success" id="btn-complete">완료</button>
-									</c:if>
-									<c:if test="${ principal.user.userid == post.userid }">
+								<div class="col-3" align="right">
+									<c:if test="${ principal.user.userid == post.userid && post.state == 'R' }">
 										<a class="btn btn-primary" href="/post/updatePost/${ post.postid }">수정</a>
 									</c:if>
-									<c:if test="${ principal.user.role == 'Admin' || principal.user.userid == post.userid  }">
+									<c:if test="${ principal.user.role == 'Admin' && post.state != 'C' }">
+										<button class="btn btn-danger" id="btn-delete">삭제</button>
+									</c:if>
+									<c:if test="${ principal.user.userid == post.userid && post.state == 'R' }">
 										<button class="btn btn-danger" id="btn-delete">삭제</button>
 									</c:if>
 								</div>

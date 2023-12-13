@@ -7,13 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.arsyux.thecar.domain.UserVO;
-//import com.arsyux.thecar.persistence.UserRepository;
 import com.arsyux.thecar.persistence.UserDAO;
 
-// 문법적으로는 컨트롤러가 리포지터리를 바로 호출해도 되지만, 일반적으로 컨트롤러는 서비스 클래스를 호출하고
-// 서비스 클래스에서 리포지터리를 사용한다.
-// 이렇게 컨트롤러와 리포지터리 사이에 서비스 클래스를 추가하면 서비스 클래스에서 여러 리포지터리를 이용함으로써
-// 하나의 트랜잭션으로 여러 데이터베이스 관련 작업을 처리할 수 있다.
 @Service
 public class UserService {
 
@@ -86,7 +81,17 @@ public class UserService {
 		if(findUser == null) { findUser = new UserVO(); }
 		return findUser;
 	}
-
+	
+	// 게시글을 작성한 유저 찾기
+	@Transactional(readOnly = true)
+	public UserVO findByPostId(int postid) {
+		// 유저정보로 검색
+		UserVO findUser = userDAO.findByPostId(postid);
+		// 검색된 유저가 없을경우 처리
+		if(findUser == null) { findUser = new UserVO(); }
+		return findUser;
+	}
+	
 	// ========================================
 	// 2. 회원 정보 수정
 	// ========================================
@@ -119,9 +124,15 @@ public class UserService {
 	// 회원 탈퇴
 	@Transactional
 	public void deleteUser(UserVO user) {
-		//UserVO findUser = userDAO.findById(user.getUserid());
-		//findUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		userDAO.deleteUser(user);
+	}
+	
+	// ========================================
+	// 포인트 적립
+	// ========================================
+	@Transactional
+	public void updatePoint(UserVO user) {
+		userDAO.updatePoint(user);
 	}
 	
 	

@@ -50,6 +50,13 @@ public interface UserMapper {
 		  + "WHERE email = #{email}")
 	public UserVO findByEmail(String email);
 	
+	// 게시글번호로 회원 1명 조회
+	@Select("SELECT u.* "
+		  + "FROM tb_user u, tb_post p "
+		  + "WHERE u.userid = p.userid AND p.postid = #{postid}")
+	public UserVO findByPostId(int postid);
+	
+	
 	// 아이디 찾기
 	@Select("SELECT * "
 		  + "FROM tb_user "
@@ -63,9 +70,9 @@ public interface UserMapper {
 	public UserVO findPassword(UserVO user);
 	
 	// 유저 리스트 가져오기
-	@Select("SELECT * "
-		  + "FROM tb_user "
-		  + "ORDER BY username DESC")
+	@Select("SELECT u.* "
+		  + "FROM tb_user u, tb_post p "
+		  + "WHERE u.userid = p.userid AND p.postid = #{postid}")
 	public List<UserVO> getUserList();
 	
 	// 회원 정보 변경
@@ -84,5 +91,11 @@ public interface UserMapper {
 	@Delete("DELETE FROM tb_user "
 		  + "WHERE userid = #{userid}")
 	public void deleteUser(UserVO user);
-
+	
+	// 포인트 적립
+	@Update("UPDATE tb_user "
+		  + "SET point = #{point} "
+		  + "WHERE userid = #{userid}")
+	public void updatePoint(UserVO user);
+	
 }

@@ -18,6 +18,71 @@ let postObject = {
 			_this.deletePost();
 		});
 		
+		// 진행
+		$("#btn-progress").on("click", () => {
+			_this.progressPost();
+		});
+		
+		// 완료
+		$("#btn-complete").on("click", () => {
+			_this.completePost();
+		});
+	},
+	
+	progressPost: function() {
+		if(!confirm("진행하시게 되면 더이상 가격을 수정하실 수 없습니다.")) { return; }
+				
+		let post = {
+			postid: $("#postid").val(),
+			price: $("#price").val()
+		}
+		
+		$.ajax({
+			type: "PUT",
+			url: "/post/progressPost",
+			data: JSON.stringify(post),
+			contentType: "application/json; charset=utf-8"
+		}).done(function(response) {
+			let status = response["status"];
+			if(status == 200) {
+				alert(response["data"]);
+				location = "/post/" + post.postid;
+			} else {
+				let warn = "";
+				let errors = response["data"];
+				if(errors.price != null) { warn = warn + errors.price }
+				alert(warn);
+			}
+		}).fail(function(error) {
+			let message = error["data"];
+			alert("에러 발생 : " + message);
+		});
+	},
+	
+	completePost: function() {
+		if(!confirm("완료하시게 되면 더이상 게시글을 삭제하실 수 없습니다.")) { return; }
+		
+		let post = {
+			postid: $("#postid").val()
+		}
+		$.ajax({
+			type: "PUT",
+			url: "/post/completePost",
+			data: JSON.stringify(post),
+			contentType: "application/json; charset=utf-8"
+		}).done(function(response) {
+			let status = response["status"];
+			if(status == 200) {
+				alert(response["data"]);
+				location = "/post/" + post.postid;
+			} else {
+				let errors = response["data"];
+				alert("에러 발생 : " + errors);
+			}
+		}).fail(function(error) {
+			let message = error["data"];
+			alert("에러 발생 : " + message);
+		});
 	},
 	
 	insertPost: function() {
@@ -33,7 +98,7 @@ let postObject = {
 			arrivals_address: $("#arrivals_address").val(),
 			arrivals_detailAddress: $("#arrivals_detailAddress").val(),
 			arrivals_extraAddress: $("#arrivals_extraAddress").val(),
-			content : $("#content").val(),
+			content: $("#content").val(),
 		}
 		
 		$.ajax({
@@ -184,7 +249,7 @@ let postObject = {
 				arrivals_address: $("#arrivals_address").val(),
 				arrivals_detailAddress: $("#arrivals_detailAddress").val(),
 				arrivals_extraAddress: $("#arrivals_extraAddress").val(),
-				content : $("#content").val(),
+				content: $("#content").val(),
 			}
 			
 			$.ajax({

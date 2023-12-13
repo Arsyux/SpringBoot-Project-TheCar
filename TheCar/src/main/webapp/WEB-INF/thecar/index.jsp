@@ -79,7 +79,7 @@
 							        				<span style="background-color: red; border-color: red; border-style: solid; border-radius: 20%; color: white;">대기</span>
 							        			</c:if>
 							        			<c:if test="${ post.state == 'P' }">
-							        				<span style="background-color: orange; border-color: orange; border-style: solid; border-radius: 20%; color: white;">처리</span>
+							        				<span style="background-color: orange; border-color: orange; border-style: solid; border-radius: 20%; color: white;">진행</span>
 							        			</c:if>
 							        			<c:if test="${ post.state == 'C' }">
 							        				<span style="background-color: green; border-color: green; border-style: solid; border-radius: 20%; color: white;">완료</span>

@@ -28,6 +28,7 @@ arrivals_address VARCHAR(200) NOT NULL COMMENT '도착지 주소',
 arrivals_detailAddress VARCHAR(200) NOT NULL COMMENT '도착지 상세 주소',
 arrivals_extraAddress VARCHAR(200) COMMENT '도착지 참조 주소',
 regdate DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '게시글 작성 날짜',
+price INT DEFAULT 0,
 userid INT NOT NULL COMMENT '유저 번호 (FK)',
 FOREIGN KEY(userid) REFERENCES tb_user(userid) ON DELETE CASCADE);
 

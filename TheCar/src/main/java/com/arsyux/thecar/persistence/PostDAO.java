@@ -79,4 +79,14 @@ public class PostDAO {
 	// 게시글 수정
 	public void updatePost(PostVO post) { mybatis.update("updatePost", post); }
 	
+	// ========================================
+	// 4. 게시글 진행, 완료
+	// ========================================
+	
+	// 게시글 진행
+	public void progressPost(PostVO post) { mybatis.update("progressPost", post); }
+	
+	// 게시글 완료
+	public void completePost(PostVO post) { mybatis.update("completePost", post); }
+	
 }

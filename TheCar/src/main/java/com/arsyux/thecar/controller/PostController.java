@@ -25,17 +25,22 @@ import com.arsyux.thecar.domain.FileVO;
 import com.arsyux.thecar.domain.PageUtils;
 import com.arsyux.thecar.domain.UserVO;
 import com.arsyux.thecar.dto.PostDTO;
+import com.arsyux.thecar.dto.PostDTO.PostProgressValidationGroup;
 import com.arsyux.thecar.dto.PostDTO.PostValidationGroup;
 import com.arsyux.thecar.dto.ResponseDTO;
 import com.arsyux.thecar.security.UserDetailsImpl;
 import com.arsyux.thecar.service.FileService;
 import com.arsyux.thecar.service.PostService;
+import com.arsyux.thecar.service.UserService;
 
 @Controller
 public class PostController {
 
 	@Autowired
 	private PostService postService;
+
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private FileService fileService;
@@ -318,7 +323,7 @@ public class PostController {
 		
 		postService.deletePost(post);
 		
-		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 삭제했습니다.");
+		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 게시글을 삭제했습니다.");
 	}
 	
 	// 게시글 수정 이동
@@ -344,7 +349,45 @@ public class PostController {
 		PostVO post = modelMapper.map(postDTO, PostVO.class);
 		
 		postService.updatePost(post);
-		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 포스트를 수정했습니다.");
+		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 게시글을 수정했습니다.");
 	}
+	
+	// 게시물 진행
+	@PutMapping("/post/progressPost")
+	public @ResponseBody ResponseDTO<?> progressPost(@Validated(PostProgressValidationGroup.class) @RequestBody PostDTO postDTO, BindingResult bindingResult, 
+													 @AuthenticationPrincipal UserDetailsImpl principal) {
 		
+		if(!principal.getUser().getRole().equals("Admin")) { return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "잘못된 접근입니다."); }
+		
+		// PostDTO -> Post로 변환
+		PostVO post = modelMapper.map(postDTO, PostVO.class);
+		
+		// 가격 설정 및 게시글 상태를 '진행(P)'으로 변경
+		postService.progressPost(post);
+		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 게시글을 진행처리하였습니다.");
+	}
+	
+	// 게시물 완료
+	@PutMapping("/post/completePost")
+	public @ResponseBody ResponseDTO<?> completePost(@RequestBody PostVO post, @AuthenticationPrincipal UserDetailsImpl principal) {
+		
+		if(!principal.getUser().getRole().equals("Admin")) { return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "잘못된 접근입니다."); }
+		
+		// 게시글을 작성한 유저를 찾음
+		UserVO user = userService.findByPostId(post.getPostid());
+		
+		// 게시글의 포인트를 가져옴
+		PostVO findpost = postService.getPostByPostId(post.getPostid());
+		
+		// 게시글의 가격의 10%만큼 포인트 설정
+		user.setPoint(user.getPoint() + (int)(findpost.getPrice()/10));
+		
+		// 포인트 적립
+		userService.updatePoint(user);
+		
+		// 게시글 상태를 '완료(C)'로 변경
+		postService.completePost(post);
+		
+		return new ResponseDTO<>(HttpStatus.OK.value(), post.getPostid() + "번 게시글을 완료처리하였습니다.");
+	}
 }

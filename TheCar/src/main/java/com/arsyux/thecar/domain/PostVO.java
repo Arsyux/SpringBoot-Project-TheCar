@@ -30,6 +30,7 @@ public class PostVO {
 	private String name; // 글쓴이 이름
 	private String phone; // 휴대폰 번호
 	private int last; // 총 게시글 갯수
+	private int price; // 탁송 가격
 	
 	private List<FileVO> files; // 첨부 파일 List
 	

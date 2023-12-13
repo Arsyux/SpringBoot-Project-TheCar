@@ -17,6 +17,13 @@ public class PostDTO {
 	// 게시글 작성시 유효성 검사
 	public interface PostValidationGroup { }
 	
+	// 게시글 진행시 유효성 검사
+	public interface PostProgressValidationGroup { }
+	
+	// 게시글 번호
+	@NotNull(groups = PostProgressValidationGroup.class, message = "제목이 전달되지 않았습니다.")
+	private int postid;
+	
 	// 제목
 	@NotNull(groups = PostValidationGroup.class, message = "제목이 전달되지 않았습니다.")
 	@NotBlank(groups = PostValidationGroup.class, message = "제목은 필수 입력 항목입니다.")
@@ -78,4 +85,9 @@ public class PostDTO {
 	// 도착지 참조 주소
 	@Size(groups = PostValidationGroup.class, message = "도착지 참조 주소는 200자 미만으로 입력해주세요.", max = 200)
 	private String arrivals_extraAddress;
+	
+	// 가격
+	@NotNull(groups = PostProgressValidationGroup.class, message = "가격이 전달되지 않았습니다.")
+	private int price;
+	
 }

@@ -29,7 +29,7 @@ public interface PostMapper {
 		  + "FROM tb_post "
 		  + "WHERE userid = #{userid}")
 	public int getPostCountByUserid(UserVO user);
-		
+	
 	// 제목 게시글 개수 조회
 	@Select("SELECT count(*) "
 		  + "FROM tb_post "
@@ -105,6 +105,7 @@ public interface PostMapper {
 		  + "ORDER BY p.postid desc "
 		  + "LIMIT 1")
 	public PostVO getLastPostByUserid(UserVO user);
+	
 	// ========================================
 	// 3. 게시글 작성, 삭제, 수정
 	// ========================================
@@ -118,22 +119,35 @@ public interface PostMapper {
 	
 	// 게시글 삭제
 	@Delete("DELETE FROM tb_post "
-		  + "WHERE postid = #{postid} AND userid = #{userid}")
+		  + "WHERE postid = #{postid}")
 	public void deletePost(PostVO post);
 	
 	// 게시글 수정
 	@Update("UPDATE tb_post "
-		  + "SET title = #{title},"
-		  + "cartype = #{cartype},"
-		  + "content = #{content},"
-		  + "departures_postcode = #{departures_postcode},"
-		  + "departures_address = #{departures_address},"
-		  + "departures_detailAddress = #{departures_detailAddress},"
-		  + "departures_extraAddress = #{departures_extraAddress},"
-		  + "arrivals_postcode = #{arrivals_postcode},"
-		  + "arrivals_address = #{arrivals_address},"
-		  + "arrivals_detailAddress = #{arrivals_detailAddress},"
+		  + "SET title = #{title}, "
+		  + "cartype = #{cartype}, "
+		  + "content = #{content}, "
+		  + "departures_postcode = #{departures_postcode}, "
+		  + "departures_address = #{departures_address}, "
+		  + "departures_detailAddress = #{departures_detailAddress}, "
+		  + "departures_extraAddress = #{departures_extraAddress}, "
+		  + "arrivals_postcode = #{arrivals_postcode}, "
+		  + "arrivals_address = #{arrivals_address}, "
+		  + "arrivals_detailAddress = #{arrivals_detailAddress}, "
 		  + "arrivals_extraAddress = #{arrivals_extraAddress} "
 		  + "WHERE postid = #{postid}")
 	public void updatePost(PostVO post);
+	
+	// 게시글 진행
+	@Update("UPDATE tb_post "
+		  + "SET state = 'P', "
+		  + "price = #{price} "
+		  + "WHERE postid = #{postid}")
+	public void progressPost(PostVO post);
+	
+	// 게시글 완료
+	@Update("UPDATE tb_post "
+		  + "SET state = 'C' "
+		  + "WHERE postid = #{postid}")
+	public void completePost(PostVO post);
 }

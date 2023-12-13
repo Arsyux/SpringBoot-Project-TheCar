@@ -88,6 +88,16 @@ public class PostService {
 	// 게시글 수정
 	@Transactional
 	public void updatePost(PostVO post) { postDAO.updatePost(post); }
-	
-	
+
+	// ========================================
+	// 4. 게시글 진행
+	// ========================================
+
+	// 게시글 진행
+	@Transactional
+	public void progressPost(PostVO post) { postDAO.progressPost(post); }
+
+	// 게시글 완료
+	@Transactional
+	public void completePost(PostVO post) { postDAO.completePost(post); }
 }

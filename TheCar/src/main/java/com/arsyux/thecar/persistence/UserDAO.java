@@ -51,6 +51,10 @@ public class UserDAO {
 	public UserVO findPassword(UserVO user) {
 		return mybatis.selectOne("findPassword", user);
 	}
+	// 게시글 번호로 유저 찾기
+	public UserVO findByPostId(int postid) {
+		return mybatis.selectOne("findByPostId", postid);
+	}
 	
 	// 회원 정보 변경
 	public void updateUser(UserVO user) {
@@ -68,8 +72,14 @@ public class UserDAO {
 	}
 	
 	// 회원 리스트 가져오기
-	public List<UserVO> getUserList(){
+	public List<UserVO> getUserList() {
 		return mybatis.selectList("getUserList");
 	}
+	
+	// 포인트 적립
+	public void updatePoint(UserVO user) {
+		mybatis.update("updatePoint", user);
+	}
+	
 	
 }
