@@ -128,10 +128,28 @@
 							<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 						</div>
 						<div class="col-10" align="right">
-							<c:if test="${ principal.user.role == 'Admin' || principal.user.userid == post.userid  }">
-								<a class="btn btn-primary" href="/post/updatePost/${ post.postid }">수정</a>
-								<button class="btn btn-danger" id="btn-delete">삭제</button>
-							</c:if>
+							<div class="row">
+								<div class="col-5"></div>
+								<div class="col-4">
+									<c:if test="${ principal.user.role == 'Admin' }">
+										<div class="input-group">
+											<input type="text" class="form-control" placeholder="가격">
+											<button class="btn btn-warning" type="button" id="btn-progress">진행</button>
+										</div>
+									</c:if>
+								</div>
+								<div class="col-3">
+									<c:if test="${ principal.user.role == 'Admin' }">
+										<button class="btn btn-success" id="btn-complete">완료</button>
+									</c:if>
+									<c:if test="${ principal.user.userid == post.userid }">
+										<a class="btn btn-primary" href="/post/updatePost/${ post.postid }">수정</a>
+									</c:if>
+									<c:if test="${ principal.user.role == 'Admin' || principal.user.userid == post.userid  }">
+										<button class="btn btn-danger" id="btn-delete">삭제</button>
+									</c:if>
+								</div>
+							</div>
 						</div>
 					</div>
 					
