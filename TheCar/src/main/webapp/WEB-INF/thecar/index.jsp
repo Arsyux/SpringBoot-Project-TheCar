@@ -36,14 +36,14 @@
 						<div class="col-lg-6 col-md-12">
 							<div class="input-group">
 								<div class="col-3">
-									<select class="form-select col-2" style="border-radius: 0px;">
-										<option>제목</option>
-										<option>제목+내용</option>
-										<option>글쓴이</option>
+									<select class="form-select col-2" id="searchType" style="border-radius: 0px;">
+										<option value="title">제목</option>
+										<option value="titlecontent">제목+내용</option>
+										<option value="name">글쓴이</option>
 									</select>
 								</div>
 								<div class="col-7">
-								    <input type="text" class="form-control" style="border-radius: 0px;" placeholder="내용">
+								    <input type="text" class="form-control" id="searchText" style="border-radius: 0px;" placeholder="내용">
 								</div>
 								<div class="col-2">
 							  		<button class="btn btn-success" id="btn-search" style="border-radius: 0px;">검색</button>

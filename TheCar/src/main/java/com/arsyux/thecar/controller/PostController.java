@@ -137,20 +137,56 @@ public class PostController {
 				model.addAttribute("searchPage", searchPage);
 				model.addAttribute("postList", postList);
 			} else {
+				int postCount = 0;
+				PageUtils searchPage = null;
+				List<PostVO> postList = null;
+				PostVO post = new PostVO();
+
 				switch (searchType) {
 					case "title":
-						System.out.println("제목 검색");
+						// 제목 검색
+						post.setTitle(searchText);
+						
+						postCount = postService.getPostCountByTitle(post);
+						searchPage = new PageUtils(start, postCount);
+						searchPage.setSearchTitle(searchText);
+						
+						postList = postService.getPostListByTitle(searchPage);
 						break;
-					case "content":
-						System.out.println("내용 검색");
+					case "titlecontent":
+						// 제목내용 검색
+						post.setTitle(searchText);
+						post.setContent(searchText);
+						
+						postCount = postService.getPostCountByTitleContent(post);
+						searchPage = new PageUtils(start, postCount);
+						searchPage.setSearchTitle(searchText);
+						searchPage.setSearchContent(searchText);
+						
+						postList = postService.getPostListByTitleContent(searchPage);
 						break;
-					case "titleContent":
-						System.out.println("제목내용 검색");
+					case "name":
+						// 작성자 검색
+						post.setName(searchText);
+						
+						postCount = postService.getPostCountByLikeName(post);
+						searchPage = new PageUtils(start, postCount);
+						searchPage.setSearchName(searchText);
+						
+						postList = postService.getPostListByLikeName(searchPage);
 						break;
 					default:
-						System.out.println("일반 검색");
+						// 일반 검색
+						postCount = postService.getPostCount();
+						searchPage = new PageUtils(start, postCount);
+
+						postList = postService.getPostList(searchPage);
 						break;
 				}
+				
+				
+				model.addAttribute("searchPage", searchPage);
+				model.addAttribute("postList", postList);
 			}
 		}
 		
@@ -175,7 +211,7 @@ public class PostController {
 		PageUtils searchPage = new PageUtils(start, postCount, user.getUsername());
 		
 		// 게시글 조회
-		List<PostVO> postList = postService.getPostListByUsername(searchPage);
+		List<PostVO> postList = postService.getPostListByName(searchPage);
 		
 		// 작성자 이름 가리기
 		for(int i=0; i<postList.size(); i++) {

@@ -45,6 +45,11 @@ public class PostDAO {
 	@Transactional(readOnly = true)
 	public int getPostCountByName(PostVO post) { return mybatis.selectOne("getPostCountByName", post); }
 	
+	// 작성자 게시글 개수 조회 (Like)
+	@Transactional(readOnly = true)
+	public int getPostCountByLikeName(PostVO post) { return mybatis.selectOne("getPostCountByLikeName", post); }
+	
+	
 	// ========================================
 	// 2. 게시글 조회
 	// ========================================
@@ -66,6 +71,9 @@ public class PostDAO {
 	
 	// 작성자 게시글 조회
 	public List<PostVO> getPostListByName(PageUtils searchPage) { return mybatis.selectList("getPostListByName", searchPage); }
+
+	// 작성자 게시글 조회 (Like)
+	public List<PostVO> getPostListByLikeName(PageUtils searchPage) { return mybatis.selectList("getPostListByLikeName", searchPage); }
 	
 	// postid로 게시글 조회
 	public PostVO getPostByPostId(int postid) { return mybatis.selectOne("getPostByPostId", postid); }

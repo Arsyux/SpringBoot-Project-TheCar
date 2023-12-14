@@ -45,6 +45,12 @@ public class PostService {
 	@Transactional(readOnly = true)
 	public int getPostCountByName(PostVO post) { return postDAO.getPostCountByName(post); }
 	
+	// 작성자 게시글 개수 조회 (Like)
+	@Transactional(readOnly = true)
+	public int getPostCountByLikeName(PostVO post) { return postDAO.getPostCountByLikeName(post); }
+	
+	
+	
 	// ========================================
 	// 2. 게시글 조회
 	// ========================================
@@ -52,10 +58,6 @@ public class PostService {
 	// 전체 게시글 전체 조회
 	@Transactional(readOnly = true)
 	public List<PostVO> getPostList(PageUtils searchPage) { return postDAO.getPostList(searchPage); }
-	
-	// 유저이름 게시글 조회
-	@Transactional(readOnly = true)
-	public List<PostVO> getPostListByUsername(PageUtils searchPage) { return postDAO.getPostListByUsername(searchPage); }
 	
 	// 제목 게시글 조회
 	@Transactional(readOnly = true)
@@ -72,6 +74,11 @@ public class PostService {
 	// 작성자 게시글 조회
 	@Transactional(readOnly = true)
 	public List<PostVO> getPostListByName(PageUtils searchPage) { return postDAO.getPostListByName(searchPage); }
+	
+	// 작성자 게시글 조회(Like)
+	@Transactional(readOnly = true)
+	public List<PostVO> getPostListByLikeName(PageUtils searchPage) { return postDAO.getPostListByLikeName(searchPage); }
+	
 	
 	// postid로 게시글 조회
 	@Transactional(readOnly = true)
