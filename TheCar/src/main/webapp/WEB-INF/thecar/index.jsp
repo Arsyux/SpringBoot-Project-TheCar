@@ -37,13 +37,33 @@
 							<div class="input-group">
 								<div class="col-3">
 									<select class="form-select col-2" id="searchType" style="border-radius: 0px;">
-										<option value="title">제목</option>
-										<option value="titlecontent">제목+내용</option>
-										<option value="name">글쓴이</option>
+										<c:if test="${ searchType == 'title' }">
+											<option value="title" selected="selected">제목</option>
+										</c:if>
+										<c:if test="${ searchType != 'title' }">
+											<option value="title">제목</option>
+										</c:if>
+										<c:if test="${ searchType == 'titlecontent' }">
+											<option value="titlecontent" selected="selected">제목+내용</option>
+										</c:if>
+										<c:if test="${ searchType != 'titlecontent' }">
+											<option value="titlecontent">제목+내용</option>
+										</c:if>
+										<c:if test="${ searchType == 'name' }">
+											<option value="name" selected="selected">글쓴이</option>
+										</c:if>
+										<c:if test="${ searchType != 'name' }">
+											<option value="name">글쓴이</option>
+										</c:if>
 									</select>
 								</div>
 								<div class="col-7">
-								    <input type="text" class="form-control" id="searchText" style="border-radius: 0px;" placeholder="내용">
+									<c:if test="${empty searchText }">
+									    <input type="text" class="form-control" id="searchText" style="border-radius: 0px;" placeholder="내용">
+									</c:if>
+									<c:if test="${!empty searchText }">
+									    <input type="text" class="form-control" id="searchText" style="border-radius: 0px;" placeholder="내용" value="${ searchText }">
+									</c:if>
 								</div>
 								<div class="col-2">
 							  		<button class="btn btn-success" id="btn-search" style="border-radius: 0px;">검색</button>

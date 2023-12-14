@@ -152,6 +152,8 @@ public class PostController {
 						searchPage.setSearchTitle(searchText);
 						
 						postList = postService.getPostListByTitle(searchPage);
+						model.addAttribute("searchType", "title");
+						model.addAttribute("searchText", searchText);
 						break;
 					case "titlecontent":
 						// 제목내용 검색
@@ -164,6 +166,8 @@ public class PostController {
 						searchPage.setSearchContent(searchText);
 						
 						postList = postService.getPostListByTitleContent(searchPage);
+						model.addAttribute("searchType", "titlecontent");
+						model.addAttribute("searchText", searchText);
 						break;
 					case "name":
 						// 작성자 검색
@@ -174,12 +178,14 @@ public class PostController {
 						searchPage.setSearchName(searchText);
 						
 						postList = postService.getPostListByLikeName(searchPage);
+						model.addAttribute("searchType", "name");
+						model.addAttribute("searchText", searchText);
 						break;
 					default:
 						// 일반 검색
 						postCount = postService.getPostCount();
 						searchPage = new PageUtils(start, postCount);
-
+						
 						postList = postService.getPostList(searchPage);
 						break;
 				}
