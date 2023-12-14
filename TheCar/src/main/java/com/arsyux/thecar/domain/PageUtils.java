@@ -9,7 +9,7 @@ public class PageUtils {
 	private int size = 10; // 한번에 가져올 게시글 크기
 	private String searchTitle; // 제목 검색
 	private String searchContent; // 내용 검색
-	private String searchUsername; // 작성자 검색
+	private String searchName; // 작성자 검색
 	private int postCount; // 총 게시글 수
 	
 	public PageUtils(int start, int postCount) {
@@ -17,10 +17,10 @@ public class PageUtils {
 		this.postCount = postCount;
 	}
 	
-	public PageUtils(int start, int postCount, String searchUsername) {
+	public PageUtils(int start, int postCount, String searchName) {
 		this.start = start;
 		this.postCount = postCount;
-		this.searchUsername = searchUsername;
+		this.searchName = searchName;
 	}
 	
 	public PageUtils(int start, int postCount, String searchTitle, String searchContent) {

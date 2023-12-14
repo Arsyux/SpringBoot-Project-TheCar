@@ -46,7 +46,7 @@
 								    <input type="text" class="form-control" style="border-radius: 0px;" placeholder="내용">
 								</div>
 								<div class="col-2">
-							  		<button class="btn btn-success" type="submit" style="border-radius: 0px;">검색</button>
+							  		<button class="btn btn-success" id="btn-search" style="border-radius: 0px;">검색</button>
 								</div>
 							</div>
 						</div>
@@ -278,5 +278,6 @@
 	</div>
 </div>
 
+<script src="/js/post.js"></script>
 
 <%@ include file="./layout/footer.jsp" %>

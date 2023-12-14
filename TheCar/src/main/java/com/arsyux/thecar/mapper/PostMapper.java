@@ -41,7 +41,13 @@ public interface PostMapper {
 		  + "FROM tb_post "
 		  + "WHERE title LIKE '%#{content}%'")
 	public int getPostCountByContent(PostVO post);
-		
+	
+	// 이름 게시글 개수 조회
+	@Select("SELECT count(*) "
+		  + "FROM tb_post "
+		  + "WHERE name LIKE '%#{name}%'")
+	public int getPostCountByName(PostVO post);
+	
 	// 제목내용 게시글 개수 조회
 	@Select("SELECT count(*) "
 		  + "FROM tb_post "
@@ -91,6 +97,14 @@ public interface PostMapper {
 		  + "ORDER BY p.postid DESC "
 		  + "LIMIT #{start}, #{size}")
 	public List<PostVO> getPostListByTitleContent(PageUtils searchPage);
+	
+	// 작성자 게시글 조회
+	@Select("SELECT p.postid, p.state, p.title, p.regdate, p.departures_address, p.arrivals_address, u.name name "
+			  + "FROM tb_user u, tb_post p "
+			  + "WHERE u.userid = p.userid AND p.name = #{searchName} "
+			  + "ORDER BY p.postid DESC "
+			  + "LIMIT #{start}, #{size}")
+	public List<PostVO> getPostListByName(PageUtils searchPage);
 	
 	// postid로 게시글 조회
 	@Select("SELECT p.*, u.name name, u.phone phone "

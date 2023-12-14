@@ -58,6 +58,7 @@ public class PostController {
 	// 메인 화면
 	@GetMapping({ "", "/" })
 	public String getPostList(@RequestParam(required = false, value = "start", defaultValue = "0") int start,
+			  @RequestParam(required = false, value = "searchType", defaultValue = "") String searchType,
 			  @RequestParam(required = false, value = "searchText", defaultValue = "") String searchText,
 			  @AuthenticationPrincipal UserDetailsImpl principal, Model model) {
 		
@@ -120,31 +121,37 @@ public class PostController {
 		} else {
 			// 관리자용 게시글 일반 및 제목내용 검색 조회
 			
-			// 게시글의 총 개수 조회
-			int postCount = postService.getPostCount();
-			
-			// Page 정보 생성 시작 페이지, 총 개수
-			PageUtils searchPage = new PageUtils(start, postCount);
+			if(searchType.equals("") || searchType.equals("")) {
+				// 일반 게시글 조회
+				
+				// 게시글의 총 개수 조회
+				int postCount = postService.getPostCount();
+				
+				// Page 정보 생성 시작 페이지, 총 개수
+				PageUtils searchPage = new PageUtils(start, postCount);
+	
+				// 게시글 조회
+				List<PostVO> postList = postService.getPostList(searchPage);
 
-			// 게시글 조회
-			List<PostVO> postList = postService.getPostList(searchPage);
-			
-			// 작성자 이름 가리기
-			for(int i=0; i<postList.size(); i++) {
-				String name = "";
-				for(int j=0; j<postList.get(i).getName().length(); j++) {
-					if(j > (int)(postList.get(i).getName().length() / 2)) {
-						name += "*";
-					} else {
-						name += postList.get(i).getName().toCharArray()[j];						
-					}
+				// 조회된 데이터를 model에 추가
+				model.addAttribute("searchPage", searchPage);
+				model.addAttribute("postList", postList);
+			} else {
+				switch (searchType) {
+					case "title":
+						System.out.println("제목 검색");
+						break;
+					case "content":
+						System.out.println("내용 검색");
+						break;
+					case "titleContent":
+						System.out.println("제목내용 검색");
+						break;
+					default:
+						System.out.println("일반 검색");
+						break;
 				}
-				postList.get(i).setName(name);
 			}
-						
-			// 조회된 데이터를 model에 추가
-			model.addAttribute("searchPage", searchPage);
-			model.addAttribute("postList", postList);
 		}
 		
 		// 카카오맵 API키 삽입
