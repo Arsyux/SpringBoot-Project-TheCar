@@ -174,7 +174,12 @@
 								</li>
 								<!-- 이전 페이지 영역의 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="?start=${ ( startPage - 2 ) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-left"></i></a>
+									<c:if test="${empty searchType }">
+										<a class="page-link" href="?start=${ ( startPage - 2 ) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-left"></i></a>
+									</c:if>
+									<c:if test="${!empty searchType }">
+										<a class="page-link" href="?searchType=${ searchType }&searchText=${ searchText }&start=${ ( startPage - 2 ) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-left"></i></a>
+									</c:if>
 								</li>
 							</c:if>
 						
@@ -187,10 +192,20 @@
 								<c:forEach var="page" begin="${ startPage }" end="${ startPage + 9 }">
 										<li class="page-item">
 											<c:if test="${ nowPage == page }">
-												<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+												<c:if test="${empty searchType }">
+													<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+												</c:if>
+												<c:if test="${!empty searchType }">
+													<a class="page-link" href="?searchType=${ searchType }&searchText=${ searchText }&start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+												</c:if>
 											</c:if>
 											<c:if test="${ nowPage != page }">
-												<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+												<c:if test="${empty searchType }">
+													<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+												</c:if>
+												<c:if test="${!empty searchType }">
+													<a class="page-link" href="?searchType=${ searchType }&searchText=${ searchText }&start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+												</c:if>
 											</c:if>
 										</li>
 								</c:forEach>
@@ -200,10 +215,20 @@
 								<c:forEach var="page" begin="${ startPage }" end="${ lastPage }">
 									<li class="page-item">
 										<c:if test="${ nowPage == page }">
-											<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+											<c:if test="${empty searchType }">
+												<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+											</c:if>
+											<c:if test="${!empty searchType }">
+												<a class="page-link" href="?searchType=${ searchType }&searchText=${ searchText }&start=${ searchPage.size * (page - 1) }" style="color: black;"><b>${ page }</b></a>
+											</c:if>
 										</c:if>
 										<c:if test="${ nowPage != page }">
-											<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+											<c:if test="${empty searchType }">
+												<a class="page-link" href="?start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+											</c:if>
+											<c:if test="${!empty searchType }">
+												<a class="page-link" href="?searchType=${ searchType }&searchText=${ searchText }&start=${ searchPage.size * (page - 1) }" style="color: #666666;">${ page }</a>
+											</c:if>
 										</c:if>
 									</li>
 								</c:forEach>
@@ -215,11 +240,21 @@
 							<c:if test="${ lastPage - startPage >= 10 }">
 								<!-- 다음 페이지 영역의 첫번째 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="?start=${ (startPage + 9) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-right"></i></a>
+									<c:if test="${empty searchType }">
+										<a class="page-link" href="?start=${ (startPage + 9) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-right"></i></a>
+									</c:if>
+									<c:if test="${!empty searchType }">
+										<a class="page-link" href="?searchType=${ searchType }&searchText=${ searchText }&start=${ (startPage + 9) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-right"></i></a>
+									</c:if>
 								</li>
 								<!-- 마지막 페이지 번호로 이동 -->
 								<li class="page-item">
-									<a class="page-link" href="?start=${ (lastPage - 1) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-double-right"></i></a>
+									<c:if test="${empty searchType }">
+										<a class="page-link" href="?start=${ (lastPage - 1) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-double-right"></i></a>
+									</c:if>
+									<c:if test="${!empty searchType }">
+										<a class="page-link" href="?searchType=${ searchType }&searchText=${ searchText }&start=${ (lastPage - 1) * searchPage.size }" style="color: #666666;"><i class="bi bi-chevron-double-right"></i></a>
+									</c:if>
 								</li>
 							</c:if>
 							
@@ -232,11 +267,6 @@
 						</div>
 					</c:if>
 				</div>
-				
-				
-				
-				
-				
 				
 			</div>
 			
