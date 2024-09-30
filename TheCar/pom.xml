@@ -141,6 +141,26 @@
 			<artifactId>mariadb-java-client</artifactId>
 		</dependency>
 		
+		<!-- 대용량 파일 처리 24.03.24 추가 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+		<!-- json 변환 24.03.24 추가 -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
+		<!-- multipart 라이브러리 24.03.24 추가 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
