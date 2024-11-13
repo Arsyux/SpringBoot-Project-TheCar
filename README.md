@@ -33,6 +33,12 @@
 
 ### 메인 화면
 - 카카오 지도 api를 사용하여 업체의 위치를 표시하였음.
+<p align="center"><img src="projectImg/메인화면.png"></p>
+<br>
+
+### 메인화면 (반응형)
+<p align="center"><img src="projectImg/사이즈%20변경.png"></p>
+<br>
 
 ### 게시글 작성, 수정, 삭제
 - 카카오 주소 api를 사용하여 출발지 주소, 도착지 주소를 설정할 수 있음.
